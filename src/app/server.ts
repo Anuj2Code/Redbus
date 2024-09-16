@@ -64,7 +64,7 @@ export async function UpdateEmail(preState: any, formData: FormData) {
     }
 }
 
-export async function CreateCommunity(preState:any,formData: FormData) {
+export async function CreateCommunity(preState: any, formData: FormData) {
     const { getUser } = getKindeServerSession();
     const user = await getUser();
     if (!user) {
@@ -88,5 +88,70 @@ export async function CreateCommunity(preState:any,formData: FormData) {
                 };
             }
         }
+    }
+}
+
+export async function updateSubDes(preState: any, formData: FormData) {
+    const { getUser } = getKindeServerSession();
+    const user = await getUser();
+    if (!user) {
+        return redirect("/api/auth/login");
+    }
+    const name = formData.get("Subname") as string
+    const desc = formData.get("description") as string
+    try {
+        await prisma.subbreddits.update({
+            where: {
+                name: name
+            },
+            data: {
+                description: desc
+            }
+        })
+        return {
+            message: "Succesfully Updated Description",
+            status: "green",
+        };
+    } catch (error) {
+        return {
+            status: "error",
+            message: "Sorry something went wrong!",
+        };
+    }
+}
+
+export async function addSubscription(redditId: string) {
+    const { getUser } = getKindeServerSession();
+    const user = await getUser();
+    if (!user) {
+        return redirect("/api/auth/login");
+    }
+    try {
+        const subExist = await prisma.subscription.findFirst({
+            where: {
+                subRedditId: redditId,
+                userId: user.id
+            }
+        })
+        if (subExist) {
+            return {
+                message: "You already Subscribed",
+            }
+        }
+        await prisma.subscription.create({
+            data: {
+                subRedditId: redditId,
+                userId: user.id
+            }
+        })
+        return {
+            message: "subscribed",
+            status: "green",
+        };
+    } catch (error) {
+        return {
+            status: "error",
+            message: "Sorry something went wrong!",
+        };
     }
 }
