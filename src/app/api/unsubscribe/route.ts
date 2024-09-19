@@ -8,22 +8,25 @@ export async function POST(request: NextRequest) {
             where: {
                 subRedditId: redditId,
                 userId: userId
+            },
+            select:{
+                id:true
             }
         })
-        if (subExist) {
+        if (!subExist) {
             return NextResponse.json({
-                status: "red",
-                message: "You already Subscribed! ",
+                message: "You've not been subscribed to this subreddit, yet.",
             })
         }
-        await prisma.subscription.create({
-            data: {
-                subRedditId: redditId,
-                userId: userId
-            }
-        })
+        
+      await prisma.subscription.delete({
+        where:{
+           userId:userId,
+           id:subExist.id
+        }
+      })
         return NextResponse.json({
-            message: "subscribed",
+            message: "Subscription has been removed",
             status: "green",
         })
     } catch (error: any) {

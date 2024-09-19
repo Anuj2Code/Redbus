@@ -37,3 +37,40 @@ export function SaveButton() {
     </>
   );
 }
+interface ki{
+  pending:boolean
+}
+
+export function SubscriptionButton({pending}:ki){
+  return (
+    <>
+      {pending ? (
+        <Button className=" w-full" disabled size="sm">
+          <Loader2 className=" mr-2 h-12 w-3 animate-spin" />
+          Please wait
+        </Button>
+      ) : (
+        <Button size="lg" className=" w-full bg-orange-500 hover:bg-orange-600 text-white h-9 text-center " type="submit">
+          Join Community
+        </Button>
+      )}
+    </>
+  );
+}
+
+export function SubscriptionButton1({pending}:ki){
+  return (
+    <>
+      {pending ? (
+        <Button className=" w-full" disabled size="sm">
+          <Loader2 className=" mr-2 h-12 w-3 animate-spin" />
+          Please wait
+        </Button>
+      ) : (
+        <Button size="lg" className=" w-full bg-orange-500 hover:bg-orange-600 text-white h-9 text-center " type="submit">
+          Leave Community
+        </Button>
+      )}
+    </>
+  );
+}

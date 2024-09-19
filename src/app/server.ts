@@ -75,7 +75,7 @@ export async function CreateCommunity(preState: any, formData: FormData) {
         await prisma.subbreddits.create({
             data: {
                 name: name,
-                userId: user.id
+                userId:user.id
             }
         })
         return redirect('/')
@@ -153,5 +153,19 @@ export async function addSubscription(redditId: string) {
             status: "error",
             message: "Sorry something went wrong!",
         };
+    }
+}
+
+
+export async function Post(){
+    const {getUser} = getKindeServerSession();
+    const user = await getUser();
+    if (!user) {
+        return redirect("/api/auth/login");
+    }
+    try {
+        
+    } catch (error) {
+        
     }
 }

@@ -107,7 +107,7 @@ export default async function redditPage({ params }: { params: { id: string } })
               {user?.id !== data?.userId ?
                 (
                   <>
-                      <Subscribe id={data?.id!} userId={user?.id!}/>
+                      <Subscribe id={data?.id!} userId={user?.id!} isSubscribed={isSubreddit}/>
                   </>
                 )
                 : (
