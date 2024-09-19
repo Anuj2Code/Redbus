@@ -4,6 +4,7 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server"
 import { redirect } from "next/navigation";
 import prisma from "./lib/db";
 import { Prisma } from "@prisma/client";
+import { JSONContent } from "@tiptap/react";
 
 export async function UpdateUsername(preState: any, formData: FormData) {
     const { getUser } = getKindeServerSession();
@@ -75,7 +76,7 @@ export async function CreateCommunity(preState: any, formData: FormData) {
         await prisma.subbreddits.create({
             data: {
                 name: name,
-                userId:user.id
+                userId: user.id
             }
         })
         return redirect('/')
@@ -157,15 +158,27 @@ export async function addSubscription(redditId: string) {
 }
 
 
-export async function Post(){
-    const {getUser} = getKindeServerSession();
+export async function createPost({jsonContent}:{jsonContent:JSONContent | null}, formData: FormData) {
+    const { getUser } = getKindeServerSession();
     const user = await getUser();
+
     if (!user) {
         return redirect("/api/auth/login");
     }
-    try {
-        
-    } catch (error) {
-        
-    }
+
+    const title = formData.get("title") as string;
+    const imageUrl = formData.get("imageUrl") as string | null;
+    const subName = formData.get("subName") as string;
+
+    const data = await prisma.post.create({
+        data: {
+            title: title,
+            imageString: imageUrl ?? undefined,
+            subName: subName,
+            userId: user.id,
+            textContent:jsonContent!
+        },
+    });
+
+    return redirect(`/post/${data.id}`);
 }

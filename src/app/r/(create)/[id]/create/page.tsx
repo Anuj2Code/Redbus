@@ -1,6 +1,6 @@
 
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { ShootingStars } from "../../../../components/ui/shooting-stars";
 import { StarsBackground } from "../../../../components/ui/stars-background";
 import { Card, CardFooter, CardHeader } from "@/components/ui/card";
@@ -15,6 +15,8 @@ import { Input } from "@/components/ui/input";
 import { TipTapEditor } from "@/app/components/TipTapEditor";
 import { SubmitButton } from "@/app/components/SubmitButton";
 import { UploadDropzone } from "@/app/components/Uploadthing";
+import { JSONContent } from "@tiptap/react";
+import { createPost } from "@/app/server";
 
 const rules = [
     {
@@ -40,6 +42,10 @@ const rules = [
 ];
 
 export default function createPostRoute({ params }: { params: { id: string } }) {
+    const [imageUrl, setImageUrl] = useState<null | string>(null);
+    const [json, setJson] = useState<null | JSONContent>(null);
+    const [title, setTitle] = useState<null | string>(null);
+    const createPostReddit = createPost.bind(null, { jsonContent: json });
     return (
         <div className="min-h-screen rounded-md bg-black flex  relative w-full px-24 gap-x-10 pt-12">
             <div className="w-[65%] h-5 flex flex-col gap-y-5">
@@ -61,15 +67,23 @@ export default function createPostRoute({ params }: { params: { id: string } }) 
                     </TabsList>
                     <TabsContent value="post">
                         <Card>
-                            <form>
+                            <form action={createPostReddit}>
+                                <input
+                                    type="hidden"
+                                    name="imageUrl"
+                                    value={imageUrl ?? undefined}
+                                />
+                                <input type="hidden" name="subName" value={params.id} />
                                 <CardHeader>
                                     <Label className="pb-4">Title</Label>
                                     <Input
                                         required
                                         name="title"
                                         placeholder="Title"
+                                        value={title ?? ""}
+                                        onChange={(e) => setTitle(e.target.value)}
                                     />
-                                    <TipTapEditor />
+                                    <TipTapEditor setJson={setJson} json={json} />
                                 </CardHeader>
                                 <CardFooter>
                                     <SubmitButton text="Create Post" />
@@ -80,16 +94,25 @@ export default function createPostRoute({ params }: { params: { id: string } }) 
                     <TabsContent value="image">
                         <Card>
                             <CardHeader>
-                               <UploadDropzone 
-                                endpoint="imageUploader"
-                                 onClientUploadComplete={(res)=>{
-                                    console.log(res);
-                                 }}
-                                 onUploadError={(error:Error)=>{
-                                   console.log(error);
-                                   
-                                 }}
-                               />
+                                {imageUrl === null ? (
+                                    <UploadDropzone
+                                        endpoint="imageUploader"
+                                        onClientUploadComplete={(res) => {
+                                            setImageUrl(res[0].url);
+                                        }}
+                                        onUploadError={(error: Error) => {
+                                            alert("Error");
+                                        }}
+                                    />
+                                ) : (
+                                    <Image
+                                        src={imageUrl}
+                                        alt="uploaded image"
+                                        width={500}
+                                        height={400}
+                                        className="h-80 rounded-lg w-full object-contain"
+                                    />
+                                )}
                             </CardHeader>
                         </Card>
                     </TabsContent>

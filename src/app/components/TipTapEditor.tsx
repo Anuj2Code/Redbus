@@ -1,6 +1,6 @@
 "use client"
 import { Button } from "@/components/ui/button";
-import { EditorContent, useEditor, type Editor } from "@tiptap/react"
+import { EditorContent, JSONContent, useEditor, type Editor } from "@tiptap/react"
 import StarterKit from '@tiptap/starter-kit'
 import Highlight from '@tiptap/extension-highlight'
 import TextAlign from '@tiptap/extension-text-align'
@@ -123,7 +123,7 @@ export const Menubar = ({ editor }: { editor: Editor | null }) => {
     )
 }
 
-export function TipTapEditor() {
+export function TipTapEditor({setJson,json}:{setJson:any,json:JSONContent | null}) {
     const editor = useEditor({
         extensions: [
             StarterKit,
@@ -132,12 +132,18 @@ export function TipTapEditor() {
             }),
             Highlight,
         ],
-        content: "<p>Hello welcome to the Post!</p>",
+        content: json ?? "<p>Hello world</p>",
         editorProps: {
             attributes: {
                 class: "prose",
             }
-        }
+        },
+        onUpdate:({editor})=>{
+          const json = editor.getJSON();
+          console.log(json,'143');
+          setJson(json)
+        },
+        immediatelyRender: false,
     })
     return (
         <div className="">
