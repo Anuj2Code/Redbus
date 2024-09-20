@@ -1,6 +1,5 @@
 "use client"
 import axios from 'axios';
-import { Button } from "@/components/ui/button";
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/components/ui/use-toast';
 import { useState } from 'react';
@@ -28,7 +27,6 @@ export function Subscribe({ id, userId, isSubscribed }: ch) {
                     'Content-Type': 'application/json'
                 }
             })
-            console.log(res.data);
             if (res.data.status === "green") {
                 router.refresh()
                 setPending(false)
@@ -44,7 +42,6 @@ export function Subscribe({ id, userId, isSubscribed }: ch) {
                     description: res.data.message,
                 });
             }
-
         } catch (error: any) {
             console.error("Error message:", error);
         }
@@ -62,7 +59,6 @@ export function Subscribe({ id, userId, isSubscribed }: ch) {
                     'Content-Type': 'application/json'
                 }
             })
-            console.log(res.data);
             if (res.data.status === "green") {
                 router.refresh()
                 setPending(false)
