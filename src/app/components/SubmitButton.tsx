@@ -1,7 +1,7 @@
 "use client"
 
 import { Button } from '@/components/ui/button';
-import { Loader2 } from 'lucide-react';
+import { ArrowDown, ArrowUp, Loader2 } from 'lucide-react';
 import { useFormStatus } from 'react-dom';
 
 export function SubmitButton({ text }: { text: string }) {
@@ -69,6 +69,41 @@ export function SubscriptionButton1({pending}:ki){
       ) : (
         <Button size="lg" className=" w-full bg-orange-500 hover:bg-orange-600 text-white h-9 text-center " type="submit">
           Leave Community
+        </Button>
+      )}
+    </>
+  );
+}
+
+export function UpVote() {
+  const { pending } = useFormStatus();
+
+  return (
+    <>
+      {pending ? (
+        <Button variant="outline" size="icon" disabled>
+          <Loader2 className="h-4 w-4 animate-spin" />
+        </Button>
+      ) : (
+        <Button variant="outline" size="sm" type="submit">
+          <ArrowUp className="h-4 w-4" />
+        </Button>
+      )}
+    </>
+  );
+}
+export function DownVote() {
+  const { pending } = useFormStatus();
+
+  return (
+    <>
+      {pending ? (
+        <Button variant="outline" size="icon" disabled>
+          <Loader2 className="h-4 w-4 animate-spin" />
+        </Button>
+      ) : (
+        <Button variant="outline" size="sm" type="submit">
+          <ArrowDown className="h-4 w-4" />
         </Button>
       )}
     </>

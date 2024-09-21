@@ -10,8 +10,10 @@ import { CreatePost } from "../components/CreatePostCard";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { PostCard } from "../components/PostCard";
+import { useRouter } from "next/navigation";
 
 interface iAppProps {
+  Vote: any;
   textContent: any;
   User: any;
   title: string;
@@ -20,12 +22,14 @@ interface iAppProps {
   subName: string;
   userName: string;
   imageString: string | null;
-  // voteCount: number;
+  voteCount: number;
   // commentAmount: number;
 }
 
 export default function Home() {
+  const router = useRouter()
   const [Post, setPost] = useState<iAppProps[]>([]);
+  const [check,setCheck] = useState<string>("")
 
   const getData = async () => {
     const res = await axios.post("http://localhost:3000/api/create_post?page=1", {
@@ -36,8 +40,12 @@ export default function Home() {
     setPost(res.data.data)
   }
   useEffect(() => {
-    getData()
-  }, [])
+    getData();
+    if(check==="green"){
+      router.refresh();
+      setCheck("red")
+    }
+  }, [check])
 
   return (
     <div className="min-w-full min-h-screen bg-black mx-auto flex justify-around">
@@ -46,6 +54,7 @@ export default function Home() {
         {Post && Post.map((post)=>{
            return (
              <PostCard 
+             setCheck= {setCheck}
              id={post.id}
              imageString={post.imageString}
              jsonContent={post.textContent}
@@ -54,12 +63,12 @@ export default function Home() {
              key={post.id}
             //  commentAmount={post.Comment.length}
              userName={post.User?.userName as string}
-            //  voteCount={post.Vote.reduce((acc, vote) => {
-            //    if (vote.voteType === "UP") return acc + 1;
-            //    if (vote.voteType === "DOWN") return acc - 1;
+             voteCount={post.Vote.reduce((acc: number, vote: { voteType: string; }) => {
+               if (vote.voteType === "UP") return acc + 1;
+               if (vote.voteType === "DOWN") return acc - 1;
    
-            //    return acc;
-            //  }, 0)}
+               return acc;
+             }, 0)}
              />
            )
         })}

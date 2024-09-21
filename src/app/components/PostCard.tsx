@@ -4,15 +4,28 @@ import { ArrowDown, ArrowUp, MessageCircle } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { CopyLink } from "./CopyLink";
+import { handleVote } from "../server";
+import { DownVote, UpVote } from "./SubmitButton";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useFormState } from "react-dom";
 
 interface iAppProps {
     title: string;
     id: string;
     subName: string;
     jsonContent: any;
+    setCheck: Dispatch<SetStateAction<string>>;
     userName: string;
     imageString: string | null;
+    voteCount: number;
 }
+
+const initialState = {
+    message: "",
+    status: ""
+  }
+  
 
 export function PostCard({
     id,
@@ -21,22 +34,32 @@ export function PostCard({
     subName,
     title,
     userName,
-    //   voteCount,
+    voteCount,
+    setCheck
     //   commentAmount,
 }: iAppProps) {
+    
+    const [state, formAction] = useFormState(handleVote, initialState)
+
+    useEffect(() => {
+        if(state.status==="green"){
+          setCheck("green")
+        }
+    }, [state])
+
     return (
         <Card className="flex relative overflow-hidden">
             <div className="flex flex-col items-center gap-y-2 bg-muted p-2 justify-center">
-                <form >
-                    <Button variant="outline" size="sm">
-                        <ArrowUp />
-                    </Button>
+                <form action={formAction} >
+                    <input type="hidden" name="voteDirection" value="UP" />
+                    <input type="hidden" name="postId" value={id} />
+                    <UpVote />
                 </form>
-                0
-                <form >
-                    <Button variant="outline" size="sm">
-                        <ArrowDown />
-                    </Button>
+                {voteCount}
+                <form action={formAction}>
+                    <input type="hidden" name="voteDirection" value="DOWN" />
+                    <input type="hidden" name="postId" value={id} />
+                    <DownVote />
                 </form>
             </div>
 
@@ -77,7 +100,7 @@ export function PostCard({
                             0 Comments
                         </p>
                     </div>
-                    <CopyLink id={id}/>
+                    <CopyLink id={id} />
                 </div>
             </div>
         </Card>
