@@ -159,7 +159,9 @@ export async function addSubscription(redditId: string) {
 }
 
 
-export async function createPost({ jsonContent }: { jsonContent: JSONContent | null }, formData: FormData) {
+export async function createPost(
+    formData: FormData
+) {
     const { getUser } = getKindeServerSession();
     const user = await getUser();
 
@@ -170,6 +172,7 @@ export async function createPost({ jsonContent }: { jsonContent: JSONContent | n
     const title = formData.get("title") as string;
     const imageUrl = formData.get("imageUrl") as string | null;
     const subName = formData.get("subName") as string;
+    const textContent = formData.get("textContent") as string;
 
     const data = await prisma.post.create({
         data: {
@@ -177,14 +180,15 @@ export async function createPost({ jsonContent }: { jsonContent: JSONContent | n
             imageString: imageUrl ?? undefined,
             subName: subName,
             userId: user.id,
-            textContent: jsonContent!
+            textContent: textContent,
         },
     });
 
     return redirect(`/post/${data.id}`);
 }
 
-export async function handleVote(preState:any,formData: FormData) {
+
+export async function handleVote(preState: any, formData: FormData) {
     const { getUser } = getKindeServerSession();
     const user = await getUser();
 

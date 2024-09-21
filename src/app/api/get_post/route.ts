@@ -7,7 +7,7 @@ export async function POST(request: NextRequest) {
     try {
         const searchParams = request.nextUrl.searchParams;
         const page = searchParams.get("page");
-        const perPage = 2;
+        const perPage = 4;
         const Post_data = await prisma.post.findMany({
             take: perPage,
             skip: page ? (Number(page) - 1) * perPage : 0,

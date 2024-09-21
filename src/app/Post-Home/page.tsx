@@ -1,4 +1,5 @@
 "use client"
+
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -32,7 +33,7 @@ export default function Home() {
   const [check,setCheck] = useState<string>("")
 
   const getData = async () => {
-    const res = await axios.post("http://localhost:3000/api/create_post?page=1", {
+    const res = await axios.post("http://localhost:3000/api/get_post?page=1", {
       headers: {
         'Content-Type': 'application/json'
       }

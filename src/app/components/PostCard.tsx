@@ -1,13 +1,12 @@
-import { Button } from "@/components/ui/button";
+
 import { Card } from "@/components/ui/card";
-import { ArrowDown, ArrowUp, MessageCircle } from "lucide-react";
+import {  MessageCircle } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { CopyLink } from "./CopyLink";
 import { handleVote } from "../server";
 import { DownVote, UpVote } from "./SubmitButton";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { Dispatch, SetStateAction, useEffect} from "react";
 import { useFormState } from "react-dom";
 
 interface iAppProps {
@@ -89,7 +88,7 @@ export function PostCard({
                             className="w-full h-full"
                         />
                     ) : (
-                        null
+                       ""
                     )}
                 </div>
 

@@ -12,11 +12,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Text, Video } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { TipTapEditor } from "@/app/components/TipTapEditor";
 import { SubmitButton } from "@/app/components/SubmitButton";
 import { UploadDropzone } from "@/app/components/Uploadthing";
-import { JSONContent } from "@tiptap/react";
 import { createPost } from "@/app/server";
+import { Textarea } from "@/components/ui/textarea"
 
 const rules = [
     {
@@ -43,9 +42,8 @@ const rules = [
 
 export default function createPostRoute({ params }: { params: { id: string } }) {
     const [imageUrl, setImageUrl] = useState<null | string>(null);
-    const [json, setJson] = useState<null | JSONContent>(null);
+    const [content, setContent] = useState<null | string>(null);
     const [title, setTitle] = useState<null | string>(null);
-    const createPostReddit = createPost.bind(null, { jsonContent: json });
     return (
         <div className="min-h-screen rounded-md bg-black flex  relative w-full px-24 gap-x-10 pt-12">
             <div className="w-[65%] h-5 flex flex-col gap-y-5">
@@ -67,7 +65,7 @@ export default function createPostRoute({ params }: { params: { id: string } }) 
                     </TabsList>
                     <TabsContent value="post">
                         <Card>
-                            <form action={createPostReddit}>
+                            <form action={createPost}>
                                 <input
                                     type="hidden"
                                     name="imageUrl"
@@ -83,7 +81,8 @@ export default function createPostRoute({ params }: { params: { id: string } }) 
                                         value={title ?? ""}
                                         onChange={(e) => setTitle(e.target.value)}
                                     />
-                                    <TipTapEditor setJson={setJson} json={json} />
+                                      <Label className="pb-4 pt-4">Description</Label>
+                                    <Textarea  required name="textContent" placeholder="Content"  value={content ?? ""} onChange={(e) => setContent(e.target.value)} />
                                 </CardHeader>
                                 <CardFooter>
                                     <SubmitButton text="Create Post" />
