@@ -16,7 +16,7 @@ import { SubmitButton } from "@/app/components/SubmitButton";
 import { UploadDropzone } from "@/app/components/Uploadthing";
 import { createPost } from "@/app/server";
 import { Textarea } from "@/components/ui/textarea"
-
+import Editor from "../../../../components/Editor"
 const rules = [
     {
         id: 1,
@@ -65,7 +65,7 @@ export default function createPostRoute({ params }: { params: { id: string } }) 
                     </TabsList>
                     <TabsContent value="post">
                         <Card>
-                            <form action={createPost}>
+                            {/* <form action={createPost}>
                                 <input
                                     type="hidden"
                                     name="imageUrl"
@@ -87,7 +87,8 @@ export default function createPostRoute({ params }: { params: { id: string } }) 
                                 <CardFooter>
                                     <SubmitButton text="Create Post" />
                                 </CardFooter>
-                            </form>
+                            </form> */}
+                            <Editor imageUrl={imageUrl} subName={params.id}/>
                         </Card>
                     </TabsContent>
                     <TabsContent value="image">

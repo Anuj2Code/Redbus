@@ -88,7 +88,10 @@ export function PostCard({
                             className="w-full h-full"
                         />
                     ) : (
-                       ""
+                        <div
+                        className='prose-headings:font-title font-default prose mt-4 dark:prose-invert focus:outline-none'
+                        dangerouslySetInnerHTML={{ __html: jsonContent }}
+                      ></div>
                     )}
                 </div>
 
