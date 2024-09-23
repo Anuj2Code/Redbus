@@ -9,11 +9,15 @@ import HelloImage from "../../../public/hero-image.png"
 import Image from "next/image";
 import { CreatePost } from "../components/CreatePostCard";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, Suspense, useEffect, useState } from "react";
 import { PostCard } from "../components/PostCard";
 import { useRouter } from "next/navigation";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Loader2 } from "lucide-react";
+import { ProgressSpinner } from 'primereact/progressspinner';
+import { Loadmore } from "../components/Loadmore";
 
-interface iAppProps {
+export interface iAppProps {
   Vote: any;
   textContent: any;
   User: any;
@@ -30,49 +34,62 @@ interface iAppProps {
 export default function Home() {
   const router = useRouter()
   const [Post, setPost] = useState<iAppProps[]>([]);
-  const [check,setCheck] = useState<string>("")
+  const [check, setCheck] = useState<string>("")
+  const [load, setLoad] = useState<boolean>(false);
+  const [page, setPage] = useState<Number>(1);
 
-  const getData = async () => {
-    const res = await axios.post("http://localhost:3000/api/get_post?page=1", {
+  const getData = async (page:Number) => {
+    const res = await axios.post(`http://localhost:3000/api/get_post?page=${page}`, {
       headers: {
         'Content-Type': 'application/json'
       }
     })
-    setPost(res.data.data)
+    setPost(res.data.data);
+    setLoad(true)
   }
   useEffect(() => {
-    getData();
-    if(check==="green"){
+    getData(page);
+    if (check === "green") {
       router.refresh();
       setCheck("red")
     }
-  }, [check])
+  }, [check, load])
 
   return (
     <div className="min-w-full min-h-screen bg-black mx-auto flex justify-around">
       <div className="w-[55%] flex flex-col gap-y-5 pl-12 pt-4">
         <CreatePost />
-        {Post && Post.map((post)=>{
-           return (
-             <PostCard 
-             setCheck= {setCheck}
-             id={post.id}
-             imageString={post.imageString}
-             jsonContent={post.textContent}
-             subName={post.subName as string}
-             title={post.title}
-             key={post.id}
-            //  commentAmount={post.Comment.length}
-             userName={post.User?.userName as string}
-             voteCount={post.Vote.reduce((acc: number, vote: { voteType: string; }) => {
-               if (vote.voteType === "UP") return acc + 1;
-               if (vote.voteType === "DOWN") return acc - 1;
-   
-               return acc;
-             }, 0)}
-             />
-           )
-        })}
+        {load ? (
+          <>
+            {Post && Post.map((post: iAppProps) => {
+              return (
+                <PostCard
+                  setCheck={setCheck}
+                  id={post.id}
+                  imageString={post.imageString}
+                  jsonContent={post.textContent}
+                  subName={post.subName as string}
+                  title={post.title}
+                  key={post.id}
+                  //  commentAmount={post.Comment.length}
+                  userName={post.User?.userName as string}
+                  voteCount={post.Vote.reduce((acc: number, vote: { voteType: string; }) => {
+                    if (vote.voteType === "UP") return acc + 1;
+                    if (vote.voteType === "DOWN") return acc - 1;
+
+                    return acc;
+                  }, 0)}
+                />
+              )
+            })
+            }
+            <Loadmore/>
+          </>
+        ) :
+          (
+            <div className='w-full flex items-center justify-center h-96'><ProgressSpinner /></div>
+          )
+        }
       </div>
       <div className="w-[450px] px-6 pt-4">
         <Card>
@@ -83,7 +100,7 @@ export default function Home() {
                 src={HelloImage}
                 alt="Hello Image"
                 className="w-10 h-16 -mt-6"
-              />
+                />
               <h1 className="font-medium pl-3">Home</h1>
             </div>
             <p className="text-sm text-muted-foreground pt-2">
@@ -105,3 +122,4 @@ export default function Home() {
     </div>
   );
 }
+

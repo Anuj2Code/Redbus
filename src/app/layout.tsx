@@ -3,6 +3,11 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navabar";
 import { Toaster } from "@/components/ui/toaster"
+// import { PrimeReactProvider } from 'primereact/api';
+// import 'primeicons/primeicons.css';
+// import 'primeflex/primeflex.css';
+// import 'primereact/resources/primereact.css';
+// import 'primereact/resources/themes/lara-light-indigo/theme.css'; 
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,9 +24,11 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark bg-black scroll-smooth" >
       <body className={inter.className}>
+      {/* <PrimeReactProvider> */}
         <Navbar/>
         {children}
         <Toaster />
+        {/* </PrimeReactProvider> */}
         </body>
     </html>
   );

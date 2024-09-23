@@ -3,19 +3,14 @@
 import React, { useState } from "react";
 import { ShootingStars } from "../../../../components/ui/shooting-stars";
 import { StarsBackground } from "../../../../components/ui/stars-background";
-import { Card, CardFooter, CardHeader } from "@/components/ui/card";
+import { Card, CardHeader } from "@/components/ui/card";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import ph from "../../../../../../public/a89add_3d73f7e43cff4f37bdf0af4772ef6595~mv2.gif"
 import Link from "next/link";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Text, Video } from "lucide-react";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { SubmitButton } from "@/app/components/SubmitButton";
 import { UploadDropzone } from "@/app/components/Uploadthing";
-import { createPost } from "@/app/server";
-import { Textarea } from "@/components/ui/textarea"
 import Editor from "../../../../components/Editor"
 const rules = [
     {
@@ -42,8 +37,6 @@ const rules = [
 
 export default function createPostRoute({ params }: { params: { id: string } }) {
     const [imageUrl, setImageUrl] = useState<null | string>(null);
-    const [content, setContent] = useState<null | string>(null);
-    const [title, setTitle] = useState<null | string>(null);
     return (
         <div className="min-h-screen rounded-md bg-black flex  relative w-full px-24 gap-x-10 pt-12">
             <div className="w-[65%] h-5 flex flex-col gap-y-5">
@@ -65,29 +58,6 @@ export default function createPostRoute({ params }: { params: { id: string } }) 
                     </TabsList>
                     <TabsContent value="post">
                         <Card>
-                            {/* <form action={createPost}>
-                                <input
-                                    type="hidden"
-                                    name="imageUrl"
-                                    value={imageUrl ?? undefined}
-                                />
-                                <input type="hidden" name="subName" value={params.id} />
-                                <CardHeader>
-                                    <Label className="pb-4">Title</Label>
-                                    <Input
-                                        required
-                                        name="title"
-                                        placeholder="Title"
-                                        value={title ?? ""}
-                                        onChange={(e) => setTitle(e.target.value)}
-                                    />
-                                      <Label className="pb-4 pt-4">Description</Label>
-                                    <Textarea  required name="textContent" placeholder="Content"  value={content ?? ""} onChange={(e) => setContent(e.target.value)} />
-                                </CardHeader>
-                                <CardFooter>
-                                    <SubmitButton text="Create Post" />
-                                </CardFooter>
-                            </form> */}
                             <Editor imageUrl={imageUrl} subName={params.id}/>
                         </Card>
                     </TabsContent>
