@@ -1,20 +1,19 @@
 
 import { Card } from "@/components/ui/card";
-import {  MessageCircle } from "lucide-react";
-import Image from "next/image";
+import { MessageCircle } from "lucide-react";
 import Link from "next/link";
 import { CopyLink } from "./CopyLink";
 import { handleVote } from "../server";
 import { DownVote, UpVote } from "./SubmitButton";
-import { Dispatch, SetStateAction, useEffect} from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 import { useFormState } from "react-dom";
-
+import Image from "next/image";
+import { Heart } from "lucide-react";
 interface iAppProps {
     title: string;
     id: string;
     subName: string;
     jsonContent: any;
-    setCheck: Dispatch<SetStateAction<string>>;
     userName: string;
     imageString: string | null;
     voteCount: number;
@@ -23,8 +22,8 @@ interface iAppProps {
 const initialState = {
     message: "",
     status: ""
-  }
-  
+}
+
 
 export function PostCard({
     id,
@@ -34,32 +33,24 @@ export function PostCard({
     title,
     userName,
     voteCount,
-    setCheck
     //   commentAmount,
 }: iAppProps) {
-    
-    const [state, formAction] = useFormState(handleVote, initialState)
 
-    useEffect(() => {
-        if(state.status==="green"){
-          setCheck("green")
-        }
-    }, [state])
+    // const [state, formAction] = useFormState(handleVote, initialState)
+
+    // useEffect(() => {
+    //     if (state.status === "green") {
+    //         setCheck("green")
+    //     }
+    // }, [state])
 
     return (
         <Card className="flex relative overflow-hidden">
-            <div className="flex flex-col items-center gap-y-2 bg-muted p-2 justify-center">
-                <form action={formAction} >
-                    <input type="hidden" name="voteDirection" value="UP" />
-                    <input type="hidden" name="postId" value={id} />
-                    <UpVote />
-                </form>
+            <div className="flex flex-col items-center gap-y-2 bg-muted p-3 justify-center">
+                <Link href={`/post/${id}`}>
+                    <Heart />
+                </Link>
                 {voteCount}
-                <form action={formAction}>
-                    <input type="hidden" name="voteDirection" value="DOWN" />
-                    <input type="hidden" name="postId" value={id} />
-                    <DownVote />
-                </form>
             </div>
 
             <div>
@@ -89,9 +80,9 @@ export function PostCard({
                         />
                     ) : (
                         <div
-                        className='prose-headings:font-title font-default prose mt-4 dark:prose-invert focus:outline-none'
-                        dangerouslySetInnerHTML={{ __html: jsonContent }}
-                      ></div>
+                            className='prose-headings:font-title font-default prose mt-4 dark:prose-invert focus:outline-none'
+                            dangerouslySetInnerHTML={{ __html: jsonContent }}
+                        ></div>
                     )}
                 </div>
 

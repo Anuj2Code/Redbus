@@ -4,8 +4,7 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server"
 import { redirect } from "next/navigation";
 import prisma from "./lib/db";
 import { Prisma, TypeOfVote } from "@prisma/client";
-import { JSONContent } from "@tiptap/react";
-import { revalidatePath } from "next/cache";
+
 
 export async function UpdateUsername(preState: any, formData: FormData) {
     const { getUser } = getKindeServerSession();
@@ -173,11 +172,6 @@ export async function createPost(data: {
         return redirect("/api/auth/login");
     }
 
-    // const title = formData.get("title") as string;
-    // const imageUrl = formData.get("imageUrl") as string | null;
-    // const subName = formData.get("subName") as string;
-    // const textContent = formData.get("textContent") as string;
-
     const data1 = await prisma.post.create({
         data: {
             title: data.title,
@@ -192,7 +186,7 @@ export async function createPost(data: {
 }
 
 
-export async function handleVote(preState: any, formData: FormData) {
+export async function handleVote(preData:any, formData: FormData) {
     const { getUser } = getKindeServerSession();
     const user = await getUser();
 
@@ -251,3 +245,4 @@ export async function handleVote(preState: any, formData: FormData) {
         status: "green",
     };
 }
+

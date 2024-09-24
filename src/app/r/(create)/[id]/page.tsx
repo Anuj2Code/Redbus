@@ -11,28 +11,76 @@ import { Cake } from 'lucide-react';
 import { UserRound } from 'lucide-react';
 import { addSubscription } from '@/app/server';
 import { Subscribe } from '@/app/components/Subscribe';
+import { Loadmore } from '@/app/components/Loadmore';
+import { ProgressSpinner } from 'primereact/progressspinner';
+import { PostCard } from '@/app/components/PostCard';
+import { CreatePost } from '@/app/components/CreatePostCard';
+import Pagination from '@/app/components/Pagination';
 
-async function getDate(name: string) {
-  const data = await prisma.subbreddits.findUnique({
-    where: {
-      name: name
-    },
-    select: {
-      name: true,
-      createdAt: true,
-      description: true,
-      userId: true,
-      Subscribers: true,
-      id:true
-    }
-  })
-  return data;
+async function getData(name: string, searchParam: string) {
+  const [count, data] = await prisma.$transaction([
+    prisma.post.count({
+      where: {
+        subName: name,
+      },
+    }),
+
+    prisma.subbreddits.findUnique({
+      where: {
+        name: name,
+      },
+
+      select: {
+        name: true,
+        id:true,
+        createdAt: true,
+        description: true,
+        userId: true,
+        posts: {
+          take: 3,
+          skip: searchParam ? (Number(searchParam) - 1) * 3 : 0,
+
+          select: {
+             comments: {
+              select: {
+                id: true,
+              },
+            },
+            title: true,
+            imageString: true,
+            id: true,
+            textContent: true,
+            Vote: {
+              select: {
+                userId: true,
+                voteType: true,
+              },
+            },
+            User: {
+              select: {
+                userName: true,
+              },
+            },
+          },
+        },
+      },
+    }),
+  ]);
+
+  return { data, count };
 }
 
-export default async function redditPage({ params }: { params: { id: string } }) {
+
+export default async function redditPage({
+  params,
+  searchParams,
+}: {
+  params: { id: string };
+  searchParams: { page: string };
+}) {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
-  const data = await getDate(params.id)
+  const { data, count } = await getData(params.id,searchParams.page)
 
   const subscription = !user?.id ? undefined : await prisma.subscription.findFirst({
     where: {
@@ -59,10 +107,32 @@ export default async function redditPage({ params }: { params: { id: string } })
 
   return (
     <div className="w-auto mx-auto flex gap-x-10 items-center justify-center pt-8 bg-black mb-10">
-      <div className="px-14 w-[80%] flex ">
-        <div className="w-[65%] flex flex-col gap-y-5">
-          <h1>Hello From the Post Section</h1>
-        </div>
+      <div className="px-14 w-[80%] flex justify-between ">
+      <div className="w-[55%] flex flex-col gap-y-5 pl-12 ">
+        <CreatePost />
+            {data && data.posts.map((post:any) => {
+              return (
+                <PostCard
+                  id={post.id}
+                  imageString={post.imageString}
+                  jsonContent={post.textContent}
+                  subName={post.subName as string}
+                  title={post.title}
+                  key={post.id}
+                  //  commentAmount={post.Comment.length}
+                  userName={post.User?.userName as string}
+                  voteCount={post.Vote.reduce((acc: number, vote: { voteType: string; }) => {
+                    if (vote.voteType === "UP") return acc + 1;
+                    if (vote.voteType === "DOWN") return acc - 1;
+
+                    return acc;
+                  }, 0)}
+                />
+              )
+            })
+            }
+             <Pagination totalPages={Math.ceil(count / 3)} />
+      </div>
         <div className="w-[35%]">
           <Card>
             <div className="bg-muted p-4 font-semibold">About Community</div>

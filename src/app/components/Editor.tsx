@@ -39,7 +39,7 @@ export default function ContentForm({imageUrl,subName}:{imageUrl:string | null,s
           type='text'
           placeholder='Title'
           className='p-4 ml-6'
-          value={title}
+          value={title ?? ""}
           onChange={e => setTitle(e.target.value)}
         />
       </div>

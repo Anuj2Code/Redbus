@@ -39,7 +39,7 @@ import {
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <Link className="w-full" href="/create">
+            <Link className="w-full" href="r/Prateek_Gunda/create">
               Create Post
             </Link>
           </DropdownMenuItem>

@@ -9,11 +9,9 @@ import HelloImage from "../../../public/hero-image.png"
 import Image from "next/image";
 import { CreatePost } from "../components/CreatePostCard";
 import axios from "axios";
-import { Dispatch, SetStateAction, Suspense, useEffect, useState } from "react";
+import {useEffect, useState } from "react";
 import { PostCard } from "../components/PostCard";
 import { useRouter } from "next/navigation";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Loader2 } from "lucide-react";
 import { ProgressSpinner } from 'primereact/progressspinner';
 import { Loadmore } from "../components/Loadmore";
 
@@ -34,12 +32,11 @@ export interface iAppProps {
 export default function Home() {
   const router = useRouter()
   const [Post, setPost] = useState<iAppProps[]>([]);
-  const [check, setCheck] = useState<string>("")
   const [load, setLoad] = useState<boolean>(false);
-  const [page, setPage] = useState<Number>(1);
 
-  const getData = async (page:Number) => {
-    const res = await axios.post(`http://localhost:3000/api/get_post?page=${page}`, {
+  
+  const getData = async () => {
+    const res = await axios.post("http://localhost:3000/api/get_post?page=1", {
       headers: {
         'Content-Type': 'application/json'
       }
@@ -48,12 +45,9 @@ export default function Home() {
     setLoad(true)
   }
   useEffect(() => {
-    getData(page);
-    if (check === "green") {
-      router.refresh();
-      setCheck("red")
-    }
-  }, [check, load])
+    getData();
+  
+  }, [load])
 
   return (
     <div className="min-w-full min-h-screen bg-black mx-auto flex justify-around">
@@ -64,7 +58,6 @@ export default function Home() {
             {Post && Post.map((post: iAppProps) => {
               return (
                 <PostCard
-                  setCheck={setCheck}
                   id={post.id}
                   imageString={post.imageString}
                   jsonContent={post.textContent}
@@ -83,11 +76,11 @@ export default function Home() {
               )
             })
             }
-            <Loadmore/>
+            <Loadmore />
           </>
         ) :
           (
-            <div className='w-full flex items-center justify-center h-96'><ProgressSpinner /></div>
+            <div className='w-full flex items-center justify-center h-96 '><ProgressSpinner /></div>
           )
         }
       </div>
