@@ -34,7 +34,6 @@ export default function Home() {
   const [Post, setPost] = useState<iAppProps[]>([]);
   const [load, setLoad] = useState<boolean>(false);
 
-  
   const getData = async () => {
     const res = await axios.post("http://localhost:3000/api/get_post?page=1", {
       headers: {

@@ -10,15 +10,11 @@ import { PostCard } from "./PostCard";
 export function Loadmore() {
   const [post, setPost] = useState<iAppProps[]>([]);
   const [page, setPage] = useState(1);
+  const [pre, setPre] = useState(0);
   const { ref, inView } = useInView();
   const [length, setlength] = useState<number>(1)
 
-
-  const delay = (ms: number) =>
-    new Promise((resolve) => setTimeout(resolve, ms));
-
   const loadmore = async () => {
-    await delay(2000);
     const nextPage = (page + 1)
     const res = (await axios.post(`http://localhost:3000/api/get_post?page=${nextPage}`, {
       headers: {
@@ -26,29 +22,30 @@ export function Loadmore() {
       }
     })) ?? []
 
-    setPost((preData: iAppProps[]) => [...(preData?.length ? preData : []), ...res.data.data]);
-    setPage(nextPage)
-    setlength(res.data.data.length)
+      setPost((preData: iAppProps[]) => [...(preData?.length ? preData : []), ...res.data.data]);
+      setPage(nextPage);
+      setlength(res.data.data.length)
   }
 
   useEffect(() => {
-    if (inView && length > 0) {
+    if (inView && length > 0 && pre!=page) {
       loadmore();
+      setPre(page)
     }
   }, [inView]);
 
 
   return (
     <>
-      {post && post.map((post: iAppProps) => {
+      {post && post.map((post: iAppProps,key:number) => {
         return (
           <PostCard
+            key={key}
             id={post.id}
             imageString={post.imageString}
             jsonContent={post.textContent}
             subName={post.subName as string}
             title={post.title}
-            key={post.id}
             //  commentAmount={post.Comment.length}
             userName={post.User?.userName as string}
             voteCount={post.Vote.reduce((acc: number, vote: { voteType: string; }) => {

@@ -4,7 +4,7 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server"
 import { redirect } from "next/navigation";
 import prisma from "./lib/db";
 import { Prisma, TypeOfVote } from "@prisma/client";
-
+// import { useRouter } from "next/router";
 
 export async function UpdateUsername(preState: any, formData: FormData) {
     const { getUser } = getKindeServerSession();
@@ -66,6 +66,7 @@ export async function UpdateEmail(preState: any, formData: FormData) {
 }
 
 export async function CreateCommunity(preState: any, formData: FormData) {
+    // const router = useRouter();
     const { getUser } = getKindeServerSession();
     const user = await getUser();
     if (!user) {
@@ -73,13 +74,17 @@ export async function CreateCommunity(preState: any, formData: FormData) {
     }
     const name = formData.get("name") as string;
     try {
-        await prisma.subbreddits.create({
+    const data =  await prisma.subbreddits.create({
             data: {
                 name: name,
                 userId: user.id
             }
         })
-        return redirect('/')
+        // router.push({
+        //     pathname: "/Post-Home",
+        //     query: { search: `${data.name}` },
+        //    });
+        return redirect(`/r/${data.name}`);
     } catch (e) {
         if (e instanceof Prisma.PrismaClientKnownRequestError) {
             if (e.code === "P2002") {

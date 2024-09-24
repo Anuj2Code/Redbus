@@ -1,4 +1,4 @@
-import React, { use } from 'react'
+import React from 'react'
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -9,10 +9,7 @@ import prisma from '@/app/lib/db';
 import { SubDescription } from '@/app/components/SubDescription';
 import { Cake } from 'lucide-react';
 import { UserRound } from 'lucide-react';
-import { addSubscription } from '@/app/server';
 import { Subscribe } from '@/app/components/Subscribe';
-import { Loadmore } from '@/app/components/Loadmore';
-import { ProgressSpinner } from 'primereact/progressspinner';
 import { PostCard } from '@/app/components/PostCard';
 import { CreatePost } from '@/app/components/CreatePostCard';
 import Pagination from '@/app/components/Pagination';

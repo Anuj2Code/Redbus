@@ -3,10 +3,6 @@ import { Card } from "@/components/ui/card";
 import { MessageCircle } from "lucide-react";
 import Link from "next/link";
 import { CopyLink } from "./CopyLink";
-import { handleVote } from "../server";
-import { DownVote, UpVote } from "./SubmitButton";
-import { Dispatch, SetStateAction, useEffect } from "react";
-import { useFormState } from "react-dom";
 import Image from "next/image";
 import { Heart } from "lucide-react";
 interface iAppProps {
@@ -19,12 +15,6 @@ interface iAppProps {
     voteCount: number;
 }
 
-const initialState = {
-    message: "",
-    status: ""
-}
-
-
 export function PostCard({
     id,
     imageString,
@@ -35,14 +25,6 @@ export function PostCard({
     voteCount,
     //   commentAmount,
 }: iAppProps) {
-
-    // const [state, formAction] = useFormState(handleVote, initialState)
-
-    // useEffect(() => {
-    //     if (state.status === "green") {
-    //         setCheck("green")
-    //     }
-    // }, [state])
 
     return (
         <Card className="flex relative overflow-hidden">
