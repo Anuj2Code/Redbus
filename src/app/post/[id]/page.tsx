@@ -1,5 +1,5 @@
-
 "use client"
+
 import Image from "next/image";
 import { Card } from "@/components/ui/card";
 import Link from "next/link";
@@ -35,10 +35,6 @@ export interface detail {
   comments: any,
   Subreddits: any
   User: any
-}
-
-interface vote{
-  voteType: string
 }
 
 export default function PostPage({ params }: { params: { id: string } }) {
@@ -129,7 +125,9 @@ export default function PostPage({ params }: { params: { id: string } }) {
               <Separator className="my-5" />
               <CreateComment postId={params.id} replyId={params.id} setCheck={setCheck} />
               <div className="flex flex-col gap-y-7">
-                {load ? <ProgressSpinner /> : <>
+                {load ? <div className="flex items-center pr-14">
+                  <ProgressSpinner/>
+                </div> : <>
                   {data?.comments.map((item: any) => (
                     <div key={item.id} className="flex flex-col">
                       <div className="flex items-center gap-x-3">
@@ -201,7 +199,6 @@ export default function PostPage({ params }: { params: { id: string } }) {
                   Create Post
                 </Link>
               </Button>
-
             </div>
           </Card>
         </div>

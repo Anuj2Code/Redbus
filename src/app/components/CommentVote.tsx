@@ -1,6 +1,4 @@
 'use client'
-import { ProgressSpinner } from "primereact/progressspinner";
-import { ArrowBigDown, ArrowBigUp } from 'lucide-react'
 import { useFormState } from "react-dom";
 import { CommentVote } from "../server";
 import { useEffect, useState } from "react";
@@ -31,12 +29,10 @@ export default function VoteOnComment({ commentId }: { commentId: string }) {
                 }
             })
             setvotes(res1.data.data)
-            console.log(res1.data.data);
         } catch (error) {
             console.log(error);
         }
     }
-    
 
     useEffect(() => {
         get_comment()

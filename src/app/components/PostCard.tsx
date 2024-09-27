@@ -6,7 +6,7 @@ import {
     CollapsibleTrigger,
 } from "@/components/ui/collapsible"
 import { Card } from "@/components/ui/card";
-import { MessageCircle } from "lucide-react";
+import { ArrowBigDown, ArrowBigUp, MessageCircle } from "lucide-react";
 import Link from "next/link";
 import { CopyLink } from "./CopyLink";
 import Image from "next/image";
@@ -24,7 +24,6 @@ interface iAppProps {
     voteCount: number;
     comments?: any
     commentAmount?: number,
-
 }
 
 export function PostCard({
@@ -36,7 +35,7 @@ export function PostCard({
     userName,
     voteCount,
     comments,
-    commentAmount
+    commentAmount,
 }: iAppProps) {
     const [isOpen, setIsOpen] = React.useState(false)
     return (
@@ -81,7 +80,6 @@ export function PostCard({
                             ></div>
                         )}
                     </div>
-
                     <Collapsible
                         open={isOpen}
                         onOpenChange={setIsOpen}

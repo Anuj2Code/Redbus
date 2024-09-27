@@ -23,7 +23,13 @@ export async function POST(request: NextRequest) {
                         userId:true,
                         text:true,
                         createdAt:true,
-                        User:true
+                        User:true,
+                        votes:{
+                            select:{
+                                userId:true,
+                                voteType:true
+                            }
+                        }
                     },
                     orderBy:{
                         createdAt:"desc"

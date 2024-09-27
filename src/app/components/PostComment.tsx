@@ -1,5 +1,5 @@
 import { CommentVote } from "@prisma/client"
-import VoteOnComment from "./CommentVote"
+import { ThumbsDown, ThumbsUp } from "lucide-react"
 interface props {
     comments: any
     votesAmt?: number
@@ -8,7 +8,6 @@ interface props {
 }
 
 export default function PostComment({ comments, votesAmt, currentVote, postId }: props) {
-    
     return (
         <div>
             <div>
@@ -38,7 +37,17 @@ export default function PostComment({ comments, votesAmt, currentVote, postId }:
                     {comments?.text}
                 </p>
                 <div className='flex gap-2 ml-12 items-center'>
-                    {/* <VoteOnComment /> */}
+                    <div className="flex justify-center gap-x-4 items-center p-2">
+                    <ThumbsUp className="py-1"/>
+                        <div>
+                            {comments.votes.reduce((acc: number, item: { voteType: string; }) => {
+                                if (item.voteType === "UP") return acc + 1;
+                                if (item.voteType === "DOWN") return acc - 1;
+                                return acc;
+                            }, 0)}
+                        </div>
+                        <ThumbsDown className="py-1"/>
+                    </div>
                 </div>
             </div>
         </div>
