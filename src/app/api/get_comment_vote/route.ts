@@ -5,7 +5,7 @@ export async function POST(req:NextRequest){
     const { commentId } = await req.json();
     const data = await prisma.comment.findFirst({
         where:{
-             id:commentId
+             id:commentId,
         },
          select:{
             votes:{

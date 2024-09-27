@@ -19,13 +19,13 @@ interface details {
 
 export default function VoteOnComment({ commentId }: { commentId: string }) {
     console.log(commentId);
-const router = useRouter()
+    const router = useRouter()
     const [state, formAction] = useFormState(CommentVote, initialState);
     const [votes, setvotes] = useState<details>()
 
     const get_comment = async () => {
         try {
-            const res1 = await axios.post("http://localhost:3000/api/get_comment_vote", commentId, {
+            const res1 = await axios.post("http://localhost:3000/api/get_comment_vote", {commentId}, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -36,7 +36,6 @@ const router = useRouter()
             console.log(error);
         }
     }
-    console.log(votes);
     
 
     useEffect(() => {
@@ -44,7 +43,7 @@ const router = useRouter()
        if(state.status==="green"){
         router.refresh()
        }
-    }, [state])
+    }, [state,commentId])
 
     return (
         <div className="ml-4">
@@ -55,7 +54,7 @@ const router = useRouter()
                     <UpVote />
                 </form>
                 <div>
-                { votes?.votes.reduce((acc: number, item: { voteType: string; }) => {
+                {votes?.votes.reduce((acc: number, item: { voteType: string; }) => {
                     if (item.voteType === "UP") return acc + 1;
                     if (item.voteType === "DOWN") return acc - 1;
                     return acc;

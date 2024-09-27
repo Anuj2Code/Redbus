@@ -63,8 +63,6 @@ export default function PostPage({ params }: { params: { id: string } }) {
     setload(false);
     setdata(res.data.data)
   }
-  console.log(data);
-  
 
   useEffect(() => {
     get_Details()
