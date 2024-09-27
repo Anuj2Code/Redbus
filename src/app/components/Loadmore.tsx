@@ -6,8 +6,10 @@ import { iAppProps } from "../Post-Home/page"
 import { ProgressSpinner } from "primereact/progressspinner";
 import axios from "axios";
 import { PostCard } from "./PostCard";
+import { useRouter } from "next/navigation";
 
 export function Loadmore() {
+  const router = useRouter()
   const [post, setPost] = useState<iAppProps[]>([]);
   const [page, setPage] = useState(1);
   const [pre, setPre] = useState(0);
@@ -28,10 +30,11 @@ export function Loadmore() {
   }
 
   useEffect(() => {
-    if (inView && length > 0 && pre!=page) {
+    if (inView && length > 0 && pre!=page ) {
       loadmore();
       setPre(page)
     }
+
   }, [inView]);
 
 
@@ -43,10 +46,11 @@ export function Loadmore() {
             key={key}
             id={post.id}
             imageString={post.imageString}
+            comments={post.comments}
             jsonContent={post.textContent}
             subName={post.subName as string}
             title={post.title}
-            //  commentAmount={post.Comment.length}
+             commentAmount={post.comments.length}
             userName={post.User?.userName as string}
             voteCount={post.Vote.reduce((acc: number, vote: { voteType: string; }) => {
               if (vote.voteType === "UP") return acc + 1;

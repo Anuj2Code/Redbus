@@ -19,7 +19,14 @@ export async function POST(request: NextRequest) {
                 imageString: true,
                 comments: {
                     select: {
-                        id: true
+                        id: true,
+                        userId:true,
+                        text:true,
+                        createdAt:true,
+                        User:true
+                    },
+                    orderBy:{
+                        createdAt:"desc"
                     }
                 },
                 User: {

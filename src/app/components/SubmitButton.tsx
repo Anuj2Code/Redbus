@@ -37,11 +37,12 @@ export function SaveButton() {
     </>
   );
 }
-interface ki{
-  pending:boolean
+
+interface ki {
+  pending: boolean
 }
 
-export function SubscriptionButton({pending}:ki){
+export function SubscriptionButton({ pending }: ki) {
   return (
     <>
       {pending ? (
@@ -58,7 +59,7 @@ export function SubscriptionButton({pending}:ki){
   );
 }
 
-export function SubscriptionButton1({pending}:ki){
+export function SubscriptionButton1({ pending }: ki) {
   return (
     <>
       {pending ? (
@@ -105,6 +106,22 @@ export function DownVote() {
         <Button variant="outline" size="sm" type="submit">
           <ArrowDown className="h-4 w-4" />
         </Button>
+      )}
+    </>
+  );
+}
+
+export function Comment_btn({ text }: { text: string }) {
+  const { pending } = useFormStatus();
+  return (
+    <>
+      {pending ? (
+        <Button disabled>
+          <Loader2 className="mr-2 w-4 h-4 animate-spin" />
+          Please wait
+        </Button>
+      ) : (
+        <Button type="submit" className='bg-blue-500 text-white hover:bg-blue-500'>{text}</Button>
       )}
     </>
   );

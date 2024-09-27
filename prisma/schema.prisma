@@ -83,12 +83,12 @@ model Comment {
   id        String        @id @default(uuid())
   text      String
   createdAt DateTime      @default(now())
-  User      User?         @relation(fields: [userId], references: [id])
+  User      User        @relation(fields: [userId], references: [id])
   userId    String
-  Post      Post?         @relation(fields: [postId], references: [id])
+  Post      Post        @relation(fields: [postId], references: [id])
   postId    String
   replyTo   Comment?      @relation("Reply To", fields: [replyId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  replyId   String
+  replyId   String?
   replies   Comment[]     @relation("Reply To")
   votes     CommentVote[]
 }

@@ -1,10 +1,19 @@
-
+"use client"
+import { Button } from "@/components/ui/button"
+import {
+    Collapsible,
+    CollapsibleContent,
+    CollapsibleTrigger,
+} from "@/components/ui/collapsible"
 import { Card } from "@/components/ui/card";
 import { MessageCircle } from "lucide-react";
 import Link from "next/link";
 import { CopyLink } from "./CopyLink";
 import Image from "next/image";
 import { Heart } from "lucide-react";
+import React, { Dispatch, SetStateAction } from "react";
+import PostComment from "./PostComment";
+
 interface iAppProps {
     title: string;
     id: string;
@@ -13,6 +22,9 @@ interface iAppProps {
     userName: string;
     imageString: string | null;
     voteCount: number;
+    comments?: any
+    commentAmount?: number,
+
 }
 
 export function PostCard({
@@ -23,61 +35,98 @@ export function PostCard({
     title,
     userName,
     voteCount,
-    //   commentAmount,
+    comments,
+    commentAmount
 }: iAppProps) {
-
+    const [isOpen, setIsOpen] = React.useState(false)
     return (
-        <Card className="flex relative overflow-hidden">
-            <div className="flex flex-col items-center gap-y-2 bg-muted p-3 justify-center">
-                <Link href={`/post/${id}`}>
-                    <Heart />
-                </Link>
-                {voteCount}
-            </div>
-
-            <div>
-                <div className="flex items-center gap-x-2 p-2">
-                    <Link className="font-semibold text-xs" href={`/r/${subName}`}>
-                        r/{subName}
-                    </Link>
-                    <p className="text-xs text-muted-foreground">
-                        Posted by: <span className="hover:text-primary">u/{userName}</span>
-                    </p>
-                </div>
-
-                <div className="px-2">
+        <>
+            <Card className="flex relative overflow-hidden">
+                <div className="flex flex-col items-center gap-y-2 bg-muted p-3 justify-center">
                     <Link href={`/post/${id}`}>
-                        <h1 className="font-medium mt-1 text-lg">{title}</h1>
+                        <Heart />
                     </Link>
+                    {voteCount}
                 </div>
 
-                <div className="max-h-[300px] overflow-hidden">
-                    {imageString ? (
-                        <Image
-                            src={imageString}
-                            alt="Post Image"
-                            width={600}
-                            height={300}
-                            className="w-full h-full"
-                        />
-                    ) : (
-                        <div
-                            className='prose-headings:font-title font-default prose mt-4 dark:prose-invert focus:outline-none'
-                            dangerouslySetInnerHTML={{ __html: jsonContent }}
-                        ></div>
-                    )}
-                </div>
-
-                <div className="m-3 flex items-center gap-x-5">
-                    <div className="flex items-center gap-x-1">
-                        <MessageCircle className="h-4 w-4 text-muted-foreground" />
-                        <p className="text-muted-foreground font-medium text-xs">
-                            0 Comments
+                <div>
+                    <div className="flex items-center gap-x-2 p-2">
+                        <Link className="font-semibold text-xs" href={`/r/${subName}`}>
+                            r/{subName}
+                        </Link>
+                        <p className="text-xs text-muted-foreground">
+                            Posted by: <span className="hover:text-primary">u/{userName}</span>
                         </p>
                     </div>
-                    <CopyLink id={id} />
+
+                    <div className="px-2">
+                        <Link href={`/post/${id}`}>
+                            <h1 className="font-medium mt-1 text-lg">{title}</h1>
+                        </Link>
+                    </div>
+
+                    <div className="max-h-[300px] overflow-hidden">
+                        {imageString ? (
+                            <Image
+                                src={imageString}
+                                alt="Post Image"
+                                width={600}
+                                height={300}
+                                className="w-full h-full"
+                            />
+                        ) : (
+                            <div
+                                className='prose-headings:font-title font-default prose mt-4 dark:prose-invert focus:outline-none'
+                                dangerouslySetInnerHTML={{ __html: jsonContent }}
+                            ></div>
+                        )}
+                    </div>
+
+                    <Collapsible
+                        open={isOpen}
+                        onOpenChange={setIsOpen}
+                        className="w-[350px] space-y-2"
+                    >
+                        <div className="flex">
+                            <CollapsibleTrigger asChild>
+                                <Button variant="secondary" size="sm" className="bg-[#020817] hover:bg-[#020817]">
+                                    <div className="m-3 flex items-center gap-x-5">
+                                        <div className="bg-[#020817] hover:cursor-pointer" ><div className="flex items-center gap-x-1">
+                                            <MessageCircle className="h-4 w-4 text-muted-foreground" />
+                                            <p className="text-muted-foreground font-medium text-xs">
+                                                {commentAmount} Comments
+                                            </p>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </Button>
+                            </CollapsibleTrigger>
+                            <CopyLink id={id} />
+                        </div>
+                        <CollapsibleContent className="space-y-2">
+                            <>
+                                <div className='flex flex-col gap-y-6 mt-4'>
+                                    {
+                                        commentAmount !== 0 ?
+                                            comments.filter((comment: any) => !comment.replyId).map((topLevelComment: any) => {
+                                                return (
+                                                    <div className='mb-2'>
+                                                        <PostComment
+                                                            comments={topLevelComment}
+                                                        />
+                                                    </div>
+                                                )
+                                            })
+                                            : <p className="text-muted-foreground font-medium text-sm pl-6 pb-3">
+                                                No comments to show !
+                                            </p>
+                                    }
+                                </div>
+                            </>
+                        </CollapsibleContent>
+                    </Collapsible>
                 </div>
-            </div>
-        </Card>
+            </Card>
+        </>
     );
 }

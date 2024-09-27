@@ -4,7 +4,6 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server"
 import { redirect } from "next/navigation";
 import prisma from "./lib/db";
 import { Prisma, TypeOfVote } from "@prisma/client";
-// import { useRouter } from "next/router";
 
 export async function UpdateUsername(preState: any, formData: FormData) {
     const { getUser } = getKindeServerSession();
@@ -66,7 +65,6 @@ export async function UpdateEmail(preState: any, formData: FormData) {
 }
 
 export async function CreateCommunity(preState: any, formData: FormData) {
-    // const router = useRouter();
     const { getUser } = getKindeServerSession();
     const user = await getUser();
     if (!user) {
@@ -74,16 +72,12 @@ export async function CreateCommunity(preState: any, formData: FormData) {
     }
     const name = formData.get("name") as string;
     try {
-    const data =  await prisma.subbreddits.create({
+        const data = await prisma.subbreddits.create({
             data: {
                 name: name,
                 userId: user.id
             }
         })
-        // router.push({
-        //     pathname: "/Post-Home",
-        //     query: { search: `${data.name}` },
-        //    });
         return redirect(`/r/${data.name}`);
     } catch (e) {
         if (e instanceof Prisma.PrismaClientKnownRequestError) {
@@ -165,10 +159,10 @@ export async function addSubscription(redditId: string) {
 
 export async function createPost(data: {
     title: string
-    imageUrl:string | null
-    subName:string
+    imageUrl: string | null
+    subName: string
     content: string
-  }
+}
 ) {
     const { getUser } = getKindeServerSession();
     const user = await getUser();
@@ -191,7 +185,7 @@ export async function createPost(data: {
 }
 
 
-export async function handleVote(preData:any, formData: FormData) {
+export async function handleVote(preData: any, formData: FormData) {
     const { getUser } = getKindeServerSession();
     const user = await getUser();
 
@@ -216,12 +210,12 @@ export async function handleVote(preData:any, formData: FormData) {
                     id: vote.id,
                 },
             });
-
             return {
                 message: "subscribed",
                 status: "green",
             };
-        } else {
+        }
+        else {
             await prisma.vote.update({
                 where: {
                     id: vote.id,
@@ -251,3 +245,96 @@ export async function handleVote(preData:any, formData: FormData) {
     };
 }
 
+export async function CommentVote(preData: any, formData: FormData) {
+    const { getUser } = getKindeServerSession();
+    const user = await getUser();
+
+    if (!user) {
+        return redirect("/api/auth/login");
+    }
+
+    const commentId = formData.get("commentId") as string;
+    const voteDirection = formData.get("voteDirection") as TypeOfVote;
+
+    const vote = await prisma.commentVote.findFirst({
+        where: {
+            commentId:commentId,
+            userId: user.id,
+        },
+    });
+
+    if (vote) {
+        if (vote.voteType === voteDirection) {
+            await prisma.commentVote.delete({
+                where: {
+                    id: vote.id,
+                },
+            });
+            return {
+                message: "subscribed",
+                status: "green",
+            };
+        }
+        else {
+            await prisma.commentVote.update({
+                where: {
+                    id: vote.id,
+                },
+               data:{
+                voteType:voteDirection
+               }
+            })
+            return {
+                message: "subscribed",
+                status: "green",
+            };
+        }
+    }
+
+    await prisma.commentVote.create({
+        data: {
+            voteType: voteDirection,
+            userId: user.id,
+            commentId:commentId,
+        },
+    });
+
+    return {
+        message: "subscribed",
+        status: "green",
+    };
+}
+
+export async function createComment(preData:any,formData: FormData) {
+    const { getUser } = getKindeServerSession();
+    const user = await getUser();
+
+    if (!user) {
+        return redirect("/api/auth/login");
+    }
+    const postId = formData.get("postId") as string;
+    const text = formData.get("text") as string;
+    const replyId = formData.get("replyId") as string;
+
+    try {
+        await prisma.comment.create({
+            data: {
+                postId: postId,
+                text: text,
+                replyId: replyId,
+                userId: user.id,
+            }
+        })
+        return {
+            message: "Commented",
+            status: "green",
+        };
+    } catch (error) {
+        console.log(error);
+        
+        return {
+            status: "error",
+            message: "Sorry something went wrong!",
+        };
+    }
+}

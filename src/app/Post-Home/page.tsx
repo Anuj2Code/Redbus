@@ -11,7 +11,6 @@ import { CreatePost } from "../components/CreatePostCard";
 import axios from "axios";
 import {useEffect, useState } from "react";
 import { PostCard } from "../components/PostCard";
-import { useRouter } from "next/navigation";
 import { ProgressSpinner } from 'primereact/progressspinner';
 import { Loadmore } from "../components/Loadmore";
 
@@ -27,10 +26,10 @@ export interface iAppProps {
   imageString: string | null;
   voteCount: number;
   // commentAmount: number;
+  comments?:any
 }
 
 export default function Home() {
-  const router = useRouter()
   const [Post, setPost] = useState<iAppProps[]>([]);
   const [load, setLoad] = useState<boolean>(false);
 
@@ -45,7 +44,6 @@ export default function Home() {
   }
   useEffect(() => {
     getData();
-  
   }, [load])
 
   return (
@@ -57,13 +55,14 @@ export default function Home() {
             {Post && Post.map((post: iAppProps) => {
               return (
                 <PostCard
+                  comments={post.comments}
                   id={post.id}
                   imageString={post.imageString}
                   jsonContent={post.textContent}
                   subName={post.subName as string}
                   title={post.title}
                   key={post.id}
-                  //  commentAmount={post.Comment.length}
+                   commentAmount={post.comments.length}
                   userName={post.User?.userName as string}
                   voteCount={post.Vote.reduce((acc: number, vote: { voteType: string; }) => {
                     if (vote.voteType === "UP") return acc + 1;
@@ -75,7 +74,7 @@ export default function Home() {
               )
             })
             }
-            <Loadmore />
+            <Loadmore  />
           </>
         ) :
           (
