@@ -121,7 +121,7 @@ export function Comment_btn({ text }: { text: string }) {
           Please wait
         </Button>
       ) : (
-        <Button type="submit" className='bg-blue-500 text-white hover:bg-blue-500'>{text}</Button>
+        <Button type="submit" className='bg-blue-500 text-white hover:bg-blue-500 w-[50px]'>{text}</Button>
       )}
     </>
   );

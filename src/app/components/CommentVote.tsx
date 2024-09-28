@@ -16,7 +16,6 @@ interface details {
   }
 
 export default function VoteOnComment({ commentId }: { commentId: string }) {
-    console.log(commentId);
     const router = useRouter()
     const [state, formAction] = useFormState(CommentVote, initialState);
     const [votes, setvotes] = useState<details>()

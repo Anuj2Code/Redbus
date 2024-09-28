@@ -315,7 +315,8 @@ export async function createComment(preData:any,formData: FormData) {
     const postId = formData.get("postId") as string;
     const text = formData.get("text") as string;
     const replyId = formData.get("replyId") as string;
-
+    console.log(text,"RepyId");
+    
     try {
         await prisma.comment.create({
             data: {
@@ -332,6 +333,44 @@ export async function createComment(preData:any,formData: FormData) {
     } catch (error) {
         console.log(error);
         
+        return {
+            status: "error",
+            message: "Sorry something went wrong!",
+        };
+    }
+}
+
+export async function createComments(formData: FormData) {
+    const { getUser } = getKindeServerSession();
+    const user = await getUser();
+
+    if (!user) {
+        return redirect("/api/auth/login");
+    }
+    const postId = formData.get("postId") as string;
+    const text = formData.get("text") as string;
+    const replyId = formData.get("replyId") as string;
+    console.log(replyId,"RepyId");
+    console.log(text);
+    console.log(postId);
+    
+    
+    
+    try {
+        await prisma.comment.create({
+            data: {
+                postId: postId,
+                text: text,
+                replyId:replyId,
+                userId: user.id,
+            }
+        })
+        return {
+            message: "Commented",
+            status: "green",
+        };
+    } catch (error) {
+        console.log(error);
         return {
             status: "error",
             message: "Sorry something went wrong!",

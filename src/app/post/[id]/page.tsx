@@ -3,11 +3,11 @@
 import Image from "next/image";
 import { Card } from "@/components/ui/card";
 import Link from "next/link";
-import { Cake, MessageCircle } from "lucide-react";
+import { Cake, MessageCircle, MessageSquare } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
-import { DownVote, UpVote } from "@/app/components/SubmitButton";
-import { handleVote } from "@/app/server";
+import { Comment_btn, DownVote, UpVote } from "@/app/components/SubmitButton";
+import { createComment, createComments, handleVote } from "@/app/server";
 import { useFormState } from "react-dom";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -18,6 +18,20 @@ import { SkeletonCard } from "@/app/components/Skeleton";
 import CreateComment from "@/app/components/CreateComment";
 import React from "react";
 import VoteOnComment from "@/app/components/CommentVote";
+import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 
 const initialState = {
   message: "",
@@ -44,13 +58,15 @@ export default function PostPage({ params }: { params: { id: string } }) {
   const [check, setCheck] = useState<boolean>(false)
   const [data, setdata] = useState<detail>();
   const [state, formAction] = useFormState(handleVote, initialState);
- 
+  const { user, getUser } = useKindeBrowserClient();
+  // const [state1, formaction1] = useFormState(createComment, initialState);
+  const [input, setInput] = useState<string>("")
+  console.log(input);
 
   const get_Details = async () => {
     const payload = {
       id: params.id
     }
-   
     const res = await axios.post("http://localhost:3000/api/Post_Details", payload, {
       headers: {
         'Content-Type': 'application/json'
@@ -126,7 +142,7 @@ export default function PostPage({ params }: { params: { id: string } }) {
               <CreateComment postId={params.id} replyId={params.id} setCheck={setCheck} />
               <div className="flex flex-col gap-y-7">
                 {load ? <div className="flex items-center pr-14">
-                  <ProgressSpinner/>
+                  <ProgressSpinner />
                 </div> : <>
                   {data?.comments.map((item: any) => (
                     <div key={item.id} className="flex flex-col">
@@ -150,7 +166,50 @@ export default function PostPage({ params }: { params: { id: string } }) {
                         {item.text}
                       </p>
                       <div className='flex gap-2 items-center'>
-                        <VoteOnComment commentId={item.id}/>
+                        <VoteOnComment commentId={item.id} />
+                        <AlertDialog>
+                          <AlertDialogTrigger asChild>
+                            <Button
+                              variant='ghost'
+                              size='sm'
+                              onClick={() => {
+                                if (!user) return router.push("/api/auth/login")
+                                // setIsReplying(true)
+                              }}
+                            >
+                              <MessageSquare className='h-4 w-4 mr-1.5' />
+                              Reply
+                            </Button>
+                          </AlertDialogTrigger>
+                          <AlertDialogContent className="min-w-[500px]">
+                            <form action={createComments}>
+                              <Label htmlFor='comment'>Your comment</Label>
+                              <AlertDialogHeader>
+                                <div>
+                                  <div className='mt-2'>
+                                    <input type="hidden" value={params.id} name="postId" />
+                                    <input type="hidden" value={item.replyId ?? params.id} name="replyId" />
+                                    <Textarea
+                                      id='text'
+                                      name="text"
+                                      value={input}
+                                      onChange={(e) => setInput(e.target.value)}
+                                      rows={1}
+                                      placeholder='What are your thoughts?'
+                                    />
+                                  </div>
+                                </div>
+
+                              </AlertDialogHeader>
+                              <AlertDialogFooter>
+                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                <AlertDialogAction className="w-auto bg-blue-500 hover:bg-blue-500">
+                                  <Comment_btn text={"Post"} />
+                                </AlertDialogAction>
+                              </AlertDialogFooter>
+                            </form>
+                          </AlertDialogContent>
+                        </AlertDialog>
                       </div>
                     </div>
                   ))}

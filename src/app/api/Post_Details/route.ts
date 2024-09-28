@@ -26,6 +26,7 @@ export async function POST(req: NextRequest) {
         select: {
           id: true,
           text: true,
+          replyId:true,
           User: {
             select: {
               imageUrl: true,
