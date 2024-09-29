@@ -62,7 +62,7 @@ export default function Home() {
                   subName={post.subName as string}
                   title={post.title}
                   key={post.id}
-                   commentAmount={post.comments.length}
+                  commentAmount={post.comments.length}
                   userName={post.User?.userName as string}
                   voteCount={post.Vote.reduce((acc: number, vote: { voteType: string; }) => {
                     if (vote.voteType === "UP") return acc + 1;

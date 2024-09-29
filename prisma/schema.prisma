@@ -7,7 +7,7 @@
 generator client {
   provider = "prisma-client-js"
 }
- 
+
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
@@ -16,7 +16,7 @@ datasource db {
 
 model User {
   id                 String         @id
-  email              String
+  email              String         @unique
   firstName          String
   lastName           String
   imageUrl           String?
@@ -28,6 +28,7 @@ model User {
   Vote               Vote[]
   comment            Comment[]
   CommentVote        CommentVote[]
+  save save[]
 }
 
 model Subbreddits {
@@ -36,25 +37,26 @@ model Subbreddits {
   createdAt   DateTime       @default(now())
   description String?
   updatedAt   DateTime       @updatedAt
-  User        User?          @relation("CreatedBy", fields: [userId], references: [id])
-  userId      String?
+  User        User           @relation("CreatedBy", fields: [userId], references: [id])
+  userId      String
   posts       Post[]
   Subscribers Subscription[]
 }
 
 model Post {
-  id            String       @id @default(uuid())
-  title         String
-  textContent   String?
-  imageString   String?
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
-  Subbreddits   Subbreddits? @relation(fields: [subName], references: [name])
-  subName   String?
-  User          User?        @relation(fields: [userId], references: [id])
-  userId        String?
-  Vote          Vote[]
-  comments      Comment[]
+  id          String       @id @default(uuid())
+  title       String
+  textContent String?
+  imageString String?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  Subbreddits Subbreddits? @relation(fields: [subName], references: [name])
+  subName     String?
+  User        User?        @relation(fields: [userId], references: [id])
+  userId      String?
+  Vote        Vote[]
+  comments    Comment[]
+  save save[]
 }
 
 model Subscription {
@@ -80,24 +82,45 @@ model Vote {
 }
 
 model Comment {
-  id        String        @id @default(uuid())
+  id        String         @id @default(uuid())
   text      String
-  createdAt DateTime      @default(now())
-  User      User        @relation(fields: [userId], references: [id])
+  createdAt DateTime       @default(now())
+  User      User           @relation(fields: [userId], references: [id])
   userId    String
-  Post      Post        @relation(fields: [postId], references: [id])
+  Post      Post           @relation(fields: [postId], references: [id])
   postId    String
-  replyTo   Comment?      @relation("Reply To", fields: [replyId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  replyTo   Comment?       @relation("Reply To", fields: [replyId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   replyId   String?
-  replies   Comment[]     @relation("Reply To")
+  replies   Comment[]      @relation("Reply To")
   votes     CommentVote[]
+  reply     commentReply[]
 }
 
 model CommentVote {
-  id        String     @id @default(uuid())
-  user      User       @relation(fields: [userId], references: [id])
+  id        String         @id @default(uuid())
+  user      User           @relation(fields: [userId], references: [id])
   userId    String
-  comment   Comment    @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  comment   Comment        @relation(fields: [commentId], references: [id], onDelete: Cascade)
   commentId String
   voteType  TypeOfVote
+  reply     commentReply[]
+}
+
+model commentReply {
+  id          String        @id @default(uuid())
+  text        String
+  createdAt   DateTime      @default(now())
+  userName    String
+  imageString String?
+  Comment     Comment       @relation(fields: [commentId], references: [id])
+  commentId   String
+  votes       CommentVote[]
+}
+
+model save {
+  id     String @id @default(uuid())
+  User   User   @relation(fields: [userId], references: [id])
+  userId String
+  Post   Post   @relation(fields: [postId], references: [id])
+  postId String
 }

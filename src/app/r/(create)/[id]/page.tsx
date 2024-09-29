@@ -38,11 +38,24 @@ async function getData(name: string, searchParam: string) {
           skip: searchParam ? (Number(searchParam) - 1) * 3 : 0,
 
           select: {
-             comments: {
+            comments: {
               select: {
-                id: true,
+                  id: true,
+                  userId:true,
+                  text:true,
+                  createdAt:true,
+                  User:true,
+                  votes:{
+                      select:{
+                          userId:true,
+                          voteType:true
+                      }
+                  }
               },
-            },
+              orderBy:{
+                  createdAt:"desc"
+              }
+          },
             title: true,
             imageString: true,
             id: true,
@@ -111,12 +124,13 @@ export default async function redditPage({
               return (
                 <PostCard
                   id={post.id}
+                  comments={post.comments}
                   imageString={post.imageString}
                   jsonContent={post.textContent}
                   subName={post.subName as string}
                   title={post.title}
                   key={post.id}
-                  //  commentAmount={post.Comment.length}
+                  commentAmount={post.comments.length}
                   userName={post.User?.userName as string}
                   voteCount={post.Vote.reduce((acc: number, vote: { voteType: string; }) => {
                     if (vote.voteType === "UP") return acc + 1;

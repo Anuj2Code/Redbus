@@ -258,7 +258,7 @@ export async function CommentVote(preData: any, formData: FormData) {
 
     const vote = await prisma.commentVote.findFirst({
         where: {
-            commentId:commentId,
+            commentId: commentId,
             userId: user.id,
         },
     });
@@ -280,9 +280,9 @@ export async function CommentVote(preData: any, formData: FormData) {
                 where: {
                     id: vote.id,
                 },
-               data:{
-                voteType:voteDirection
-               }
+                data: {
+                    voteType: voteDirection
+                }
             })
             return {
                 message: "subscribed",
@@ -295,7 +295,7 @@ export async function CommentVote(preData: any, formData: FormData) {
         data: {
             voteType: voteDirection,
             userId: user.id,
-            commentId:commentId,
+            commentId: commentId,
         },
     });
 
@@ -305,7 +305,7 @@ export async function CommentVote(preData: any, formData: FormData) {
     };
 }
 
-export async function createComment(preData:any,formData: FormData) {
+export async function createComment(preData: any, formData: FormData) {
     const { getUser } = getKindeServerSession();
     const user = await getUser();
 
@@ -315,8 +315,8 @@ export async function createComment(preData:any,formData: FormData) {
     const postId = formData.get("postId") as string;
     const text = formData.get("text") as string;
     const replyId = formData.get("replyId") as string;
-    console.log(text,"RepyId");
-    
+    console.log(text, "RepyId");
+
     try {
         await prisma.comment.create({
             data: {
@@ -332,7 +332,7 @@ export async function createComment(preData:any,formData: FormData) {
         };
     } catch (error) {
         console.log(error);
-        
+
         return {
             status: "error",
             message: "Sorry something went wrong!",
@@ -340,33 +340,36 @@ export async function createComment(preData:any,formData: FormData) {
     }
 }
 
-export async function createComments(formData: FormData) {
+export async function createComments(preData:any,formData: FormData) {
     const { getUser } = getKindeServerSession();
     const user = await getUser();
 
     if (!user) {
         return redirect("/api/auth/login");
     }
-    const postId = formData.get("postId") as string;
+    const commentId = formData.get("commentId") as string;
     const text = formData.get("text") as string;
-    const replyId = formData.get("replyId") as string;
-    console.log(replyId,"RepyId");
     console.log(text);
-    console.log(postId);
-    
-    
-    
+    console.log(commentId);
+
     try {
-        await prisma.comment.create({
+
+        const user_details = await prisma.user.findUnique({
+            where:{
+                id:user.id
+            }
+        })
+
+        await prisma.commentReply.create({
             data: {
-                postId: postId,
+                commentId: commentId,
                 text: text,
-                replyId:replyId,
-                userId: user.id,
+                userName:user_details?.userName!,
+                imageString:user_details?.imageUrl
             }
         })
         return {
-            message: "Commented",
+            message: "Commented  reply",
             status: "green",
         };
     } catch (error) {
@@ -377,3 +380,4 @@ export async function createComments(formData: FormData) {
         };
     }
 }
+

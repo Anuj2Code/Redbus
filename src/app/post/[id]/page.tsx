@@ -49,6 +49,7 @@ export interface detail {
   comments: any,
   Subreddits: any
   User: any
+  reply: any
 }
 
 export default function PostPage({ params }: { params: { id: string } }) {
@@ -59,9 +60,8 @@ export default function PostPage({ params }: { params: { id: string } }) {
   const [data, setdata] = useState<detail>();
   const [state, formAction] = useFormState(handleVote, initialState);
   const { user, getUser } = useKindeBrowserClient();
-  // const [state1, formaction1] = useFormState(createComment, initialState);
+  const [state1, formaction1] = useFormState(createComments, initialState);
   const [input, setInput] = useState<string>("")
-  console.log(input);
 
   const get_Details = async () => {
     const payload = {
@@ -78,10 +78,10 @@ export default function PostPage({ params }: { params: { id: string } }) {
 
   useEffect(() => {
     get_Details()
-    if (state.status === "green" || check === true) {
+    if (state.status === "green" || check === true || state1.status==="green") {
       router.refresh()
     }
-  }, [state, check])
+  }, [state, check,state1])
 
   return (
     <div className="w-auto mx-auto flex gap-x-10 items-center justify-center pt-8 bg-black mb-10">
@@ -147,7 +147,7 @@ export default function PostPage({ params }: { params: { id: string } }) {
                   {data?.comments.map((item: any) => (
                     <div key={item.id} className="flex flex-col">
                       <div className="flex items-center gap-x-3">
-                        <img
+                        <Image
                           src={
                             item.User?.imageUrl
                               ? item.User.imageUrl
@@ -155,6 +155,8 @@ export default function PostPage({ params }: { params: { id: string } }) {
                           }
                           className="w-7 h-7 rounded-full"
                           alt="Avatar of user"
+                          width={100}
+                          height={100}
                         />
 
                         <h3 className="text-sm font-medium">
@@ -174,7 +176,6 @@ export default function PostPage({ params }: { params: { id: string } }) {
                               size='sm'
                               onClick={() => {
                                 if (!user) return router.push("/api/auth/login")
-                                // setIsReplying(true)
                               }}
                             >
                               <MessageSquare className='h-4 w-4 mr-1.5' />
@@ -182,13 +183,12 @@ export default function PostPage({ params }: { params: { id: string } }) {
                             </Button>
                           </AlertDialogTrigger>
                           <AlertDialogContent className="min-w-[500px]">
-                            <form action={createComments}>
-                              <Label htmlFor='comment'>Your comment</Label>
+                            <form action={formaction1}>
+                              <Label htmlFor='comment'>Your Reply</Label>
                               <AlertDialogHeader>
                                 <div>
                                   <div className='mt-2'>
-                                    <input type="hidden" value={params.id} name="postId" />
-                                    <input type="hidden" value={item.replyId ?? params.id} name="replyId" />
+                                    <input type="hidden" value={item.id} name="commentId" />
                                     <Textarea
                                       id='text'
                                       name="text"
@@ -199,17 +199,45 @@ export default function PostPage({ params }: { params: { id: string } }) {
                                     />
                                   </div>
                                 </div>
-
                               </AlertDialogHeader>
-                              <AlertDialogFooter>
+                              <AlertDialogFooter className="gap-4 mt-4">
                                 <AlertDialogCancel>Cancel</AlertDialogCancel>
                                 <AlertDialogAction className="w-auto bg-blue-500 hover:bg-blue-500">
-                                  <Comment_btn text={"Post"} />
+                                  <Comment_btn text={"Reply"} />
                                 </AlertDialogAction>
                               </AlertDialogFooter>
                             </form>
                           </AlertDialogContent>
                         </AlertDialog>
+                      </div>
+                      <div>
+                        {item?.reply?.map((item: any) => {
+                          return (
+                           <>
+                           <div className="relative left-14 my-8">
+                           <div className="flex items-center gap-x-3 ">
+                              <Image
+                                src={
+                                  item?.imageString
+                                    ? item.imageString
+                                    : "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg"
+                                }
+                                height={100}
+                                width={100}
+                                className="w-7 h-7 rounded-full"
+                                alt="Avatar of user"
+                              />
+                              <h3 className="text-sm font-medium">
+                                {item?.userName}
+                              </h3>
+                            </div>
+                            <p className="ml-10 text-secondary-foreground text-sm tracking-wide">
+                                {item?.text}
+                              </p>
+                           </div>
+                           </>
+                          )
+                        })}
                       </div>
                     </div>
                   ))}

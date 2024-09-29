@@ -10,11 +10,12 @@ import {
   import Link from "next/link";
   import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
   
-  interface image{
+  interface props{
     userImage:string | null
+    reddit?:string | null 
   }
   
-  export function UserDropdown({userImage}:image){
+  export function UserDropdown({userImage,reddit}:props){
     return (
       <DropdownMenu>
         <DropdownMenuTrigger>
@@ -39,10 +40,15 @@ import {
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <Link className="w-full" href="r/Prateek_Gunda/create">
+            <Link className="w-full" href={`r/${reddit}/create`}>
               Create Post
             </Link>
           </DropdownMenuItem>
+          {/* <DropdownMenuItem>
+            <Link className="w-full" href="r/Prateek_Gunda/create">
+               My community
+            </Link>
+          </DropdownMenuItem> */}
           <DropdownMenuItem>
             <Link className="w-full" href="/settings">
               Settings

@@ -6,7 +6,7 @@ import {
     CollapsibleTrigger,
 } from "@/components/ui/collapsible"
 import { Card } from "@/components/ui/card";
-import { ArrowBigDown, ArrowBigUp, MessageCircle } from "lucide-react";
+import { ArrowBigDown, ArrowBigUp, Bookmark, MessageCircle } from "lucide-react";
 import Link from "next/link";
 import { CopyLink } from "./CopyLink";
 import Image from "next/image";
@@ -100,6 +100,7 @@ export function PostCard({
                                 </Button>
                             </CollapsibleTrigger>
                             <CopyLink id={id} />
+                            <Bookmark className="h-4 w-4 mt-3 ml-3 text-muted-foreground hover:cursor-pointer"/>
                         </div>
                         <CollapsibleContent className="space-y-2">
                             <>

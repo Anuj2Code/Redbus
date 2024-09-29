@@ -26,13 +26,22 @@ export async function POST(req: NextRequest) {
         select: {
           id: true,
           text: true,
-          replyId:true,
+          replyId: true,
           User: {
             select: {
               imageUrl: true,
               userName: true,
             },
           },
+          reply: {
+            select: {
+              id:true,
+              text: true,
+              createdAt: true,
+              userName: true,
+              imageString: true
+            }
+          }
         },
       },
       Subbreddits: {
@@ -58,7 +67,7 @@ export async function POST(req: NextRequest) {
   }
 
   return NextResponse.json({
-    data:data,
+    data: data,
     message: "Post ",
     status: "green",
   })
