@@ -6,13 +6,14 @@ import {
     CollapsibleTrigger,
 } from "@/components/ui/collapsible"
 import { Card } from "@/components/ui/card";
-import { ArrowBigDown, ArrowBigUp, Bookmark, MessageCircle } from "lucide-react";
+import { Bookmark, MessageCircle } from "lucide-react";
 import Link from "next/link";
 import { CopyLink } from "./CopyLink";
 import Image from "next/image";
 import { Heart } from "lucide-react";
-import React, { Dispatch, SetStateAction } from "react";
+import React from "react";
 import PostComment from "./PostComment";
+import { save } from "../server";
 
 interface iAppProps {
     title: string;
@@ -47,7 +48,6 @@ export function PostCard({
                     </Link>
                     {voteCount}
                 </div>
-
                 <div>
                     <div className="flex items-center gap-x-2 p-2">
                         <Link className="font-semibold text-xs" href={`/r/${subName}`}>
@@ -63,7 +63,6 @@ export function PostCard({
                             <h1 className="font-medium mt-1 text-lg">{title}</h1>
                         </Link>
                     </div>
-
                     <div className="max-h-[300px] overflow-hidden">
                         {imageString ? (
                             <Image
@@ -100,7 +99,12 @@ export function PostCard({
                                 </Button>
                             </CollapsibleTrigger>
                             <CopyLink id={id} />
-                            <Bookmark className="h-4 w-4 mt-3 ml-3 text-muted-foreground hover:cursor-pointer"/>
+                            <form action={save}>
+                                <input type="hidden" name="postId" value={id}/>
+                                <button type="submit">
+                                <Bookmark className="h-4 w-4 mt-3 ml-3 text-muted-foreground hover:cursor-pointer" />
+                                </button>
+                            </form>
                         </div>
                         <CollapsibleContent className="space-y-2">
                             <>

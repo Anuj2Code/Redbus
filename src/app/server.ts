@@ -340,7 +340,7 @@ export async function createComment(preData: any, formData: FormData) {
     }
 }
 
-export async function createComments(preData:any,formData: FormData) {
+export async function createComments(preData: any, formData: FormData) {
     const { getUser } = getKindeServerSession();
     const user = await getUser();
 
@@ -355,8 +355,8 @@ export async function createComments(preData:any,formData: FormData) {
     try {
 
         const user_details = await prisma.user.findUnique({
-            where:{
-                id:user.id
+            where: {
+                id: user.id
             }
         })
 
@@ -364,8 +364,8 @@ export async function createComments(preData:any,formData: FormData) {
             data: {
                 commentId: commentId,
                 text: text,
-                userName:user_details?.userName!,
-                imageString:user_details?.imageUrl
+                userName: user_details?.userName!,
+                imageString: user_details?.imageUrl
             }
         })
         return {
@@ -381,3 +381,32 @@ export async function createComments(preData:any,formData: FormData) {
     }
 }
 
+export async function save(formData: FormData) {
+    const { getUser } = getKindeServerSession();
+    const user = await getUser();
+
+    if (!user) {
+        return redirect("/api/auth/login");
+    }
+    const postId = formData.get("postId") as string
+    console.log(postId);
+    
+    try {
+        await prisma.save.create({
+            data: {
+                userId: user.id,
+                postId: postId
+            }
+        })
+        return {
+            message: "Post has been saved successfully",
+            status: "green",
+        };
+    } catch (error) {
+        console.log(error);
+        return {
+            status: "error",
+            message: "Sorry something went wrong!",
+        };
+    }
+}

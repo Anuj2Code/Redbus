@@ -44,11 +44,11 @@ import {
               Create Post
             </Link>
           </DropdownMenuItem>
-          {/* <DropdownMenuItem>
-            <Link className="w-full" href="r/Prateek_Gunda/create">
-               My community
+          <DropdownMenuItem>
+            <Link className="w-full" href="/Post-save">
+              My Bookmark
             </Link>
-          </DropdownMenuItem> */}
+          </DropdownMenuItem>
           <DropdownMenuItem>
             <Link className="w-full" href="/settings">
               Settings

@@ -76,12 +76,15 @@ export default function PostPage({ params }: { params: { id: string } }) {
     setdata(res.data.data)
   }
 
+  console.log(check, 79);
+
   useEffect(() => {
     get_Details()
-    if (state.status === "green" || check === true || state1.status==="green") {
+    if (state.status === "green" || check === true || state1.status === "green") {
       router.refresh()
+      setCheck(false)
     }
-  }, [state, check,state1])
+  }, [state, check, state1])
 
   return (
     <div className="w-auto mx-auto flex gap-x-10 items-center justify-center pt-8 bg-black mb-10">
@@ -139,7 +142,7 @@ export default function PostPage({ params }: { params: { id: string } }) {
                 <CopyLink id={params.id} />
               </div>
               <Separator className="my-5" />
-              <CreateComment postId={params.id} replyId={params.id} setCheck={setCheck} />
+              <CreateComment postId={params.id} setCheck={setCheck} />
               <div className="flex flex-col gap-y-7">
                 {load ? <div className="flex items-center pr-14">
                   <ProgressSpinner />
@@ -213,29 +216,29 @@ export default function PostPage({ params }: { params: { id: string } }) {
                       <div>
                         {item?.reply?.map((item: any) => {
                           return (
-                           <>
-                           <div className="relative left-14 my-8">
-                           <div className="flex items-center gap-x-3 ">
-                              <Image
-                                src={
-                                  item?.imageString
-                                    ? item.imageString
-                                    : "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg"
-                                }
-                                height={100}
-                                width={100}
-                                className="w-7 h-7 rounded-full"
-                                alt="Avatar of user"
-                              />
-                              <h3 className="text-sm font-medium">
-                                {item?.userName}
-                              </h3>
-                            </div>
-                            <p className="ml-10 text-secondary-foreground text-sm tracking-wide">
-                                {item?.text}
-                              </p>
-                           </div>
-                           </>
+                            <>
+                              <div className="relative left-14 my-8">
+                                <div className="flex items-center gap-x-3 ">
+                                  <Image
+                                    src={
+                                      item?.imageString
+                                        ? item.imageString
+                                        : "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg"
+                                    }
+                                    height={100}
+                                    width={100}
+                                    className="w-7 h-7 rounded-full"
+                                    alt="Avatar of user"
+                                  />
+                                  <h3 className="text-sm font-medium">
+                                    {item?.userName}
+                                  </h3>
+                                </div>
+                                <p className="ml-10 text-secondary-foreground text-sm tracking-wide">
+                                  {item?.text}
+                                </p>
+                              </div>
+                            </>
                           )
                         })}
                       </div>

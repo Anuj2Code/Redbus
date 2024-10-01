@@ -25,7 +25,6 @@ export interface iAppProps {
   userName: string;
   imageString: string | null;
   voteCount: number;
-  // commentAmount: number;
   comments?:any
 }
 

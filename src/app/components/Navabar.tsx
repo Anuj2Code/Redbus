@@ -29,10 +29,11 @@ async function getData(email: string) {
 export async function Navbar() {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
-  const data = await getData(user?.email!)
-  
-  const reddit = data?.createdSubbreddits.find((id)=> id.userId===user?.id)
-  
+  let reddit
+  if(user){
+    const data = await getData(user?.email!)
+     reddit = data?.createdSubbreddits.find((id)=> id.userId===user?.id)
+  }
   
   return (
     <nav className="h-[10vh] w-full flex items-center  px-5 lg:px-14 justify-between bg-black">
