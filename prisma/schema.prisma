@@ -29,6 +29,9 @@ model User {
   comment            Comment[]
   CommentVote        CommentVote[]
   save save[]
+  servers server[]
+  Members Member[]
+  channels channel[]
 }
 
 model Subbreddits {
@@ -122,5 +125,62 @@ model save {
   User   User   @relation(fields: [userId], references: [id])
   userId String
   Post   Post   @relation(fields: [postId], references: [id])
-  postId String
+  postId String @unique
 }
+
+//  => every server have member and every member connected to particular channel
+//  server -> member -> channel
+
+
+model server{
+  id String @id @default(uuid())
+  name String 
+  imageUrl String 
+  inviteCode String
+  userId String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  User User  @relation(fields: [userId],references: [id],onDelete: Cascade)
+  Members Member[]
+  channel channel[]
+}
+
+enum MemberRole {
+ ADMIN
+ GENERATOR
+ GUEST
+}
+
+model Member{
+  id String  @id @default(uuid())
+  role MemberRole @default(GUEST)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  userId  String
+  User  User  @relation(fields: [userId],references: [id],onDelete:Cascade)
+  serverId String
+  server server @relation(fields: [serverId],references: [id],onDelete: Cascade)
+}
+
+// type of channel
+
+enum channelType {
+  AUDIO
+  VIDEO
+  TEXT
+}
+
+model channel {
+  id String  @id @default(uuid())
+  name String
+  type channelType @default(TEXT)
+  
+  userId String
+  User User @relation(fields: [userId],references: [id],onDelete: Cascade)
+
+  serverId String
+  server  server @relation(fields: [serverId],references: [id],onDelete: Cascade)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+

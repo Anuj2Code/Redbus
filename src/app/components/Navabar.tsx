@@ -36,9 +36,9 @@ export async function Navbar() {
   }
   
   return (
-    <nav className="h-[10vh] w-full flex items-center  px-5 lg:px-14 justify-between bg-black">
+    <nav className="h-[10vh] w-full flex items-center  px-5 lg:px-14 justify-between bg-black z-50">
       <Link href="/" className="flex items-center gap-x-3">
-        <div className="">
+        <div className="z-50">
           <Image
             className="rounded-full bg-black "
             src={img1}
@@ -51,11 +51,11 @@ export async function Navbar() {
       <div className="flex items-center gap-x-4">
         <div className="flex gap-6 mt-[10px] ">
           {user ? <UserDropdown userImage={user.picture} reddit={reddit?.name} /> : <>
-            <div>
-              <button className="h-[40px] w-[160px] bg-orange-500 text-white rounded-lg"><RegisterLink>Sign up</RegisterLink></button>
+            <div className="z-50">
+              <button className="h-[40px] w-[160px] bg-orange-500 text-white rounded-lg z-50"><RegisterLink>Sign up</RegisterLink></button>
             </div>
-            <div>
-              <button className="h-[40px] w-[160px] bg-orange-500 text-white rounded-lg">
+            <div className="z-50">
+              <button className="h-[40px] w-[160px] bg-orange-500 text-white rounded-lg z-50">
                 <LoginLink>Log in</LoginLink>
               </button>
             </div>

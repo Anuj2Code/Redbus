@@ -1,12 +1,15 @@
+
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import prisma from "../lib/db";
 import { Card } from "@/components/ui/card";
 import Link from "next/link";
-import {  Heart, MessageCircle, Trash } from "lucide-react";
+import { Heart, MessageCircle, Trash } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { CopyLink } from "../components/CopyLink";
 import PostComment from "../components/PostComment";
+import { saveDelete } from "../server";
+import { TextGenerateEffectDemo } from "../components/TextGenerateEffect";
 
 async function findData(userId: string) {
     try {
@@ -90,8 +93,8 @@ async function Post_detail(postObjects: { postId: string }[] | undefined) {
                     },
                 },
             },
-            orderBy:{
-                createdAt:"desc"
+            orderBy: {
+                createdAt: "desc"
             }
         })
         return data;
@@ -105,11 +108,10 @@ export default async function savePost() {
     const user = await getUser()
     const save_details = await findData(user?.id!)
     const post_details = await Post_detail(save_details);
-
     return (
         <div className="flex bg-black justify-center py-2">
             <div className="w-[50%] gap-4 flex flex-col justify-center mt-4">
-                {post_details ? post_details.map((item) => {
+                {post_details?.length ? post_details.map((item) => {
                     return (
                         <Card className="flex gap-4 relative overflow-hidden" key={item.id}>
                             <div className="flex flex-col items-center gap-y-2 bg-muted p-3 justify-center">
@@ -128,15 +130,20 @@ export default async function savePost() {
                             <div>
                                 <div className="md:w-[600px] flex items-center justify-between gap-x-2 p-2">
                                     <div>
-                                    <Link className="font-semibold text-xs" href={`/r/${item.subName}`}>
-                                        r/{item.subName}
-                                    </Link>
-                                    <p className="text-xs text-muted-foreground">
-                                        Posted by: <span className="hover:text-primary">u/{item.User?.userName}</span>
-                                    </p>
+                                        <Link className="font-semibold text-xs" href={`/r/${item.subName}`}>
+                                            r/{item.subName}
+                                        </Link>
+                                        <p className="text-xs text-muted-foreground">
+                                            Posted by: <span className="hover:text-primary">u/{item.User?.userName}</span>
+                                        </p>
                                     </div>
-                                    <div>
-                                    <Trash />
+                                    <div className="mt-4">
+                                        <form action={saveDelete}>
+                                            <input type="hidden" name="id" value={item.id} />
+                                            <Button type="submit" className="">
+                                                <Trash />
+                                            </Button>
+                                        </form>
                                     </div>
                                 </div>
 
@@ -196,11 +203,10 @@ export default async function savePost() {
                         </Card>
                     )
                 })
-            :
-            <p>
-                No Bookmark 
-            </p>
-            }
+                    :
+                    <TextGenerateEffectDemo 
+                    />
+                }
             </div>
         </div>
     )

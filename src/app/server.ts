@@ -4,6 +4,7 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server"
 import { redirect } from "next/navigation";
 import prisma from "./lib/db";
 import { Prisma, TypeOfVote } from "@prisma/client";
+import { revalidatePath } from "next/cache";
 
 export async function UpdateUsername(preState: any, formData: FormData) {
     const { getUser } = getKindeServerSession();
@@ -353,7 +354,6 @@ export async function createComments(preData: any, formData: FormData) {
     console.log(commentId);
 
     try {
-
         const user_details = await prisma.user.findUnique({
             where: {
                 id: user.id
@@ -381,7 +381,7 @@ export async function createComments(preData: any, formData: FormData) {
     }
 }
 
-export async function save(formData: FormData) {
+export async function save(preData:any,formData: FormData) {
     const { getUser } = getKindeServerSession();
     const user = await getUser();
 
@@ -390,7 +390,7 @@ export async function save(formData: FormData) {
     }
     const postId = formData.get("postId") as string
     console.log(postId);
-    
+
     try {
         await prisma.save.create({
             data: {
@@ -410,3 +410,18 @@ export async function save(formData: FormData) {
         };
     }
 }
+
+export async function saveDelete(formData: FormData) {
+    const id = formData.get("id") as string
+    try { 
+         await prisma.save.delete({
+            where: {
+                postId:id
+            }
+        })
+    } catch (error) {
+        console.log(error);
+    }
+   return revalidatePath("/Post-save");
+}
+

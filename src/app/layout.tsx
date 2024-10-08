@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navabar";
 import { Toaster } from "@/components/ui/toaster"
+import ModalProvider from "./components/providers/modal-provider";
 // import { PrimeReactProvider } from 'primereact/api';
 // import 'primeicons/primeicons.css';
 // import 'primeflex/primeflex.css';
@@ -26,6 +27,7 @@ export default function RootLayout({
       <body className={inter.className}>
       {/* <PrimeReactProvider> */}
         <Navbar/>
+        <ModalProvider/>
         {children}
         <Toaster />
         {/* </PrimeReactProvider> */}

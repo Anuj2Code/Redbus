@@ -11,9 +11,11 @@ import Link from "next/link";
 import { CopyLink } from "./CopyLink";
 import Image from "next/image";
 import { Heart } from "lucide-react";
-import React from "react";
+import React, { useEffect } from "react";
 import PostComment from "./PostComment";
 import { save } from "../server";
+import { useFormState } from "react-dom";
+import { useToast } from '@/components/ui/use-toast';
 
 interface iAppProps {
     title: string;
@@ -26,7 +28,10 @@ interface iAppProps {
     comments?: any
     commentAmount?: number,
 }
-
+const initialState = {
+    message: "",
+    status: ""
+  }
 export function PostCard({
     id,
     imageString,
@@ -39,6 +44,16 @@ export function PostCard({
     commentAmount,
 }: iAppProps) {
     const [isOpen, setIsOpen] = React.useState(false)
+    const [state,formAction] = useFormState(save,initialState)
+    const { toast } = useToast();
+    useEffect(()=>{
+        if(state.status==="green"){
+            toast({
+                title: "Succesfull !",
+                description: "Bookmark added",
+            });
+        }
+    },[state])
     return (
         <>
             <Card className="flex relative overflow-hidden">
@@ -99,10 +114,10 @@ export function PostCard({
                                 </Button>
                             </CollapsibleTrigger>
                             <CopyLink id={id} />
-                            <form action={save}>
-                                <input type="hidden" name="postId" value={id}/>
+                            <form action={formAction}>
+                                <input type="hidden" name="postId" value={id} />
                                 <button type="submit">
-                                <Bookmark className="h-4 w-4 mt-3 ml-3 text-muted-foreground hover:cursor-pointer" />
+                                    <Bookmark className="h-4 w-4 mt-3 ml-3 text-muted-foreground hover:cursor-pointer" />
                                 </button>
                             </form>
                         </div>
