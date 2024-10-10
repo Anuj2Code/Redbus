@@ -2,6 +2,7 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 import prisma from "../lib/db";
 import { channelType } from "@prisma/client";
+import Serverheader from "./ServerHeader";
 
 interface props{
     serverId:string
@@ -49,7 +50,7 @@ export default async function ServerSidebar({serverId}:props) {
 
     return (
         <div className="flex flex-col h-full text-primary bg-[#2B2D31]">
-            server sidebar component
+            <Serverheader server={server} role={role}/>
         </div>
     )
 }
