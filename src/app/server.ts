@@ -384,12 +384,10 @@ export async function createComments(preData: any, formData: FormData) {
 export async function save(preData:any,formData: FormData) {
     const { getUser } = getKindeServerSession();
     const user = await getUser();
-
     if (!user) {
         return redirect("/api/auth/login");
     }
     const postId = formData.get("postId") as string
-    console.log(postId);
 
     try {
         await prisma.save.create({

@@ -136,7 +136,7 @@ model server{
   id String @id @default(uuid())
   name String 
   imageUrl String 
-  inviteCode String
+  inviteCode String  @unique
   userId String
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt

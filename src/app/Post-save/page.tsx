@@ -3,13 +3,14 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import prisma from "../lib/db";
 import { Card } from "@/components/ui/card";
 import Link from "next/link";
-import { Heart, MessageCircle, Trash } from "lucide-react";
+import { Heart, MessageCircle, Star, Trash } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { CopyLink } from "../components/CopyLink";
 import PostComment from "../components/PostComment";
 import { saveDelete } from "../server";
 import { TextGenerateEffectDemo } from "../components/TextGenerateEffect";
+import { Label } from "@/components/ui/label";
 
 async function findData(userId: string) {
     try {
@@ -109,7 +110,8 @@ export default async function savePost() {
     const save_details = await findData(user?.id!)
     const post_details = await Post_detail(save_details);
     return (
-        <div className="flex bg-black justify-center py-2">
+        <div className="flex bg-black justify-center py-16">
+           {post_details?.length ?  <Label className="w-auto left-[500px] relative bottom-12 h-auto font-mono  text-4xl font-semibold bg-clip-text text-transparent bg-no-repeat bg-gradient-to-r from-blue-500 to-sky-500 flex gap-4"><Star className="text-white mt-2"/> <p>My BookMark</p></Label>:null}
             <div className="w-[50%] gap-4 flex flex-col justify-center mt-4">
                 {post_details?.length ? post_details.map((item) => {
                     return (

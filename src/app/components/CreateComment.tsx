@@ -13,6 +13,7 @@ const initialState = {
     message: "",
     status: ""
 }
+
 export default function CreateComment({ postId, setCheck }: { postId: string, setCheck: Dispatch<SetStateAction<boolean>> }) {
     const [text, settext] = useState<string>('')
     const [state, formaction] = useFormState(createComment, initialState);

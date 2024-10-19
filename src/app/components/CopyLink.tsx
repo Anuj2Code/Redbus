@@ -2,15 +2,15 @@
 import { Share } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 
-export function CopyLink({ id }: { id: string })  {
+export function CopyLink({ id }: { id: string }) {
     const { toast } = useToast();
-   async function clipBoard(){
-     await navigator.clipboard.writeText(`${location.origin}/post/${id}`)
-     toast({
-        title: "Success",
-        description: "Your link is copied in your clipboard",
-      });
-   }
+    async function clipBoard() {
+        await navigator.clipboard.writeText(`${location.origin}/post/${id}`)
+        toast({
+            title: "Success",
+            description: "Your link is copied in your clipboard",
+        });
+    }
     return (
         <button className="flex items-center gap-x-1" onClick={clipBoard}>
             <Share className="h-4 w-4 text-muted-foreground" />

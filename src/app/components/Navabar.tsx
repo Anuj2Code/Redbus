@@ -18,7 +18,12 @@ async function getData(email: string) {
         select:{
           name:true,
           id:true,
-          userId:true
+          userId:true,
+          User:{
+            select:{
+              userName:true
+            }
+          }
         }
       }
     }
@@ -50,7 +55,7 @@ export async function Navbar() {
       </Link>
       <div className="flex items-center gap-x-4">
         <div className="flex gap-6 mt-[10px] ">
-          {user ? <UserDropdown userImage={user.picture} reddit={reddit?.name} /> : <>
+          {user ? <UserDropdown userImage={user.picture} reddit={reddit?.name} username={reddit?.User.userName!}/> : <>
             <div className="z-50">
               <button className="h-[40px] w-[160px] bg-orange-500 text-white rounded-lg z-50"><RegisterLink>Sign up</RegisterLink></button>
             </div>

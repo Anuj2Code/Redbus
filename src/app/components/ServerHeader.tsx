@@ -33,26 +33,22 @@ export default function Serverheader({ server, role }: headerProps) {
                 <DropdownMenuGroup>
                     {!isModerator && (
                         <Link href="/invite">
-                        <DropdownMenuItem className=" px-2 py-2 text-sm cursor-pointer" >
+                        <DropdownMenuItem onClick={()=> onOpen("invite",{server})} className=" px-2 py-2 text-sm cursor-pointer" >
                             Invite People
                             <UserPlus className="h-4 w-4 ml-auto" />
                         </DropdownMenuItem>
                         </Link>
                     )}
                     {isAdmin && (
-                        <DropdownMenuItem className="px-2 py-2 text-sm cursor-pointer">
-                            Server Settings
-                            <Settings className="h-4 w-4 ml-auto" />
-                        </DropdownMenuItem>
-                    )}
-                    {isAdmin && (
-                        <DropdownMenuItem className="px-2 py-2 text-sm cursor-pointer">
+                        <Link href="/membersSettings">
+                        <DropdownMenuItem className="px-2 py-2 text-sm cursor-pointer" onClick={()=> onOpen("members",{server})}>
                             Manages Members
                             <Users className="h-4 w-4 ml-auto" />
                         </DropdownMenuItem>
+                        </Link>
                     )}
                     {!isModerator && (
-                        <DropdownMenuItem className="px-2 py-2 text-sm cursor-pointer" onClick={()=> onOpen("invite",{server})}>
+                        <DropdownMenuItem className="px-2 py-2 text-sm cursor-pointer" >
                             Create Channel
                             <PlusCircle className="h-4 w-4 ml-auto" />
                         </DropdownMenuItem>
