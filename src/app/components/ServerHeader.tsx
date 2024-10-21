@@ -14,7 +14,6 @@ interface headerProps {
 export default function Serverheader({ server, role }: headerProps) {
     const {onOpen} = useModal()
     const isAdmin = role === MemberRole.ADMIN
-    const isModerator = role === MemberRole.GENERATOR
 
     return (
         <DropdownMenu >
@@ -31,14 +30,13 @@ export default function Serverheader({ server, role }: headerProps) {
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56  font-medium text-white space-y-[2px] text-sm">
                 <DropdownMenuGroup>
-                    {!isModerator && (
+                    
                         <Link href="/invite">
                         <DropdownMenuItem onClick={()=> onOpen("invite",{server})} className=" px-2 py-2 text-sm cursor-pointer" >
                             Invite People
                             <UserPlus className="h-4 w-4 ml-auto" />
                         </DropdownMenuItem>
                         </Link>
-                    )}
                     {isAdmin && (
                         <Link href="/membersSettings">
                         <DropdownMenuItem className="px-2 py-2 text-sm cursor-pointer" onClick={()=> onOpen("members",{server})}>
@@ -47,26 +45,32 @@ export default function Serverheader({ server, role }: headerProps) {
                         </DropdownMenuItem>
                         </Link>
                     )}
-                    {!isModerator && (
-                        <DropdownMenuItem className="px-2 py-2 text-sm cursor-pointer" >
+                    {isAdmin && (
+                        <Link href="/createChannel">
+                        <DropdownMenuItem className="px-2 py-2 text-sm cursor-pointer" onClick={()=> onOpen("channel",{server})} >
                             Create Channel
                             <PlusCircle className="h-4 w-4 ml-auto" />
                         </DropdownMenuItem>
+                        </Link>
                     )}
-                    {!isModerator && (
+                    {!isAdmin && (
                         <DropdownMenuSeparator />
                     )}
                     {isAdmin && (
-                        <DropdownMenuItem className="text-rose-500 px-2 py-2 text-sm cursor-pointer">
+                         <Link href="/removeServer">
+                        <DropdownMenuItem className="text-rose-500 px-2 py-2 text-sm cursor-pointer" onClick={()=> onOpen("deleteServer",{server})}>
                             Delete server
                             <Trash className="h-4 w-4 ml-auto" />
                         </DropdownMenuItem>
+                        </Link>
                     )}
                     {!isAdmin && (
-                        <DropdownMenuItem className="text-rose-500 px-2 py-2 text-sm cursor-pointer">
+                        <Link href="/removeServer">
+                        <DropdownMenuItem className="text-rose-500 px-2 py-2 text-sm cursor-pointer" onClick={()=> onOpen("leaveServer",{server})}>
                             Leave server
                             <LogOut className="h-4 w-4 ml-auto" />
                         </DropdownMenuItem>
+                        </Link>
                     )}
                 </DropdownMenuGroup>
             </DropdownMenuContent>
