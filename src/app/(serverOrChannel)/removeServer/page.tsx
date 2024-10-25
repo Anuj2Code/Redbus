@@ -1,7 +1,7 @@
 "use client"
 import { useModal } from "@/hooks/use-modal-store";
-import { Spotlight } from "../components/ui/Spotlight";
-import { serverWithMemberChannelWithProfile } from "../../../types";
+import { Spotlight } from "../../components/ui/Spotlight";
+import { serverWithMemberChannelWithProfile } from "../../../../types";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
@@ -12,7 +12,7 @@ export default function RemoveServer() {
     const { server } = data as { server: serverWithMemberChannelWithProfile }
     const [load, setLoad] = useState(false);
     const router = useRouter();
-    let titleName = "Leave Channel";
+    let titleName = "Leave Server";
     if(type==="deleteServer"){
         titleName ="Delete Server"
     }
@@ -23,7 +23,7 @@ export default function RemoveServer() {
             const payload = {
                 serverId: server.id
             }
-           {titleName==="Leave Channel"? await axios.post("/api/leave_channel", payload, {
+           {titleName==="Leave Server"? await axios.post("/api/leave_server", payload, {
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -52,15 +52,15 @@ export default function RemoveServer() {
                 <h1 className="text-4xl md:text-7xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 bg-opacity-50">
                    {titleName}
                 </h1>
-               {titleName==="Leave Channel"? <p className="mt-4 font-normal text-base text-neutral-300 max-w-lg text-center mx-auto">
-                    Are you sure you want to leave <span className="text-rose-500 text-lg underline underline-offset-4 ">{server?.name} </span>
+               {titleName==="Leave Server"? <p className="mt-4 font-normal text-base text-neutral-300 max-w-lg text-center mx-auto">
+                    Are you sure you want to leave ? <span className="text-rose-500 text-lg underline underline-offset-4 ">{server?.name} </span>
                 </p>: <p className="mt-4 font-normal text-base text-neutral-300 max-w-lg text-center mx-auto">
                     Are you sure you want to delete ? <span className="text-rose-500 text-lg underline underline-offset-4 ">{server?.name}</span> will be deleted permanently
                 </p>}
-                {titleName==="Leave Channel"?<div className="w-full flex justify-center mt-12 ">
+                {titleName==="Leave Server"?<div className="w-full flex justify-center mt-12 ">
                     {load ? <button disabled={load} className="h-12 w-52 duration-75 transition-all bg-red-500 rounded-xl flex justify-center items-center">  <Loader2 className="mr-2 h-6 w-6  animate-spin" /></button> : <button className="h-12 w-52 duration-75 transition-all bg-sky-500 hover:bg-red-600 rounded-xl"
                     onClick={()=> onLeave()}
-                    >Leave Channel</button>}
+                    >Leave Server</button>}
                 </div>:<div className="w-full flex justify-center mt-12 ">
                     {load ? <button disabled={load} className="h-12 w-52 duration-75 transition-all bg-red-500 rounded-xl flex justify-center items-center">  <Loader2 className="mr-2 h-6 w-6  animate-spin" /></button> : <button className="h-12 w-52 duration-75 transition-all bg-sky-500 hover:bg-red-600 rounded-xl"
                     onClick={()=> onLeave()}

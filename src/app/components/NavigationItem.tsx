@@ -21,7 +21,7 @@ export default function NavigationItem({ id, name, image }: NavigationProps) {
     return (
         <Actiontooltip
             side="right"
-            align="center"
+            align="start"
             label={name}
         >
             <button 
