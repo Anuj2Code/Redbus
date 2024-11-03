@@ -46,10 +46,10 @@ export default function ServerSearch({ data }: serverProps) {
       const onClick = ({id,type}:{id:string,type:"channel" | "members"})=>{
         setOpen(false);
         if(type==='channel'){
-            router.push(`/servers/${params.serverId}/channels/${id}`);
+            router.push(`/servers/${params?.serverId}/channels/${id}`);
         }
         if(type==='members'){
-            router.push(`/servers/${params.serverId}/conversations/${id}`);
+            router.push(`/servers/${params?.serverId}/conversations/${id}`);
         }
       }
     return (

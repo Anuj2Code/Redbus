@@ -33,7 +33,7 @@ export default function InviteModal (){
       const response = await axios.post(`/api/server/${data.server?.id}/invite-code`);
       onOpen("invite",{server:response.data})
     } catch (error) {
-      
+      console.log(error);
     }finally{
        setLoading(false)
     }

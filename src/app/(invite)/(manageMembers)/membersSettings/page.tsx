@@ -4,7 +4,7 @@ import { BackgroundBeamsWithCollision } from "@/app/components/ui/background-bea
 import { useModal } from "@/hooks/use-modal-store"
 import { serverWithMemberChannelWithProfile } from "../../../../../types"
 import { UserAvatar } from "@/app/components/UserAvatar"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { MoreVertical, UserX, ShieldCheck } from "lucide-react"
 import {
     Popover,

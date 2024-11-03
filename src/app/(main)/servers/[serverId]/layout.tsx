@@ -33,13 +33,13 @@ export default async function MainLayout({
     if(!server){
         return redirect("/")
     }
-
+   
     return (
         <div className="h-full">
             <div className="hidden md:flex h-full w-60 z-20 flex-col fixed ">
-             <ServerSidebar serverId ={params.serverId}/>
+             <ServerSidebar serverId ={server.id}/>
             </div>
-            <main className="md:pl-[72px] h-full md:ml-60">
+            <main className="md:pl-[72px] h-full md:ml-52 bg-black">
                 {children}
             </main>
         </div>

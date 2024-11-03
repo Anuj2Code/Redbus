@@ -31,7 +31,7 @@ async function getData(email: string) {
   return data
 }
 
-export async function Navbar() {
+export default async function Navbar() {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
   let reddit
@@ -71,5 +71,4 @@ export async function Navbar() {
   );
 }
 
-export default Navbar
 

@@ -55,6 +55,7 @@ export default async function ServerSidebar({ serverId }: props) {
             }
         }
     })
+    // console.log(server,"server data hai ??");
 
     const textChannel = server?.channel.filter((channel) => channel.type === channelType.TEXT);
     const audioChannel = server?.channel.filter((channel) => channel.type === channelType.AUDIO);
@@ -68,7 +69,7 @@ export default async function ServerSidebar({ serverId }: props) {
     const role = server.Members.find((member) => member.userId === user.id)?.role;
 
     return (
-        <div className="flex flex-col h-full text-primary bg-[#2B2D31]">
+        <div className="flex flex-col h-full text-primary bg-[#2B2D31] max-[780px]:w-full">
             <Serverheader server={server} role={role} />
             <ScrollArea className="flex px-3">
                 <div className="mt-2">
@@ -148,7 +149,7 @@ export default async function ServerSidebar({ serverId }: props) {
                         channel={channel}
                     />
                 ))}
-                  {!!videoChannel && (
+                {!!videoChannel && (
                     <div className="mb-2">
                         <ServerSection sectionType="channel" channelType={channelType.VIDEO} role={role} server={server} label="Video Channels" />
                     </div>
@@ -161,13 +162,13 @@ export default async function ServerSidebar({ serverId }: props) {
                         channel={channel}
                     />
                 ))}
-                 {!!members && (
+                {!!members && (
                     <div className="mb-2">
-                        <ServerSection sectionType="members"  role={role} server={server} label="Members" />
+                        <ServerSection sectionType="members" role={role} server={server} label="Members" />
                     </div>
                 )}
                 {members?.map((member) => (
-                    <ServerMembers members={member} server={server}/>
+                    <ServerMembers members={member} server={server} />
                 ))}
             </ScrollArea>
         </div>
