@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { createPost } from "@/app/server";
 
 import Editor from '../components/editor/editor'
@@ -43,7 +43,7 @@ export default function ContentForm({imageUrl,subName}:{imageUrl:string | null,s
           onChange={e => setTitle(e.target.value)}
         />
       </div>
-      <Label className='text-muted-foreground pl-8'>Type / Below to start Edit</Label>
+      <Label className='text-muted-foreground pl-8 font-bold'>Type / Below to start Edit</Label>
       <div className=' ml-6'>
       <Editor initialValue={defaultValue} onChange={setContent} />
       </div>

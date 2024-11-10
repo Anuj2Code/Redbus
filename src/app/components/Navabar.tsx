@@ -1,5 +1,4 @@
-
-import React, { use } from "react";
+import React from "react";
 import Link from "next/link";
 import img1 from "../../../public/R.gif"
 import Image from "next/image";
@@ -9,6 +8,7 @@ import { UserDropdown } from "./UserDropdown";
 import prisma from "../lib/db";
 
 async function getData(email: string) {
+
  const data =  await prisma.user.findUnique({
     where: {
       email: email
@@ -39,7 +39,6 @@ export default async function Navbar() {
     const data = await getData(user?.email!)
      reddit = data?.createdSubbreddits.find((id)=> id.userId===user?.id)
   }
-  
   return (
     <nav className="h-[10vh] w-full flex items-center  px-5 lg:px-14 justify-between bg-black z-50">
       <Link href="/" className="flex items-center gap-x-3">

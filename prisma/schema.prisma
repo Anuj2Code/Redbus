@@ -190,7 +190,6 @@ model channel {
 }
 
 // below message model is used for channel
-
 model Message {
   id        String   @id @default(uuid())
   content   String   @db.Text

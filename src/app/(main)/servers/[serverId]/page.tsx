@@ -1,3 +1,4 @@
+import ServerWelcome from "@/app/components/ServerWelcome";
 import prisma from "@/app/lib/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
@@ -8,7 +9,7 @@ export default async function ServerPage({params}:{params:{serverId:string}}) {
     if (!user) {
         return redirect("/api/auth/login");
     }
-    
+
     const server = await prisma.server.findUnique({
         where:{
             id:params.serverId,
@@ -26,18 +27,14 @@ export default async function ServerPage({params}:{params:{serverId:string}}) {
                 orderBy:{
                     createdAt:'asc'
                 }
-            }
+            },
         }
     })
     // // console.log(server,"server sdatat");
-
     // const initialChannels = server?.channel[0];
-    
     // // if(initialChannels?.name!=='general') return null;
     // // return redirect(`/servers/${server?.id}/channels/${initialChannels?.id}`)
     return (
-        <div>
-            hi
-        </div>
+        <ServerWelcome name={server?.name as string}/>
     )
 }

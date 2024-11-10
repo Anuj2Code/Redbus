@@ -1,11 +1,12 @@
 import { channel, server } from "@prisma/client";
 import {create} from "zustand";
 
-export type ModalType = "createServer" | "invite" | "members" | "channel" | "leaveServer" | "deleteServer" | "deleteChannel" | "messageFile" | "deleteMessage";
+export type ModalType = "createServer" | "reddit" | "invite" | "members" | "channel" | "leaveServer" | "deleteServer" | "deleteChannel" | "messageFile" | "deleteMessage";
 
 interface ModelData {
     server?:server
     channel?:channel
+    reddit?:string
     apiUrl?:string
     query?:Record<string,any>
 }

@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+"use client"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,14 +12,16 @@ import Link from "next/link";
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
+import { useModal } from "@/hooks/use-modal-store";
 
 interface props {
   userImage: string | null
-  reddit?: string | null
+  reddit?: string | undefined
   username:string
 }
 
 export function UserDropdown({ userImage, reddit,username }: props) {
+  const {onOpen} = useModal()
   return (
     <div className="z-50">
       <DropdownMenu >
@@ -31,16 +34,25 @@ export function UserDropdown({ userImage, reddit,username }: props) {
             </Avatar>
           </div>
         </DropdownMenuTrigger>
-
         <DropdownMenuContent align="end" className="w-[200px]">
           <DropdownMenuItem>
             <Link className="w-full" href="/r/create">
               Create Community
             </Link>
           </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Link className="w-full" href={`r/${reddit}/create`}>
+          <DropdownMenuItem >
+            <Link className="w-full" href={`/r/${reddit}/create`}>
               Create Post
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem >
+            <Link className="w-full" href={`/r/${reddit}`}>
+              My Community
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <Link className="w-full" href={"/Post-Home"} onClick={()=> onOpen("reddit",{reddit})}>
+               Explore Feed
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem>

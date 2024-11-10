@@ -38,11 +38,7 @@ export default function ChatInput({ apiUrl, query, name, type }: ChatInputProps)
             content: ""
         }
     })
-
-    console.log(query,"query hai");
-    
     const isLoading = form.formState.isSubmitting
-
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
             const url = qs.stringifyUrl({

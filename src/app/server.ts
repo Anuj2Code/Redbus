@@ -181,7 +181,6 @@ export async function createPost(data: {
             textContent: data.content,
         },
     });
-
     return redirect(`/post/${data1.id}`);
 }
 
@@ -244,6 +243,8 @@ export async function handleVote(preData: any, formData: FormData) {
         message: "subscribed",
         status: "green",
     };
+
+    
 }
 
 export async function CommentVote(preData: any, formData: FormData) {
