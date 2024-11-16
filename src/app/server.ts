@@ -351,9 +351,6 @@ export async function createComments(preData: any, formData: FormData) {
     }
     const commentId = formData.get("commentId") as string;
     const text = formData.get("text") as string;
-    console.log(text);
-    console.log(commentId);
-
     try {
         const user_details = await prisma.user.findUnique({
             where: {
@@ -411,7 +408,7 @@ export async function save(preData:any,formData: FormData) {
 }
 
 export async function saveDelete(formData: FormData) {
-    const id = formData.get("id") as string
+    const id = formData.get("id") as string;
     try { 
          await prisma.save.delete({
             where: {
@@ -423,4 +420,3 @@ export async function saveDelete(formData: FormData) {
     }
    return revalidatePath("/Post-save");
 }
-

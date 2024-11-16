@@ -204,8 +204,7 @@ export default async function savePost() {
                             </div>
                         </Card>
                     )
-                })
-                    :
+                })  :
                     <TextGenerateEffectDemo 
                     />
                 }

@@ -26,7 +26,6 @@ async function getData(name: string, searchParam: string) {
       where: {
         name: name,
       },
-
       select: {
         name: true,
         id:true,
@@ -36,7 +35,6 @@ async function getData(name: string, searchParam: string) {
         posts: {
           take: 3,
           skip: searchParam ? (Number(searchParam) - 1) * 3 : 0,
-
           select: {
             comments: {
               select: {

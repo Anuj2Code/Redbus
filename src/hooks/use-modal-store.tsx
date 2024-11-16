@@ -14,15 +14,27 @@ interface ModelData {
 interface ModalStore {
     type:ModalType | null;
     isOpen:boolean;
+    creditUpdate:boolean;
     data:ModelData;
     onOpen:(type:ModalType,data?:ModelData)=> void;
     onClose:()=>void;
+    onCredit:(value:boolean)=>void;
+    creditPoint:number;
+    creditValue:(val:any)=>void;
+    aiPrompt:boolean;
+    promptGenerated:(val:any)=>void;
 }
 
 export const useModal = create<ModalStore>((set)=>({
     type:null,
     isOpen:false,
+    creditUpdate:false,
     data:{},
+    creditPoint:0,
+    aiPrompt:false,
     onOpen:(type,data?:{})=> set({isOpen:true,type,data}),
-    onClose:()=>set({type:null,isOpen:false})
+    onClose:()=>set({type:null,isOpen:false}),
+    onCredit:(value:boolean)=> set({creditUpdate:value}),
+    creditValue:(value:any)=>set({creditPoint:value}),
+    promptGenerated:(value:any)=>set({aiPrompt:value}),
 }))

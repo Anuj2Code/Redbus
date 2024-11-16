@@ -50,8 +50,9 @@ export default function Home() {
 
 
   return (
-    <div className="min-w-full min-h-screen bg-black mx-auto flex justify-around">
-      <div className="w-[55%] flex flex-col gap-y-5 pl-12 pt-4">
+    <div className="min-w-full min-h-screen bg-black bg-dot-white/[0.2] z-0 mx-auto flex justify-around ">
+       <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
+      <div className="w-[55%] flex flex-col gap-y-5 pl-12 pt-4 z-50">
         <CreatePost />
         {load ? (
           <>
@@ -81,11 +82,11 @@ export default function Home() {
           </>
         ) :
           (
-            <div className='w-full flex items-center justify-center h-96 '><ProgressSpinner /></div>
+            <div className='w-full flex items-center justify-center h-96 z-50'><ProgressSpinner /></div>
           )
         }
       </div>
-      <div className="w-[450px] px-6 pt-4">
+      <div className="w-[450px] px-6 pt-4 z-50">
       <Card>
             <Image src={Banner} alt="Banner" />
             <div className="p-2">

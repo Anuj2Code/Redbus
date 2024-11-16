@@ -97,7 +97,6 @@ export function SettingsForm({ username, email }: { username: string | null | un
 
 /*
 useform status allows us to make a nicer user experience by showing a loading indicator while the server is taking its action.
-
 useFormState allows us to get a response from a React Server Action and handle the results any way we might want to; including (but not limited to) displaying the contents of the response to the client.
 
 */

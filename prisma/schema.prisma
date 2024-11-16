@@ -32,6 +32,7 @@ model User {
   servers            server[]
   Members            Member[]
   channels           channel[]
+  AIOutput           AIOutput[]
 }
 
 model Subbreddits {
@@ -234,4 +235,24 @@ model DirectMessage {
 
   @@index([conversationId])
   @@index([memberId])
+}
+
+model AIOutput {
+  id      String @id @default(uuid())
+  content String
+  prompt  String
+  userId  String
+  User    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  aiGenerated Boolean
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  createdBy   String
+}
+
+model UserSubcription {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  active    Boolean
+  paymentId String
+  joinedAt  DateTime @default(now())
 }

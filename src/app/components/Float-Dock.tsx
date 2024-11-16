@@ -4,21 +4,35 @@ import {
     IconExchange,
 } from "@tabler/icons-react";
 import { FloatingDock } from "../components/ui/floating-dock";
-import { DraftingCompass, SquarePen } from "lucide-react";
+import { AppWindow, DraftingCompass, Heart, MessageCircle, PersonStanding, SquarePen } from "lucide-react";
 
 const FloatDock = () => {
     const links = [
         {
-            title: "Write",
+            title: "Author",
             icon: (
-                <SquarePen className="h-full w-full text-neutral-300"/>
+                <PersonStanding className="h-full w-full text-neutral-300"/>
+            ),
+            href: "/dashboard",
+        },
+        {
+            title: "All Story",
+            icon: (
+                <AppWindow className="h-full w-full text-neutral-300"/>
             ),
             href: "#",
         },
         {
-            title: "Drafts",
+            title: "View Comment",
             icon: (
-                <DraftingCompass className="h-full w-full text-neutral-300"/>
+                <MessageCircle className="h-full w-full text-neutral-300"/>
+            ),
+            href: "#",
+        },
+        {
+            title: "Like",
+            icon: (
+                <Heart className="h-full text-red-500 w-full fill-red-500"/>
             ),
             href: "#",
         },

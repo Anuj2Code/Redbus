@@ -110,3 +110,6 @@
   border-radius: 10px;
 }
 
+.toastui-editor-popup-body{
+  color: var(--black)
+}

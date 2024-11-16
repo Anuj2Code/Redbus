@@ -15,7 +15,6 @@ import {
 
 import { ImageResizer, handleCommandNavigation } from 'novel/extensions'
 import { handleImageDrop, handleImagePaste } from 'novel/plugins'
-
 import {
   slashCommand,
   suggestionItems
@@ -27,7 +26,6 @@ import { LinkSelector } from '../../components/editor/selectors/link-selector'
 import { NodeSelector } from '../../components/editor/selectors/node-selector'
 import { MathSelector } from '../../components/editor/selectors/math-selector'
 import { ColorSelector } from '../../components/editor/selectors/color-selector'
-
 import { Separator } from '@/components/ui/separator'
 
 const hljs = require('highlight.js')

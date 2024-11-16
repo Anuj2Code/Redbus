@@ -51,8 +51,6 @@ export default function CreateChannel() {
             type: channelType.TEXT
         },
     });
-    console.log("server", server);
-
     const isLoading = form.formState.isSubmitting;
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
