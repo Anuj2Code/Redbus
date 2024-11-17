@@ -3,12 +3,11 @@ import Image from "next/image";
 
 interface props{
     user:User
-    username:string;
     publish:string
 }
 
 
-export default function BlogCard({user,username,publish}:props) {
+export default function BlogCard({user,publish}:props) {
    
     return (
         <div className='flex gap-x-3'>

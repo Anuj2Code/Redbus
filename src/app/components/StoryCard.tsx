@@ -5,17 +5,11 @@ import { marked } from 'marked';
 import DOMPurify from 'dompurify';
 import StoryLoader from './StoryLoader';
 import FloatDock from './Float-Dock';
-import Image from 'next/image';
 import BlogCard from './BlogCard';
 
-type writer = {
-    imageUrl: string,
-    userName: string
-}
 
 const StoryCard = () => {
     const [res, setRes] = useState([]);
-    const [author, setAuthor] = useState<writer>();
     const [load, setload] = useState(false);
 
     const resData = async () => {
@@ -49,13 +43,13 @@ const StoryCard = () => {
             </> : <>
                 {res && res.map((item: any) => {
                     return <>
-                        <BlogCard  user={item.User} username={author?.userName!} publish={item.createdAt}/>
+                        <BlogCard  user={item.User} publish={item.createdAt}/>
                         <div
                             className="prose-headings:font-title font-default prose mt-4 dark:prose-invert focus:outline-none"
                             dangerouslySetInnerHTML={{ __html: item.content }}
                         />
                         <div className="h-[110px] items-center justify-center flex w-auto pt-12 pr-12 z-50">
-                            <FloatDock />
+                            <FloatDock articleId={item.id}/>
                         </div>
                         <hr className='h-1 bg-zinc-400 my-5' />
                     </>

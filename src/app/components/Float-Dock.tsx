@@ -1,47 +1,52 @@
 "use client"
-import React from "react";
-import {
-    IconExchange,
-} from "@tabler/icons-react";
-import { FloatingDock } from "../components/ui/floating-dock";
-import { AppWindow, DraftingCompass, Heart, MessageCircle, PersonStanding, SquarePen } from "lucide-react";
+import { AppWindow, Heart, MessageCircle, PersonStanding } from "lucide-react";
+import { AnimatedTooltip } from "../../app/components/ui/animated-tooltip"
 
-const FloatDock = () => {
+interface props {
+    articleId:string
+}
+
+const FloatDock = ({articleId}:props) => {
+
     const links = [
         {
             title: "Author",
+            id:1,
             icon: (
-                <PersonStanding className="h-full w-full text-neutral-300"/>
+                <PersonStanding className="h-full w-full text-neutral-300" />
             ),
             href: "/dashboard",
         },
         {
             title: "All Story",
+            id:2,
             icon: (
-                <AppWindow className="h-full w-full text-neutral-300"/>
+                <AppWindow className="h-full w-full text-neutral-300" />
             ),
             href: "#",
         },
         {
             title: "View Comment",
+            id:3,
             icon: (
-                <MessageCircle className="h-full w-full text-neutral-300"/>
+                <MessageCircle className="h-full w-full text-neutral-300" />
             ),
             href: "#",
         },
         {
             title: "Like",
+            id:4,
             icon: (
-                <Heart className="h-full text-red-500 w-full fill-red-500"/>
+                <Heart className="h-full text-red-500 w-full fill-red-500" />
             ),
             href: "#",
         },
     ];
     return (
-    <div className="bg-black">
-       <FloatingDock items={links} />
-    </div>
-  )
+        <div className="flex flex-row items-center bg-black justify-center mb-10 w-full gap-x-12">
+             <AnimatedTooltip items={links} articleId={articleId} />
+        </div>
+    )
 }
 
 export default FloatDock

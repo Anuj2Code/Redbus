@@ -317,7 +317,6 @@ export async function createComment(preData: any, formData: FormData) {
     const postId = formData.get("postId") as string;
     const text = formData.get("text") as string;
     const replyId = formData.get("replyId") as string;
-    console.log(text, "RepyId");
 
     try {
         await prisma.comment.create({
@@ -419,4 +418,33 @@ export async function saveDelete(formData: FormData) {
         console.log(error);
     }
    return revalidatePath("/Post-save");
+}
+
+export async function CreateArticleComments(preData:any,formData: FormData){
+    const { getUser } = getKindeServerSession();
+    const user = await getUser();
+    if (!user) {
+        return redirect("/api/auth/login");
+    }
+    const text = formData.get("comment") as string;
+    const articleId = formData.get("articleId") as string
+    try {
+        await prisma.articleComment.create({
+            data:{
+                userId:user.id,
+                text:text,
+                articleId:articleId
+            }
+        })
+        return {
+            message: "Commented",
+            status: "green",
+        };
+    } catch (error) {
+        console.log(error,"[Error from article commment]");
+        return {
+            status: "error",
+            message: "Sorry something went wrong!",
+        };
+    }
 }

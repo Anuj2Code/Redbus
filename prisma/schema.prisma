@@ -33,6 +33,11 @@ model User {
   Members            Member[]
   channels           channel[]
   AIOutput           AIOutput[]
+  ArticleComment     ArticleComment[]
+
+  ArticleVote ArticleVote[]
+
+  ArticelCommentVote ArticelCommentVote[]
 }
 
 model Subbreddits {
@@ -191,6 +196,7 @@ model channel {
 }
 
 // below message model is used for channel
+
 model Message {
   id        String   @id @default(uuid())
   content   String   @db.Text
@@ -247,6 +253,8 @@ model AIOutput {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   createdBy   String
+  ArticleComment ArticleComment[]
+  ArticleVote ArticleVote[]
 }
 
 model UserSubcription {
@@ -255,4 +263,35 @@ model UserSubcription {
   active    Boolean
   paymentId String
   joinedAt  DateTime @default(now())
+}
+
+model ArticleComment {
+  id  String  @id @default(uuid())
+  text      String
+  createdAt DateTime    @default(now())
+  userId    String
+  User      User           @relation(fields: [userId], references: [id])
+  articleId String
+  article  AIOutput @relation(fields: [articleId],references: [id])
+  
+
+  ArticelCommentVote ArticelCommentVote[]
+}
+
+model ArticleVote {
+  id       String     @id @default(uuid())
+  articleId String    @unique
+  article  AIOutput @relation(fields: [articleId],references: [id])
+  userId    String
+  User      User           @relation(fields: [userId], references: [id])
+  voteType TypeOfVote
+}
+
+model ArticelCommentVote {
+  id        String         @id @default(uuid())
+  user      User           @relation(fields: [userId], references: [id])
+  userId    String
+  articleCommentId String
+  articleComment  ArticleComment  @relation(fields: [articleCommentId],references: [id])
+  voteType  TypeOfVote
 }

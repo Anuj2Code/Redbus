@@ -126,3 +126,19 @@ export function Comment_btn({ text }: { text: string }) {
     </>
   );
 }
+
+export function CommentArticle() {
+  const { pending } = useFormStatus();
+  return (
+    <>
+      {pending ? (
+        <Button disabled>
+          <Loader2 className="mr-2 w-4 h-4 animate-spin" />
+          Please wait
+        </Button>
+      ) : (
+        <Button type="submit" className="bg-[#2aa06b] hover:bg-[#3ecf8e] text-white transition-all duration-150">Send message</Button>
+      )}
+    </>
+  );
+}
