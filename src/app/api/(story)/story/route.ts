@@ -10,7 +10,8 @@ export async function GET(request: NextRequest) {
                createdBy:true,
                id:true,
                User:true,
-               createdAt:true
+               createdAt:true,
+               StoryVote:true
             },
             orderBy: {
                 createdAt: "desc"

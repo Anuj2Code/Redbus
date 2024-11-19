@@ -238,13 +238,10 @@ export async function handleVote(preData: any, formData: FormData) {
             postId: postId,
         },
     });
-
     return {
         message: "subscribed",
         status: "green",
     };
-
-    
 }
 
 export async function CommentVote(preData: any, formData: FormData) {

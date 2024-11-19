@@ -15,14 +15,14 @@ datasource db {
 }
 
 model User {
-  id                 String         @id
-  email              String         @unique
+  id                 String           @id
+  email              String           @unique
   firstName          String
   lastName           String
   imageUrl           String?
-  userName           String?        @unique
-  createdAt          DateTime       @default(now())
-  createdSubbreddits Subbreddits[]  @relation("CreatedBy")
+  userName           String?          @unique
+  createdAt          DateTime         @default(now())
+  createdSubbreddits Subbreddits[]    @relation("CreatedBy")
   posts              Post[]
   Subscription       Subscription[]
   Vote               Vote[]
@@ -35,9 +35,12 @@ model User {
   AIOutput           AIOutput[]
   ArticleComment     ArticleComment[]
 
-  ArticleVote ArticleVote[]
 
   ArticelCommentVote ArticelCommentVote[]
+
+  StoryVote StoryVote[]
+
+  follow Follow[]
 }
 
 model Subbreddits {
@@ -244,17 +247,19 @@ model DirectMessage {
 }
 
 model AIOutput {
-  id      String @id @default(uuid())
-  content String
-  prompt  String
-  userId  String
-  User    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  aiGenerated Boolean
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  createdBy   String
+  id             String           @id @default(uuid())
+  content        String
+  prompt         String
+  userId         String
+  User           User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  aiGenerated    Boolean
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  createdBy      String
   ArticleComment ArticleComment[]
-  ArticleVote ArticleVote[]
+  StoryVote      StoryVote[]
+
+  follow Follow[]
 }
 
 model UserSubcription {
@@ -266,32 +271,40 @@ model UserSubcription {
 }
 
 model ArticleComment {
-  id  String  @id @default(uuid())
+  id        String   @id @default(uuid())
   text      String
-  createdAt DateTime    @default(now())
+  createdAt DateTime @default(now())
   userId    String
-  User      User           @relation(fields: [userId], references: [id])
+  User      User     @relation(fields: [userId], references: [id])
   articleId String
-  article  AIOutput @relation(fields: [articleId],references: [id])
-  
+  article   AIOutput @relation(fields: [articleId], references: [id])
 
   ArticelCommentVote ArticelCommentVote[]
 }
 
-model ArticleVote {
-  id       String     @id @default(uuid())
-  articleId String    @unique
-  article  AIOutput @relation(fields: [articleId],references: [id])
-  userId    String
-  User      User           @relation(fields: [userId], references: [id])
-  voteType TypeOfVote
+model ArticelCommentVote {
+  id               String         @id @default(uuid())
+  user             User           @relation(fields: [userId], references: [id])
+  userId           String
+  articleCommentId String
+  articleComment   ArticleComment @relation(fields: [articleCommentId], references: [id])
+  voteType         TypeOfVote
 }
 
-model ArticelCommentVote {
-  id        String         @id @default(uuid())
-  user      User           @relation(fields: [userId], references: [id])
+model StoryVote {
+  id         String   @id @default(uuid())
+  User       User?    @relation(fields: [userId], references: [id])
+  userId     String
+  articleId  String
+  article    AIOutput @relation(fields: [articleId], references: [id])
+  activeVote Boolean
+}
+
+model Follow {
+  id        String   @id @default(uuid())
+  User      User     @relation(fields: [userId], references: [id])
   userId    String
-  articleCommentId String
-  articleComment  ArticleComment  @relation(fields: [articleCommentId],references: [id])
-  voteType  TypeOfVote
+  articleId String
+  article   AIOutput @relation(fields: [articleId], references: [id])
+  activeFollower Boolean
 }

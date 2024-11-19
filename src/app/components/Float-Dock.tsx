@@ -33,14 +33,6 @@ const FloatDock = ({articleId}:props) => {
             ),
             href: "#",
         },
-        {
-            title: "Like",
-            id:4,
-            icon: (
-                <Heart className="h-full text-red-500 w-full fill-red-500" />
-            ),
-            href: "#",
-        },
     ];
     return (
         <div className="flex flex-row items-center bg-black justify-center mb-10 w-full gap-x-12">
