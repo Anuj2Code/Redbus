@@ -30,7 +30,7 @@ export function UserDropdown({ userImage, reddit,username }: props) {
             <MenuIcon className="w-6 h-6 lg:w-5 lg:h-5" />
             <Avatar className={cn("h-7 w-7  md:h-10 md:w-10")}>
               <AvatarImage src={userImage as string} alt="@shadcn" />
-              <AvatarFallback>{username.substring(0, 2).toUpperCase()}</AvatarFallback>
+              <AvatarFallback>{username && username.substring(0, 2).toUpperCase() || "GS"}</AvatarFallback>
             </Avatar>
           </div>
         </DropdownMenuTrigger>

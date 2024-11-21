@@ -22,6 +22,7 @@ import { CreateArticleComments } from "@/app/server";
 import ShowArticleComment from "../ShowArticleComment";
 import { CommentArticle } from "../SubmitButton";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const initialState = {
     message: "",
@@ -41,6 +42,7 @@ export const AnimatedTooltip = ({
     }[], articleId: string,
     authorId:string,
 }) => {
+    const router = useRouter()
     const [text, settext] = useState<string>('')
     const [check, setcheck] = useState<boolean>(false)
     const [state, formaction] = useFormState(CreateArticleComments, initialState);
@@ -65,6 +67,8 @@ export const AnimatedTooltip = ({
         const halfWidth = event.target.offsetWidth / 2;
         x.set(event.nativeEvent.offsetX - halfWidth);
     };
+
+    
     return (
         <>
             {items.map((item, idx) => (

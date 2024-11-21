@@ -18,8 +18,6 @@ interface props {
 
 
 export default function BlogCard({ user, publish, id, voteCount, Follower, Followed }: props) {
-    console.log(Followed, Follower);
-
     const [vot, setVot] = useState(voteCount)
     const [follow, setFollow] = useState(Follower)
     const [isfollow, setIsFollow] = useState<boolean>(Followed)

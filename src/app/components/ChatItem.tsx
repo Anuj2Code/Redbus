@@ -33,7 +33,6 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import { useModal } from "@/hooks/use-modal-store";
 
 interface chatItemProps {
   id: string;

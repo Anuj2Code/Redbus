@@ -29,7 +29,6 @@ const StoryCard = () => {
         setload(true)
         try {
             const result = await axios.get("/api/story");
-            console.log(result, "result");
 
             const newData = result.data.data.map((item: any) => ({
                 ...item,

@@ -3,7 +3,7 @@ import { NextResponseServerIo } from "../../../../../types";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import prisma from "@/app/lib/db";
 
-export default async function handler(req:NextApiRequest,res:NextResponseServerIo) {
+export default async function handler(req: NextApiRequest, res: NextResponseServerIo) {
     if (req.method !== "POST") {
         res.status(400).json({
             error: "Method not allowed"
@@ -30,44 +30,44 @@ export default async function handler(req:NextApiRequest,res:NextResponseServerI
             })
         }
         const conversation = await prisma.authorConverstaion.findFirst({
-            where:{
-                id:conversationId as string,
-                OR:[
-                   {
-                    userIdOne:user?.id
-                   },{
-                    userIdTwo:user?.id
-                   }
+            where: {
+                id: conversationId as string,
+                OR: [
+                    {
+                        userIdOne: user?.id
+                    }, {
+                        userIdTwo: user?.id
+                    }
                 ]
             },
-            include:{
-                UserOne:true,
-                UserTwo:true
+            include: {
+                UserOne: true,
+                UserTwo: true
             }
         })
 
-        const creator = conversation?.UserOne.id===user?.id ? conversation?.UserOne : conversation?.UserTwo;
+        const creator = conversation?.UserOne.id === user?.id ? conversation?.UserOne : conversation?.UserTwo;
 
-        if(creator){
+        if (!creator) {
             res.status(404).json({
                 message: "Member not found"
             })
         }
 
         const message = await prisma.authorMessage.create({
-            data:{
+            data: {
                 content,
-                AuthorconversationId:conversationId as string,
-                userId:creator?.id!
+                AuthorconversationId: conversationId as string,
+                userId: creator?.id!
             },
-            include:{
-               user:true
+            include: {
+                user: true
             }
         })
         const channelKey = `chatAuthor:${conversationId}:messages`;
         res?.socket?.server?.io.emit(channelKey, message)
         res.status(200).json(message)
-    } 
+    }
     catch (error) {
         console.log("[handler_sending_message_author]", error);
         res.status(402).json({
