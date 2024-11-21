@@ -16,60 +16,60 @@ export async function GET(req: NextRequest) {
         if (!user) {
             return new NextResponse("UnAuthorized", { status: 401 })
         }
-        if(!conversationId){
+        if (!conversationId) {
             return new NextResponse("channel ID is missing", { status: 401 })
         }
 
-        let messages:DirectMessage[] = []
+        let messages: DirectMessage[] = []
 
-        if(cursor){
-         messages =  await prisma.directMessage.findMany({
-             take:MESSAGES_PATCH,
-             skip:1,
-             cursor:{
-                id:cursor
-             },
-             where:{
-                conversationId
-             },
-             include:{
-                member:{
-                    include:{
-                        User:true
+        if (cursor) {
+            messages = await prisma.directMessage.findMany({
+                take: MESSAGES_PATCH,
+                skip: 1,
+                cursor: {
+                    id: cursor
+                },
+                where: {
+                    conversationId
+                },
+                include: {
+                    member: {
+                        include: {
+                            User: true
+                        }
                     }
+                },
+                orderBy: {
+                    createdAt: "desc"
                 }
-             },
-             orderBy:{
-                createdAt:"desc"
-             }
-         })
+            })
         }
-        else{
-            messages =  await prisma.directMessage.findMany({
-                take:MESSAGES_PATCH,
-                where:{
-                   conversationId
+        else {
+            messages = await prisma.directMessage.findMany({
+                take: MESSAGES_PATCH,
+                where: {
+                    conversationId
                 },
-                include:{
-                   member:{
-                       include:{
-                           User:true
-                       }
-                   }
+                include: {
+                    member: {
+                        include: {
+                            User: true
+                        }
+                    }
                 },
-                orderBy:{
-                   createdAt:"desc"
+                orderBy: {
+                    createdAt: "desc"
                 }
             })
         }
 
         let nextCursor = null;
-        if(messages.length===MESSAGES_PATCH){
-            nextCursor = messages[MESSAGES_PATCH-1].id;
+        if (messages.length === MESSAGES_PATCH) {
+            nextCursor = messages[MESSAGES_PATCH - 1].id;
         }
 
         return NextResponse.json({
-            items:messages,
+            items: messages,
             nextCursor
         })
     } catch (error) {

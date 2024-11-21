@@ -20,8 +20,8 @@ import { Hash } from "lucide-react";
 import { useFormState } from "react-dom";
 import { CreateArticleComments } from "@/app/server";
 import ShowArticleComment from "../ShowArticleComment";
-import { useRouter } from "next/navigation";
-import { Comment_btn, CommentArticle } from "../SubmitButton";
+import { CommentArticle } from "../SubmitButton";
+import Link from "next/link";
 
 const initialState = {
     message: "",
@@ -30,16 +30,17 @@ const initialState = {
 
 export const AnimatedTooltip = ({
     items,
-    articleId
+    articleId,
+    authorId,
 }: {
     items: {
         id: number;
         title: string;
         href: string;
         icon: React.ReactNode
-    }[], articleId: string
+    }[], articleId: string,
+    authorId:string,
 }) => {
-    const router = useRouter()
     const [text, settext] = useState<string>('')
     const [check, setcheck] = useState<boolean>(false)
     const [state, formaction] = useFormState(CreateArticleComments, initialState);
@@ -103,6 +104,11 @@ export const AnimatedTooltip = ({
                             </motion.div>
                         )}
                     </AnimatePresence>
+                    {item.title === "Chat with Author" && <Link href={`${item.href}/${authorId}`}>  <div
+                        onMouseMove={handleMouseMove}
+                        className=" object-top top-3 cursor-pointer  h-6 w-6  group-hover:scale-105 group-hover:z-30  relative transition duration-500"
+                    >{item.icon}
+                    </div></Link>}
                     {item.title === "View Comment" && <Sheet>
                         <SheetTrigger asChild>
                             <div
@@ -127,7 +133,7 @@ export const AnimatedTooltip = ({
                                         value={text}
                                         name="comment"
                                         className="bg-[#171717] p-4 focus-visible:ring-0 focus-visible:ring-offset-0" />
-                                   <CommentArticle/>
+                                    <CommentArticle />
                                 </div>
                             </form>
                             <div>
@@ -139,7 +145,7 @@ export const AnimatedTooltip = ({
                     <div
                         onMouseMove={handleMouseMove}
                         className="object-cover cursor-pointer !m-0 !p-0 object-top  h-6 w-6  group-hover:scale-105 group-hover:z-30  relative transition duration-500"
-                    >{item.title !== "View Comment" && item.icon}
+                    >{item.title !== "View Comment" && item.title !== "Chat with Author" && item.icon}
                     </div>
                 </div>
             ))}

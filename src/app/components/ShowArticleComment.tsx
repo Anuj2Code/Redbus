@@ -44,6 +44,7 @@ export default function ShowArticleComment({ id,fetch,setCheck}: Props) {
 
   return (
     <>
+    
       { comment &&
         comment.map((item: commentProps, index: number) => {
           return (
@@ -66,8 +67,6 @@ export default function ShowArticleComment({ id,fetch,setCheck}: Props) {
                 {item.text}
               </p>
               <div className="flex gap-2 items-center">
-                {/* Uncomment and implement this as needed */}
-                {/* <VoteOnComment commentId={item.id} /> */}
               </div>
             </div>
           )}

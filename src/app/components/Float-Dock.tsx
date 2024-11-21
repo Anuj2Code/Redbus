@@ -4,18 +4,19 @@ import { AnimatedTooltip } from "../../app/components/ui/animated-tooltip"
 
 interface props {
     articleId:string
+    authorId:string
 }
 
-const FloatDock = ({articleId}:props) => {
+const FloatDock = ({articleId,authorId}:props) => {
 
     const links = [
         {
-            title: "Author",
+            title: "Chat with Author",
             id:1,
             icon: (
                 <PersonStanding className="h-full w-full text-neutral-300" />
             ),
-            href: "/dashboard",
+            href: "/chat-author",
         },
         {
             title: "All Story",
@@ -36,7 +37,7 @@ const FloatDock = ({articleId}:props) => {
     ];
     return (
         <div className="flex flex-row items-center bg-black justify-center mb-10 w-full gap-x-12">
-             <AnimatedTooltip items={links} articleId={articleId} />
+             <AnimatedTooltip items={links} articleId={articleId} authorId={authorId} />
         </div>
     )
 }

@@ -34,7 +34,6 @@ export default async function handler(req: NextApiRequest, res: NextResponseServ
             })
         }
 
-
         const conversation = await prisma.conversation.findFirst({
             where: {
                 id: conversationId as string,

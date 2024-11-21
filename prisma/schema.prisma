@@ -35,12 +35,17 @@ model User {
   AIOutput           AIOutput[]
   ArticleComment     ArticleComment[]
 
-
   ArticelCommentVote ArticelCommentVote[]
 
   StoryVote StoryVote[]
 
   follow Follow[]
+
+  AuthorConverstaioninitialised AuthorConverstaion[] @relation("UserOne")
+
+  AuthorConverstaion AuthorConverstaion[] @relation("UserTwo")
+
+  AuthorMessage AuthorMessage[]
 }
 
 model Subbreddits {
@@ -301,10 +306,38 @@ model StoryVote {
 }
 
 model Follow {
-  id        String   @id @default(uuid())
-  User      User     @relation(fields: [userId], references: [id])
-  userId    String
-  articleId String
-  article   AIOutput @relation(fields: [articleId], references: [id])
+  id             String   @id @default(uuid())
+  User           User     @relation(fields: [userId], references: [id])
+  userId         String
+  articleId      String
+  article        AIOutput @relation(fields: [articleId], references: [id])
   activeFollower Boolean
+}
+
+model AuthorConverstaion {
+  id            String          @id @default(uuid())
+  userIdOne     String
+  UserOne       User            @relation("UserOne", fields: [userIdOne], references: [id], onDelete: Cascade)
+  userIdTwo     String
+  UserTwo       User            @relation("UserTwo", fields: [userIdTwo], references: [id], onDelete: Cascade)
+  AuthorMessage AuthorMessage[]
+
+  @@unique([userIdOne, userIdTwo])
+  @@index([userIdTwo])
+  @@index([userIdOne])
+}
+
+model AuthorMessage {
+  id                   String             @id @default(uuid())
+  content              String             @db.Text
+  userId               String // like who is gone be send message
+  user                 User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  AuthorconversationId String
+  Authorconversation   AuthorConverstaion @relation(fields: [AuthorconversationId], references: [id], onDelete: Cascade)
+  deleted              Boolean            @default(false)
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime           @updatedAt
+
+  @@index([AuthorconversationId])
+  @@index([userId])
 }

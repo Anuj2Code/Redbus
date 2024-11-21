@@ -1,5 +1,5 @@
 
-import StoryCard from "../components/StoryCard";
+import StoryCard from "../../components/StoryCard";
 
 export default function ReadstoriesHome() {
     return (

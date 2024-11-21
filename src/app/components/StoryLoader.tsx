@@ -2,8 +2,8 @@ import React from 'react'
 
 const StoryLoader = () => {
   return (
-    <div className="flex flex-col ml-4">
-    <div className="p-2 md:p-10 bg-black ml-4 flex flex-col gap-2 flex-1 w-full h-full md:w-[100vw]">
+    <div className="flex flex-col ml-4 overflow-x-hidden ">
+    <div className="p-2 md:p-10 bg-black ml-4 flex flex-col gap-2 flex-1 w-full h-full md:w-[90vw] overflow-x-hidden">
             <div className="flex flex-col gap-4 ml-4">
                 {[...new Array(3)].map((i) => (
                     <div
@@ -21,7 +21,7 @@ const StoryLoader = () => {
                 ))}
             </div>
         </div>
-    <div className="p-2 md:p-10 bg-black ml-4 flex flex-col gap-2 flex-1 w-full h-full md:w-[100vw]">
+    <div className="p-2 md:p-10 bg-black ml-4 flex flex-col gap-2 flex-1 w-full h-full md:w-[90vw] overflow-x-hidden">
             <div className="flex flex-col gap-4 ml-4">
                 {[...new Array(3)].map((i) => (
                     <div
@@ -39,7 +39,7 @@ const StoryLoader = () => {
                 ))}
             </div>
         </div>
-    <div className="p-2 md:p-10 bg-black ml-4 flex flex-col gap-2 flex-1 w-full h-full md:w-[100vw]">
+    <div className="p-2 md:p-10 bg-black ml-4 flex flex-col gap-2 flex-1 w-full h-full md:w-[90vw] overflow-x-hidden">
             <div className="flex flex-col gap-4 ml-4">
                 {[...new Array(3)].map((i) => (
                     <div
@@ -57,7 +57,7 @@ const StoryLoader = () => {
                 ))}
             </div>
         </div>
-    <div className="p-2 md:p-10 bg-black ml-4 flex flex-col gap-2 flex-1 w-full h-full md:w-[100vw]">
+    <div className="p-2 md:p-10 bg-black ml-4 flex flex-col gap-2 flex-1 w-full h-full md:w-[90vw] overflow-x-hidden">
             <div className="flex flex-col gap-4 ml-4">
                 {[...new Array(3)].map((i) => (
                     <div
@@ -75,7 +75,7 @@ const StoryLoader = () => {
                 ))}
             </div>
         </div>
-    <div className="p-2 md:p-10 bg-black ml-4 flex flex-col gap-2 flex-1 w-full h-full md:w-[100vw]">
+    <div className="p-2 md:p-10 bg-black ml-4 flex flex-col gap-2 flex-1 w-full h-full md:w-[90vw]">
             <div className="flex flex-col gap-4 ml-4">
                 {[...new Array(3)].map((i) => (
                     <div
@@ -93,7 +93,7 @@ const StoryLoader = () => {
                 ))}
             </div>
         </div>
-    <div className="p-2 md:p-10 bg-black ml-4 flex flex-col gap-2 flex-1 w-full h-full md:w-[100vw]">
+    <div className="p-2 md:p-10 bg-black ml-4 flex flex-col gap-2 flex-1 w-full h-full md:w-[90vw]">
             <div className="flex flex-col gap-4 ml-4">
                 {[...new Array(3)].map((i) => (
                     <div
