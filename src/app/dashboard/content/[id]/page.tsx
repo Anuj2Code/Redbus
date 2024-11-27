@@ -20,12 +20,12 @@ interface itemProps {
 }
 
 export default function content({ params }: props) {
-    const {promptGenerated} = useModal()
+    const { promptGenerated } = useModal()
     const [loading, setLoading] = useState(false)
     const [response, setResponse] = useState("")
     const [prm, setPrm] = useState("")
     const templateData = template.find((item: itemProps) => item.slug === params.id);
- 
+
     const GetPrompt = async (prompt: any) => {
         setLoading(true)
         const FinalPrompt = JSON.stringify(prompt) + ", " + templateData?.slug
@@ -35,14 +35,18 @@ export default function content({ params }: props) {
         setResponse(result.response.text());
         setLoading(false);
     }
-    
+
     return (
-        <div className="flex md:flex gap-x-12 w-full">
-            <FormSection paramId={params.id} userFormInput={(v: any) => GetPrompt(v)} loading={loading} 
-            prm={prm}
-            response={response}
-                />
-            <Outputsection response={response} setResponse={setResponse}/>
+        <div className="flex flex-col md:flex-row gap-4 w-full">
+            <FormSection
+                paramId={params.id}
+                userFormInput={(v: any) => GetPrompt(v)}
+                loading={loading}
+                prm={prm}
+                response={response}
+            />
+            <Outputsection response={response} setResponse={setResponse} />
         </div>
+
     )
 }

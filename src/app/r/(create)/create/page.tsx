@@ -1,4 +1,5 @@
 "use client";
+
 import { CreateCommunity } from "@/app/server";
 import { Pencil } from "lucide-react";
 import { SubmitButton } from "@/app/components/SubmitButton";
@@ -18,9 +19,10 @@ const initalState = {
 
 export default function SubredditPage() {
     const [state, formAction] = useFormState(CreateCommunity, initalState);
-     const {toast} = useToast()
+    const { toast } = useToast();
+
     useEffect(() => {
-        if (state?.status === 'error') {
+        if (state?.status === "error") {
             toast({
                 title: "Error",
                 description: state.message,
@@ -30,35 +32,43 @@ export default function SubredditPage() {
     }, [state, toast]);
 
     return (
-        <div className="w-auto min-h-screen items-center flex bg-black mx-auto   flex-col ">
-            <div className="px-14 w-[80%]">
+        <div className="w-full min-h-screen flex flex-col items-center bg-black px-4 sm:px-6 md:px-10 lg:px-14">
+            <div className="w-full sm:w-[90%] lg:w-[80%]">
                 <form action={formAction}>
-                    <div className="flex gap-4 mt-8">
-                        <Pencil className="mt-2"/>
-                        <h1 className="text-3xl font-extrabold tracking-tight">
+                    {/* Heading */}
+                    <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center mt-8">
+                        <Pencil className="w-6 h-6" />
+                        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
                             Create Community
                         </h1>
                     </div>
                     <Separator className="my-4" />
-                    <Label className="text-lg">Name</Label>
-                    <p className="text-muted-foreground">
-                        Community names including capitalization cannot be changed!
-                    </p>
 
+                    {/* Name Input */}
+                    <Label className="text-lg">Name</Label>
+                    <p className="text-sm text-muted-foreground">
+                        Community names, including capitalization, cannot be changed!
+                    </p>
                     <div className="relative mt-3">
-                        <p className="absolute left-0 w-8 flex items-center justify-center h-full text-muted-foreground">
+                        <p className="absolute left-2 w-8 flex items-center justify-center h-full text-muted-foreground">
                             r/
                         </p>
                         <Input
                             name="name"
                             required
-                            className="pl-6"
+                            className="pl-8"
                             minLength={2}
                             maxLength={21}
                         />
                     </div>
-                    <p className="mt-1 text-destructive text-red-500">{state?.message}</p>
-                    <div className="w-full flex mt-5 gap-x-5 justify-end">
+                    {state?.message && (
+                        <p className="mt-1 text-sm text-destructive text-red-500">
+                            {state.message}
+                        </p>
+                    )}
+
+                    {/* Action Buttons */}
+                    <div className="w-full flex flex-col sm:flex-row mt-5 gap-3 sm:gap-x-5 justify-end">
                         <Button variant="secondary" asChild>
                             <Link href="/">Cancel</Link>
                         </Button>

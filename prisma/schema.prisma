@@ -46,6 +46,10 @@ model User {
   AuthorConverstaion AuthorConverstaion[] @relation("UserTwo")
 
   AuthorMessage AuthorMessage[]
+
+  MockInterview MockInterview[]
+
+  MockFeedback MockFeedback[]
 }
 
 model Subbreddits {
@@ -340,4 +344,31 @@ model AuthorMessage {
 
   @@index([AuthorconversationId])
   @@index([userId])
+}
+
+model MockInterview {
+  id            String   @id @default(uuid())
+  MockResp      Json
+  JobPost       String
+  JobDesc       String
+  JobExperience String
+  MockId        String   @unique
+  createdBy     String
+  userId        String
+  User          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model MockFeedback {
+  id            String   @id @default(uuid())
+  MockIdRef     String   @unique
+  question      String
+  correctAnswer String
+  userAnswer    String
+  feedback      String
+  rating        Int
+  userId        String
+  User          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt     DateTime @default(now())
 }

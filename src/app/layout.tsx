@@ -20,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark bg-black scroll-smooth" >
+    <html lang="en" className="dark bg-black scroll-smooth overflow-x-hidden" >
       <body className={inter.className}>
        <Navbar/>
         <ModalProvider />

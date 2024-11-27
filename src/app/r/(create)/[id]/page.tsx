@@ -28,7 +28,7 @@ async function getData(name: string, searchParam: string) {
       },
       select: {
         name: true,
-        id:true,
+        id: true,
         createdAt: true,
         description: true,
         userId: true,
@@ -38,22 +38,22 @@ async function getData(name: string, searchParam: string) {
           select: {
             comments: {
               select: {
-                  id: true,
-                  userId:true,
-                  text:true,
-                  createdAt:true,
-                  User:true,
-                  votes:{
-                      select:{
-                          userId:true,
-                          voteType:true
-                      }
+                id: true,
+                userId: true,
+                text: true,
+                createdAt: true,
+                User: true,
+                votes: {
+                  select: {
+                    userId: true,
+                    voteType: true
                   }
+                }
               },
-              orderBy:{
-                  createdAt:"desc"
+              orderBy: {
+                createdAt: "desc"
               }
-          },
+            },
             title: true,
             imageString: true,
             id: true,
@@ -78,7 +78,6 @@ async function getData(name: string, searchParam: string) {
   return { data, count };
 }
 
-
 export default async function redditPage({
   params,
   searchParams,
@@ -88,7 +87,7 @@ export default async function redditPage({
 }) {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
-  const { data, count } = await getData(params.id,searchParams.page)
+  const { data, count } = await getData(params.id, searchParams.page)
 
   const subscription = !user?.id ? undefined : await prisma.subscription.findFirst({
     where: {
@@ -103,8 +102,6 @@ export default async function redditPage({
 
   const isSubreddit = !!subscription;
 
-  // <= check if isSubreddit is not present the make not found reddit =>
-
   const memberCount = await prisma.subscription.count({
     where: {
       subreddit: {
@@ -114,35 +111,37 @@ export default async function redditPage({
   })
 
   return (
-    <div className="w-auto mx-auto flex gap-x-10 items-center justify-center pt-8 bg-black mb-10">
-      <div className="px-14 w-[80%] flex justify-between ">
-      <div className="w-[55%] flex flex-col gap-y-5 pl-12 ">
-        <CreatePost />
-            {data && data.posts.map((post:any) => {
-              return (
-                <PostCard
-                  id={post.id}
-                  comments={post.comments}
-                  imageString={post.imageString}
-                  jsonContent={post.textContent}
-                  subName={post.subName as string}
-                  title={post.title}
-                  key={post.id}
-                  commentAmount={post.comments.length}
-                  userName={post.User?.userName as string}
-                  voteCount={post.Vote.reduce((acc: number, vote: { voteType: string; }) => {
-                    if (vote.voteType === "UP") return acc + 1;
-                    if (vote.voteType === "DOWN") return acc - 1;
+    <div className="w-full mx-auto flex flex-col lg:flex-row gap-6 lg:gap-10 items-center justify-center pt-8 bg-black mb-10">
+      <div className="px-4 sm:px-8 lg:px-14 w-full lg:w-[80%] flex flex-col lg:flex-row justify-between">
+        {/* Left Section */}
+        <div className="w-full lg:w-[55%] flex flex-col gap-y-5 pl-4 lg:pl-12">
+          <CreatePost name={data?.name!} />
+          {data && data.posts.map((post: any) => {
+            return (
+              <PostCard
+                id={post.id}
+                comments={post.comments}
+                imageString={post.imageString}
+                jsonContent={post.textContent}
+                subName={post.subName as string}
+                title={post.title}
+                key={post.id}
+                commentAmount={post.comments.length}
+                userName={post.User?.userName as string}
+                voteCount={post.Vote.reduce((acc: number, vote: { voteType: string; }) => {
+                  if (vote.voteType === "UP") return acc + 1;
+                  if (vote.voteType === "DOWN") return acc - 1;
 
-                    return acc;
-                  }, 0)}
-                />
-              )
-            })
-            }
-             <Pagination totalPages={Math.ceil(count / 3)} />
-      </div>
-        <div className="w-[35%]">
+                  return acc;
+                }, 0)}
+              />
+            )
+          })}
+          <Pagination totalPages={Math.ceil(count / 3)} />
+        </div>
+
+        {/* Right Section */}
+        <div className="w-full lg:w-[35%] max-[950px]:mt-4">
           <Card>
             <div className="bg-muted p-4 font-semibold">About Community</div>
             <div className="p-4">
@@ -183,29 +182,19 @@ export default async function redditPage({
                 <h1 className="text-muted-foreground font-medium text-sm pt-1 pl-4">{memberCount}</h1>
               </div>
               <Separator className="my-5" />
-              {user?.id !== data?.userId ?
-                (
-                  <>
-                      <Subscribe id={data?.id!} userId={user?.id!} isSubscribed={isSubreddit}/>
-                  </>
-                )
-                : (
-                  <Button asChild className="rounded-md w-full bg-orange-500 hover:bg-orange-600 text-white">
-                    <Link
-                      href={user?.id ? `/r/${data?.name}/create` : "/api/auth/login"}
-                    >
-                      Create Post
-                    </Link>
-                  </Button>
-                )
-              }
+              {user?.id !== data?.userId ? (
+                <Subscribe id={data?.id!} userId={user?.id!} isSubscribed={isSubreddit} />
+              ) : (
+                <Button asChild className="rounded-md w-full bg-orange-500 hover:bg-orange-600 text-white">
+                  <Link href={user?.id ? `/r/${data?.name}/create` : "/api/auth/login"}>
+                    Create Post
+                  </Link>
+                </Button>
+              )}
             </div>
           </Card>
         </div>
       </div>
     </div>
-  )
+  );
 }
-
-
-// My community -> /r/name

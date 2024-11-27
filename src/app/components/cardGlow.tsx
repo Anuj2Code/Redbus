@@ -77,7 +77,7 @@ export function CardSpotlightDemo({ title, price, step1, step2, step3, step4, de
         type="text/javascript"
         src="https://checkout.razorpay.com/v1/checkout.js"
       />
-      <div className="flex flex-col">
+      <div className="flex flex-col max-[600px]:relative max-[600px]:top-32">
         <CardSpotlight className="h-96 w-96">
           <p className="text-xl font-bold relative text-center z-20 mt-2 text-white">
             {title}

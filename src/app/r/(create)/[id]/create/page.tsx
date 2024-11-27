@@ -1,4 +1,3 @@
-
 "use client";
 import React, { useState } from "react";
 import { ShootingStars } from "../../../../components/ui/shooting-stars";
@@ -6,43 +5,33 @@ import { StarsBackground } from "../../../../components/ui/stars-background";
 import { Card, CardHeader } from "@/components/ui/card";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
-import ph from "../../../../../../public/a89add_3d73f7e43cff4f37bdf0af4772ef6595~mv2.gif"
+import ph from "../../../../../../public/a89add_3d73f7e43cff4f37bdf0af4772ef6595~mv2.gif";
 import Link from "next/link";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Text, Video } from "lucide-react";
 import { UploadDropzone } from "@/app/components/Uploadthing";
-import Editor from "../../../../components/Editor"
+import Editor from "../../../../components/Editor";
+
 const rules = [
-    {
-        id: 1,
-        text: "Remember the human",
-    },
-    {
-        id: 2,
-        text: "Behave like you would in real life",
-    },
-    {
-        id: 3,
-        text: "Look for the original source of content",
-    },
-    {
-        id: 4,
-        text: "Search for duplication before posting",
-    },
-    {
-        id: 5,
-        text: "Read the community guidlines",
-    },
+    { id: 1, text: "Remember the human" },
+    { id: 2, text: "Behave like you would in real life" },
+    { id: 3, text: "Look for the original source of content" },
+    { id: 4, text: "Search for duplication before posting" },
+    { id: 5, text: "Read the community guidelines" },
 ];
 
 export default function createPostRoute({ params }: { params: { id: string } }) {
     const [imageUrl, setImageUrl] = useState<null | string>(null);
     return (
-        <div className="min-h-screen rounded-md bg-black flex  relative w-full px-24 gap-x-10 pt-12">
-            <div className="w-[65%] h-5 flex flex-col gap-y-5">
-                <h1 className="z-50">
+        <div className="min-h-screen flex flex-col lg:flex-row bg-black w-full px-4 sm:px-6 md:px-12 lg:px-24 gap-6 lg:gap-10 pt-6 lg:pt-12 relative">
+            {/* Left Section */}
+            <div className="w-full lg:w-[65%] flex flex-col gap-y-6">
+                <h1 className="z-50 text-lg sm:text-xl">
                     Subreddit :{" "}
-                    <Link href={`/r/${params.id}`} className="text-orange-400 pl-4 hover:underline hover:cursor-pointer  underline-offset-4">
+                    <Link
+                        href={`/r/${params.id}`}
+                        className="text-orange-400 pl-2 hover:underline hover:cursor-pointer underline-offset-4"
+                    >
                         r/{params.id}
                     </Link>
                 </h1>
@@ -58,7 +47,7 @@ export default function createPostRoute({ params }: { params: { id: string } }) 
                     </TabsList>
                     <TabsContent value="post">
                         <Card>
-                            <Editor imageUrl={imageUrl} subName={params.id}/>
+                            <Editor imageUrl={imageUrl} subName={params.id} />
                         </Card>
                     </TabsContent>
                     <TabsContent value="image">
@@ -88,17 +77,25 @@ export default function createPostRoute({ params }: { params: { id: string } }) 
                     </TabsContent>
                 </Tabs>
             </div>
-            <div className="w-[35%]">
+
+            {/* Right Section */}
+            <div className="w-full lg:w-[35%]">
                 <Card className="flex flex-col p-4">
                     <div className="flex items-center gap-x-2">
-                        <Image className="h-20 w-20" src={ph} alt="pfp" height={350} width={400} />
-                        <h1 className="font-medium">Posting to Reddit</h1>
+                        <Image
+                            className="h-16 w-16 sm:h-20 sm:w-20"
+                            src={ph}
+                            alt="pfp"
+                            height={350}
+                            width={400}
+                        />
+                        <h1 className="text-base sm:text-lg font-medium">Posting to Reddit</h1>
                     </div>
                     <Separator className="mt-2" />
-                    <div className="flex flex-col gap-y-5 mt-5">
+                    <div className="flex flex-col gap-y-4 mt-5">
                         {rules.map((item) => (
                             <div key={item.id}>
-                                <p className="text-sm font-medium">
+                                <p className="text-sm sm:text-base font-medium">
                                     {item.id}. {item.text}
                                 </p>
                                 <Separator className="mt-2" />
@@ -107,8 +104,9 @@ export default function createPostRoute({ params }: { params: { id: string } }) 
                     </div>
                 </Card>
             </div>
+
             <ShootingStars />
             <StarsBackground />
         </div>
-    )
+    );
 }

@@ -7,7 +7,7 @@ import {
 
 const page = () => {
   return (
-    <div className="w-full mx-auto px-8 overflow-y-scroll my-3">
+    <div className="w-full mx-auto px-8 overflow-y-scroll my-3 overflow-x-hidden">
       <div><TextRevealCard
       className='bg-black border-0 w-[1000px] my-3'
         text="Template You Like !"

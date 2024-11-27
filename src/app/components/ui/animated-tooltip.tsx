@@ -146,11 +146,13 @@ export const AnimatedTooltip = ({
                             <ShowArticleComment id={articleId} fetch={check} setCheck={setcheck} />
                         </SheetContent>
                     </Sheet>}
-                    <div
+                 <Link href={item.href}>
+                 <div
                         onMouseMove={handleMouseMove}
                         className="object-cover cursor-pointer !m-0 !p-0 object-top  h-6 w-6  group-hover:scale-105 group-hover:z-30  relative transition duration-500"
                     >{item.title !== "View Comment" && item.title !== "Chat with Author" && item.icon}
                     </div>
+                 </Link>
                 </div>
             ))}
         </>

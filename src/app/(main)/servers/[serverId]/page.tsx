@@ -35,6 +35,6 @@ export default async function ServerPage({params}:{params:{serverId:string}}) {
     // // if(initialChannels?.name!=='general') return null;
     // // return redirect(`/servers/${server?.id}/channels/${initialChannels?.id}`)
     return (
-        <ServerWelcome name={server?.name as string}/>
+        <ServerWelcome name={server?.name as string} />
     )
 }

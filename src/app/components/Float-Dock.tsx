@@ -24,7 +24,7 @@ const FloatDock = ({articleId,authorId}:props) => {
             icon: (
                 <AppWindow className="h-full w-full text-neutral-300" />
             ),
-            href: "#",
+            href: `/Author/${authorId}`,
         },
         {
             title: "View Comment",

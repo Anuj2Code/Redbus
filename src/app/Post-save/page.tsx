@@ -110,12 +110,13 @@ export default async function savePost() {
     const save_details = await findData(user?.id!)
     const post_details = await Post_detail(save_details);
     return (
-        <div className="flex bg-black justify-center py-16">
-           {post_details?.length ?  <Label className="w-auto left-[500px] relative bottom-12 h-auto font-mono  text-4xl font-semibold bg-clip-text text-transparent bg-no-repeat bg-gradient-to-r from-blue-500 to-sky-500 flex gap-4"><Star className="text-white mt-2"/> <p>My BookMark</p></Label>:null}
-            <div className="w-[50%] gap-4 flex flex-col justify-center mt-4">
+        <div className="flex bg-black justify-center items-center flex-col py-16">
+            {post_details?.length ? <Label className="w-auto h-auto text-4xl font-semibold bg-clip-text text-transparent bg-no-repeat bg-gradient-to-r from-blue-500 to-sky-500 flex gap-4"><Star className="text-white mt-2" /> <p>My BookMark</p></Label> : null}
+            <div className="gap-4 flex w-[100vw]  items-center flex-col justify-center mt-4">
                 {post_details?.length ? post_details.map((item) => {
                     return (
-                        <Card className="flex gap-4 relative overflow-hidden" key={item.id}>
+                        <Card className="flex flex-col md:flex-row gap-4 relative overflow-hidden" key={item.id}>
+                            {/* Left Column: Vote and Heart Button */}
                             <div className="flex flex-col items-center gap-y-2 bg-muted p-3 justify-center">
                                 <Link href={`/post/${item.id}`}>
                                     <Heart />
@@ -124,13 +125,15 @@ export default async function savePost() {
                                     item.Vote.reduce((acc: number, vote: { voteType: string; }) => {
                                         if (vote.voteType === "UP") return acc + 1;
                                         if (vote.voteType === "DOWN") return acc - 1;
-
                                         return acc;
                                     }, 0)
                                 }
                             </div>
-                            <div>
-                                <div className="md:w-[600px] flex items-center justify-between gap-x-2 p-2">
+
+                            {/* Right Column: Post Details */}
+                            <div className="flex flex-col w-full">
+                                {/* Subreddit Info and Post Delete */}
+                                <div className="flex flex-col md:flex-row items-start justify-between gap-2 p-2">
                                     <div>
                                         <Link className="font-semibold text-xs" href={`/r/${item.subName}`}>
                                             r/{item.subName}
@@ -139,7 +142,7 @@ export default async function savePost() {
                                             Posted by: <span className="hover:text-primary">u/{item.User?.userName}</span>
                                         </p>
                                     </div>
-                                    <div className="mt-4">
+                                    <div className="mt-4 md:mt-0">
                                         <form action={saveDelete}>
                                             <input type="hidden" name="id" value={item.id} />
                                             <Button type="submit" className="">
@@ -149,11 +152,14 @@ export default async function savePost() {
                                     </div>
                                 </div>
 
+                                {/* Post Title */}
                                 <div className="px-2">
                                     <Link href={`/post/${item.id}`}>
                                         <h1 className="font-medium mt-1 text-lg">{item.title}</h1>
                                     </Link>
                                 </div>
+
+                                {/* Post Image or Content */}
                                 <div className="max-h-[300px] overflow-hidden">
                                     {item.imageString ? (
                                         <Image
@@ -161,51 +167,51 @@ export default async function savePost() {
                                             alt="Post Image"
                                             width={600}
                                             height={300}
-                                            className="w-full h-full"
+                                            className="w-full h-full object-cover"
                                         />
                                     ) : (
                                         <div
-                                            className='prose-headings:font-title font-default prose mt-4 dark:prose-invert focus:outline-none'
+                                            className="prose-headings:font-title font-default prose mt-4 dark:prose-invert focus:outline-none"
                                             dangerouslySetInnerHTML={{ __html: item.textContent! }}
                                         ></div>
                                     )}
                                 </div>
-                                <div className="flex">
+
+                                {/* Action Buttons (Comments and Copy Link) */}
+                                <div className="flex items-center gap-4 mt-4">
                                     <Button variant="secondary" size="sm" className="bg-[#020817] hover:bg-[#020817]">
                                         <div className="m-3 flex items-center gap-x-5">
-                                            <div className="bg-[#020817] hover:cursor-pointer" ><div className="flex items-center gap-x-1">
-                                                <MessageCircle className="h-4 w-4 text-muted-foreground" />
-                                                <p className="text-muted-foreground font-medium text-xs">
-                                                    {0} Comments
-                                                </p>
-                                            </div>
+                                            <div className="bg-[#020817] hover:cursor-pointer">
+                                                <div className="flex items-center gap-x-1">
+                                                    <MessageCircle className="h-4 w-4 text-muted-foreground" />
+                                                    <p className="text-muted-foreground font-medium text-xs">
+                                                        {item.comments.length} Comments
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
                                     </Button>
                                     <CopyLink id={item.id} />
                                 </div>
-                                <div className='flex flex-col gap-y-6 mt-4'>
-                                    {
-                                        item.comments.length !== 0 ?
-                                            item.comments.filter((comment: any) => !comment.replyId).map((topLevelComment: any) => {
-                                                return (
-                                                    <div className='mb-2'>
-                                                        <PostComment
-                                                            comments={topLevelComment}
-                                                        />
-                                                    </div>
-                                                )
-                                            })
-                                            : <p className="text-muted-foreground font-medium text-sm pl-6 pb-3">
-                                                No comments to show !
-                                            </p>
-                                    }
+
+                                {/* Comments Section */}
+                                <div className="flex flex-col gap-y-6 mt-4">
+                                    {item.comments.length !== 0 ? item.comments.filter((comment: any) => !comment.replyId).map((topLevelComment: any) => (
+                                        <div key={topLevelComment.id} className="mb-2">
+                                            <PostComment comments={topLevelComment} />
+                                        </div>
+                                    )) : (
+                                        <p className="text-muted-foreground font-medium text-sm pl-6 pb-3">
+                                            No comments to show!
+                                        </p>
+                                    )}
                                 </div>
                             </div>
                         </Card>
+
                     )
-                })  :
-                    <TextGenerateEffectDemo 
+                }) :
+                    <TextGenerateEffectDemo
                     />
                 }
             </div>

@@ -91,7 +91,7 @@ export default function MainLayout({
   
   return (
     <div className={cn(
-      "rounded-md flex flex-col md:flex-row bg-black md:w-[100vw] flex-1 mx-auto  overflow-y-scroll",
+      "rounded-md flex flex-col md:flex-row bg-black md:w-[100vw] flex-1 mx-auto  overflow-y-scroll overflow-x-hidden",
       "h-[90vh] w-[100vw]"
     )}
     >

@@ -16,7 +16,6 @@ export default function NavigationItem({ id, name, image }: NavigationProps) {
     const router = useRouter();
     const onClick = ()=>{
         router.push(`/servers/${id}`)
-        console.log("click ho rha hai ??");
     }
 
     return (

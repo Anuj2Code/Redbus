@@ -8,16 +8,16 @@ import { User } from "@prisma/client";
 
 interface Props {
   id: string;
-  fetch:boolean;
-  setCheck: Dispatch<SetStateAction<boolean>> ;
+  fetch: boolean;
+  setCheck: Dispatch<SetStateAction<boolean>>;
 }
 
-interface commentProps{
-    text:string;
-    User:User;
+interface commentProps {
+  text: string;
+  User: User;
 }
 
-export default function ShowArticleComment({ id,fetch,setCheck}: Props) {
+export default function ShowArticleComment({ id, fetch, setCheck }: Props) {
   const [comment, setComment] = useState<commentProps[]>([]);
   const [load, setLoad] = useState(false);
 
@@ -44,8 +44,8 @@ export default function ShowArticleComment({ id,fetch,setCheck}: Props) {
 
   return (
     <>
-    
-      { comment &&
+      {comment.length === 0 && (<div className="h-[250px] flex justify-center items-center text-green-500 font-semibold text-2xl">No comment</div>)}
+      {comment &&
         comment.map((item: commentProps, index: number) => {
           return (
             <div key={index} className="flex flex-col m-8">
@@ -53,7 +53,7 @@ export default function ShowArticleComment({ id,fetch,setCheck}: Props) {
                 <Image
                   src={
                     item?.User?.imageUrl ? item.User.imageUrl :
-                    "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg"
+                      "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg"
                   }
                   className="w-7 h-7 rounded-full"
                   alt="Avatar of user"
@@ -69,8 +69,9 @@ export default function ShowArticleComment({ id,fetch,setCheck}: Props) {
               <div className="flex gap-2 items-center">
               </div>
             </div>
-          )}
-        ) }
+          )
+        }
+        )}
     </>
   );
 }
