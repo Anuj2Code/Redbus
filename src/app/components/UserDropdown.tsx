@@ -11,7 +11,7 @@ import { MenuIcon } from "lucide-react";
 import Link from "next/link";
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
 import { Avatar, AvatarFallback, AvatarImage } from "../../components/ui/avatar";
-import { cn } from "@/lib/utils";
+import { cn } from "../../lib/utils";
 import { useModal } from "../../hooks/use-modal-store";
 
 interface props {

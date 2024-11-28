@@ -3,7 +3,7 @@
 import Image from "next/image"
 import { useParams, useRouter } from "next/navigation"
 import { Actiontooltip } from "./ui/tooltip-action";
-import { cn } from "@/lib/utils";
+import { cn } from "../../lib/utils";
 
 interface NavigationProps {
     id: string;

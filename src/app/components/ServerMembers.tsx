@@ -1,6 +1,6 @@
 "use client"
 
-import { cn } from "@/lib/utils";
+import { cn } from "../../lib/utils";
 import { Member, MemberRole, server, User } from "@prisma/client"
 import { Shield } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";

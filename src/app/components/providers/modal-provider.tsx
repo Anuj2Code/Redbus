@@ -1,6 +1,6 @@
 "use client"
 
-import { ServerModel } from "@/app/components/modals/create-server-again"
+import { ServerModel } from "../../../app/components/modals/create-server-again"
 import { useEffect, useState } from "react";
 
 const ModalProvider = () => {

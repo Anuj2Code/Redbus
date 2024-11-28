@@ -8,7 +8,7 @@ import {
 import { History, Gem, CreditCard, Crown } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
+import { cn } from "../../lib/utils";
 import { Progress } from "../../components/ui/progress";
 import axios from "axios";
 import { useModal } from "../../hooks/use-modal-store";

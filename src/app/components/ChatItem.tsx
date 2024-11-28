@@ -13,7 +13,7 @@ import { Actiontooltip } from "./ui/tooltip-action";
 import React, { useEffect, useState } from "react";
 import https from 'https';
 import Image from "next/image";
-import { cn } from "@/lib/utils";
+import { cn } from "../../lib/utils";
 import { useRouter,useParams} from "next/navigation";
 import {
   Form,

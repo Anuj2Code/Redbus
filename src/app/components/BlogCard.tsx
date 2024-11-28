@@ -1,5 +1,5 @@
 "use client";
-import { cn } from "@/lib/utils";
+import { cn } from "../../lib/utils";
 import { User } from "@prisma/client";
 import axios from "axios";
 import { ThumbsUp } from "lucide-react";
