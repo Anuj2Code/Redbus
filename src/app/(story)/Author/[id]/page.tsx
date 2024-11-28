@@ -3,11 +3,11 @@ import qs from "query-string"
 import axios from "axios"
 import { useEffect, useState } from "react";
 import { marked } from "marked";
+import { Follow, StoryVote, User } from "@prisma/client";
+import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import StoryLoader from "@/app/components/StoryLoader";
 import BlogCard from "@/app/components/BlogCard";
-import { Follow, StoryVote, User } from "@prisma/client";
 import FloatDock from "@/app/components/Float-Dock";
-import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 
 interface ArrayItem {
     StoryVote: StoryVote[],
