@@ -9,7 +9,7 @@ import { Mic, WebcamIcon } from "lucide-react";
 import { ProgressSpinner } from "primereact/progressspinner";
 import Webcam from "react-webcam";
 import useSpeechToText from "react-hook-speech-to-text";
-import { chatSession } from "../../../../../../utils/AiModel";
+import { chatSession } from "../../../../../utils/AiModel";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";

@@ -13,10 +13,10 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
-import { chatSession } from "../../../../utils/AiModel";
+import { chatSession } from "../../../utils/AiModel";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import PreviousInterview from "@/app/components/(AI-Interview)/PrevInterview"
+import PreviousInterview from "../components/(AI-Interview)/PrevInterview";
 
 export default function InterviewDashboard() {
     const router = useRouter()
