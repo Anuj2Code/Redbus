@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Toaster } from "@/components/ui/toaster"
+import { Toaster } from "../components/ui/toaster"
 import ModalProvider from "./components/providers/modal-provider";
 import { SocketProvider } from "./components/providers/socket-provider";
 import { QueryProvider } from "./components/providers/query-provider";
