@@ -43,7 +43,6 @@
     "@tiptap/pm": "^2.7.0",
     "@tiptap/react": "^2.7.0",
     "@tiptap/starter-kit": "^2.7.0",
-    "@toast-ui/react-editor": "^3.2.3",
     "@troop.com/tiptap-react-render": "^0.0.2",
     "@tsparticles/engine": "^3.5.0",
     "@tsparticles/react": "^3.0.0",
