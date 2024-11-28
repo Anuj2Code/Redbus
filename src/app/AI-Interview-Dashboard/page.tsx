@@ -1,6 +1,6 @@
 "use client"
 import { Loader2, Plus } from "lucide-react";
-import { Button } from "@/components/ui/button"
+import { Button } from "../../components/ui/button"
 import {
     Dialog,
     DialogContent,
@@ -8,11 +8,11 @@ import {
     DialogFooter,
     DialogHeader,
     DialogTitle,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+} from "../../components/ui/dialog"
+import { Input } from "../../components/ui/input"
+import { Label } from "../../components/ui/label"
 import { useState } from "react";
-import { Textarea } from "@/components/ui/textarea";
+import { Textarea } from "../../components/ui/textarea";
 import { chatSession } from "../../../utils/AiModel";
 import axios from "axios";
 import { useRouter } from "next/navigation";

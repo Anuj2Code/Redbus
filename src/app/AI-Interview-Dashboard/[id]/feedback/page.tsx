@@ -10,7 +10,7 @@ import {
     Collapsible,
     CollapsibleContent,
     CollapsibleTrigger,
-} from "@/components/ui/collapsible"
+} from "../../../../components/ui/collapsible"
 import { ProgressSpinner } from "primereact/progressspinner";
 import { User } from "@prisma/client";
 import { ChevronsUpDown } from "lucide-react"

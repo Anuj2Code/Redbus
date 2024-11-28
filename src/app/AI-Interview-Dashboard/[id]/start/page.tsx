@@ -4,13 +4,13 @@ import { User } from "@prisma/client";
 import { useEffect, useState } from "react";
 import qs from "query-string";
 import axios from "axios";
-import { TabsDemo } from "@/app/components/(AI-Interview)/Question";
+import { TabsDemo } from "../../../components/(AI-Interview)/Question";
 import { Mic, WebcamIcon } from "lucide-react";
 import { ProgressSpinner } from "primereact/progressspinner";
 import Webcam from "react-webcam";
 import useSpeechToText from "react-hook-speech-to-text";
 import { chatSession } from "../../../../../utils/AiModel";
-import { cn } from "@/lib/utils";
+import { cn } from "../../../../lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
