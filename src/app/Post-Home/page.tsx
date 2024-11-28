@@ -36,7 +36,7 @@ export default function Home() {
   const { reddit } = data;
 
   const getData = async () => {
-    const res = await axios.post("http://localhost:3000/api/get_post?page=1", {
+    const res = await axios.post("/api/get_post?page=1", {
       headers: {
         "Content-Type": "application/json",
       },

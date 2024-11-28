@@ -67,7 +67,7 @@ export default function PostPage({ params }: { params: { id: string } }) {
     const payload = {
       id: params.id
     }
-    const res = await axios.post("http://localhost:3000/api/Post_Details", payload, {
+    const res = await axios.post("/api/Post_Details", payload, {
       headers: {
         'Content-Type': 'application/json'
       }
