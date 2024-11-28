@@ -1,11 +1,10 @@
-import AuthorTop from "@/app/components/(chatAuthorComponent)/AuthorTop";
-import ChatAuthorMessage from "@/app/components/ChatAuthor";
-import ChatSender from "@/app/components/ChatSender";
+import AuthorTop from "../../../components/(chatAuthorComponent)/AuthorTop";
+import ChatAuthorMessage from "../../../components/ChatAuthor";
+import ChatSender from "../../../components/ChatSender";
 import { getOrCreateAuthorConverstaion } from "@/app/lib/conversationAuthor";
 import prisma from "@/app/lib/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
-import { any } from "zod";
 import AllPerson from "../../All-person/page";
 
 let userInfo = ""
@@ -17,7 +16,7 @@ export default async function ChatAuthor({ params }: { params: { id: string } })
     if (!user) {
         return redirect("/api/auth/login");
     }
-    
+
     const userName = await prisma.user.findUnique({
         where: {
             id: params.id

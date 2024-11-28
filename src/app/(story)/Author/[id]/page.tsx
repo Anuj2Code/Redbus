@@ -5,9 +5,9 @@ import { useEffect, useState } from "react";
 import { marked } from "marked";
 import { Follow, StoryVote, User } from "@prisma/client";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
-import StoryLoader from "@/app/components/StoryLoader";
-import BlogCard from "@/app/components/BlogCard";
-import FloatDock from "@/app/components/Float-Dock";
+import StoryLoader from "../../../components/StoryLoader";
+import BlogCard from "../../../components/BlogCard";
+import FloatDock from "../../../components/Float-Dock";
 
 interface ArrayItem {
     StoryVote: StoryVote[],

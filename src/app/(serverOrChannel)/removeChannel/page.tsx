@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { Loader2 } from "lucide-react";
-import { useModal } from "@/hooks/use-modal-store";
+import { useModal } from "../../../hooks/use-modal-store"
 
 export default function RemoveServer() {
     const { data, type } = useModal();

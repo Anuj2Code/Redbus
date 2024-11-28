@@ -1,5 +1,5 @@
 "use client"
-import { useModal } from "@/hooks/use-modal-store";
+import { useModal } from "../../../hooks/use-modal-store"
 import { Spotlight } from "../../components/ui/Spotlight";
 import { serverWithMemberChannelWithProfile } from "../../../../types";
 import { useState } from "react";
