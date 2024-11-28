@@ -14,11 +14,11 @@ import {
     SheetHeader,
     SheetTitle,
     SheetTrigger,
-} from "@/components/ui/sheet"
-import { Textarea } from "@/components/ui/textarea";
+} from "../../../components/ui/sheet"
+import { Textarea } from "../../../components/ui/textarea";
 import { Hash } from "lucide-react";
 import { useFormState } from "react-dom";
-import { CreateArticleComments } from "@/app/server";
+import { CreateArticleComments } from "../../../app/server";
 import ShowArticleComment from "../ShowArticleComment";
 import { CommentArticle } from "../SubmitButton";
 import Link from "next/link";

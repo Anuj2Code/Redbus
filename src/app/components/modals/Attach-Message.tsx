@@ -20,7 +20,7 @@ import {
     FormControl,
     FormField,
     FormItem,
-} from "@/components/ui/form"
+} from "../../../components/ui/form"
 import { FileUpload } from "../File-upload";
 import qs from "query-string"
 import { useModal } from "../../../hooks/use-modal-store";

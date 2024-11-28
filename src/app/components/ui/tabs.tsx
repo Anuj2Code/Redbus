@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
+import { cn } from "../../../lib/utils";
 import { Volume2 } from "lucide-react";
 
 type Tab = {
