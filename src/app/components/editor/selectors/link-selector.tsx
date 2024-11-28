@@ -1,10 +1,10 @@
 import { useEffect, useRef } from 'react'
 import { Check, Trash } from 'lucide-react'
 import { useEditor } from 'novel'
-import { cn } from '@/lib/utils'
+import { cn } from '../../../../lib/utils'
 
-import { Button } from '@/components/ui/button'
-import { PopoverContent } from '@/components/ui/popover'
+import { Button } from '../../../../components/ui/button'
+import { PopoverContent } from '../../../../components/ui/popover'
 import { Popover, PopoverTrigger } from '@radix-ui/react-popover'
 
 export function isValidUrl(url: string) {
