@@ -1,4 +1,4 @@
-import prisma from "@/app/lib/db";
+import prisma from "../../../../lib/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { NextRequest,NextResponse } from "next/server";
 import { v4 as uuidv4 } from "uuid";
