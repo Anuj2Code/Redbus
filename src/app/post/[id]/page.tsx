@@ -7,7 +7,6 @@ import { Cake, MessageCircle, MessageSquare } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Comment_btn, DownVote, UpVote } from "@/app/components/SubmitButton";
-import { createComment, createComments, handleVote } from "@/app/server";
 import { useFormState } from "react-dom";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -26,12 +25,11 @@ import {
   AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
-  AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
-  AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import { createComments, handleVote } from "@/app/server";
 
 const initialState = {
   message: "",

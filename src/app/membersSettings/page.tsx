@@ -1,16 +1,8 @@
 "use client"
 
-import { BackgroundBeamsWithCollision } from "@/app/components/ui/background-beams-with-collision"
-import { useModal } from "@/hooks/use-modal-store"
-import { serverWithMemberChannelWithProfile } from "../../../../../types"
-import { UserAvatar } from "@/app/components/UserAvatar"
 import { useState } from "react"
 import { MoreVertical, UserX, ShieldCheck } from "lucide-react"
-import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from "@/components/ui/popover"
+
 import {
     AlertDialog,
     AlertDialogAction,
@@ -25,6 +17,11 @@ import {
 import { ProgressSpinner } from "primereact/progressspinner"
 import axios from "axios"
 import { useRouter } from "next/navigation"
+import { serverWithMemberChannelWithProfile } from "../../../types"
+import { BackgroundBeamsWithCollision } from "../components/ui/background-beams-with-collision"
+import { UserAvatar } from "../components/UserAvatar"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { useModal } from "@/hooks/use-modal-store"
 
 
 export default function ManageMembers() {
@@ -62,7 +59,7 @@ export default function ManageMembers() {
                 </div>
                 {update ? <ProgressSpinner className="h-12 w-12 mt-12" /> :
                     <div className="mt-8 pr-12 md:w-[500px]">
-                        {server?.Members.map((member) => (
+                        {server?.Members.map((member:any) => (
                             <div key={member.id} className="flex items-center gap-x-2  mb-6">
                                 <UserAvatar src={member.User.imageUrl!} username={member.User.userName!} />
                                 <div className="flex ml-3 gap-32">
