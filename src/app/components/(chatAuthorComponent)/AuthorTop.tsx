@@ -1,4 +1,4 @@
-import { Separator } from "@/components/ui/separator";
+import { Separator } from "../../../components/ui/separator";
 import { Award } from "lucide-react";
 import { UserAvatar } from "../UserAvatar";
 

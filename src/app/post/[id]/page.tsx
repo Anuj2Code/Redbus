@@ -1,25 +1,25 @@
 "use client"
 
 import Image from "next/image";
-import { Card } from "@/components/ui/card";
+import { Card } from "../../../components/ui/card";
 import Link from "next/link";
 import { Cake, MessageCircle, MessageSquare } from "lucide-react";
-import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
-import { Comment_btn, DownVote, UpVote } from "@/app/components/SubmitButton";
+import { Separator } from "../../../components/ui/separator";
+import { Button } from "../../../components/ui/button";
+import { Comment_btn, DownVote, UpVote } from "../../../app/components/SubmitButton";
 import { useFormState } from "react-dom";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { ProgressSpinner } from "primereact/progressspinner";
-import { CopyLink } from "@/app/components/CopyLink";
-import { SkeletonCard } from "@/app/components/Skeleton";
-import CreateComment from "@/app/components/CreateComment";
+import { CopyLink } from "../../../app/components/CopyLink";
+import { SkeletonCard } from "../../../app/components/Skeleton";
+import CreateComment from "../../../app/components/CreateComment";
 import React from "react";
-import VoteOnComment from "@/app/components/CommentVote";
+import VoteOnComment from "../../../app/components/CommentVote";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
+import { Label } from "../../../components/ui/label";
+import { Textarea } from "../../../components/ui/textarea";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -28,8 +28,8 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-import { createComments, handleVote } from "@/app/server";
+} from "../../../components/ui/alert-dialog"
+import { createComments, handleVote } from "../../../app/server";
 
 const initialState = {
   message: "",

@@ -1,11 +1,11 @@
 "use client";
 
-import { Textarea } from "@/components/ui/textarea";
+import { Textarea } from "../../components/ui/textarea";
 import { SaveButton } from "./SubmitButton";
 import { updateSubDes } from "../server";
 import { useFormState } from "react-dom";
 import { useEffect } from "react";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "../../components/ui/use-toast";
 
 interface props {
     name: string | undefined,

@@ -1,9 +1,9 @@
 "use client"
-import { useChatAuthor } from "@/hooks/useAuthorQuery";
+import { useChatAuthor } from "../../hooks/useAuthorQuery";
 import { Loader2, ServerCrash } from "lucide-react";
 import ChatBody from "./(chatAuthorComponent)/chatItemAuthor";
 import { format } from "date-fns"
-import { useChatSocket } from "@/hooks/use-chat-socket";
+import { useChatSocket } from "../../hooks/use-chat-socket";
 
 const DATE_FORMAT = "d MMM yyyy, HH"
 

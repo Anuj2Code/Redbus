@@ -9,20 +9,20 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+} from "../../components/ui/form";
+import { Input } from "../../components/ui/input";
+import { Button } from "../../components/ui/button";
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "@/components/ui/select"
+} from "../../components/ui/select"
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useModal } from "@/hooks/use-modal-store";
-import { AuroraBackground } from "@/app/components/ui/aurora-background";
+import { useModal } from "../../hooks/use-modal-store";
+import { AuroraBackground } from "../../app/components/ui/aurora-background";
 import { motion } from "framer-motion";
 import { channelType } from "@prisma/client";
 import { serverWithMemberChannelWithProfile } from "../../../types";

@@ -1,18 +1,18 @@
 import React from 'react'
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
+import { Button } from "../../../../components/ui/button";
+import { Card } from "../../../..//components/ui/card";
+import { Separator } from "../../../..//components/ui/separator";
 import Link from 'next/link';
 import Image from 'next/image';
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
-import prisma from '@/app/lib/db';
-import { SubDescription } from '@/app/components/SubDescription';
+import prisma from '../../../..//app/lib/db';
+import { SubDescription } from '../../../..//app/components/SubDescription';
 import { Cake } from 'lucide-react';
 import { UserRound } from 'lucide-react';
-import { Subscribe } from '@/app/components/Subscribe';
-import { PostCard } from '@/app/components/PostCard';
-import { CreatePost } from '@/app/components/CreatePostCard';
-import Pagination from '@/app/components/Pagination';
+import { Subscribe } from '../../../..//app/components/Subscribe';
+import { PostCard } from '../../../..//app/components/PostCard';
+import { CreatePost } from '../../../..//app/components/CreatePostCard';
+import Pagination from '../../../../app/components/Pagination';
 
 async function getData(name: string, searchParam: string) {
   const [count, data] = await prisma.$transaction([

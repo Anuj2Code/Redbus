@@ -8,7 +8,7 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from "@/components/ui/table"
+} from "../../../components/ui/table"
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios"
 import { History } from "lucide-react";

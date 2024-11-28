@@ -1,6 +1,6 @@
 "use client"
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
+import { Label } from "../../components/ui/label";
+import { Textarea } from "../../components/ui/textarea";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { createComment } from "../server";
 import { useFormState } from "react-dom";

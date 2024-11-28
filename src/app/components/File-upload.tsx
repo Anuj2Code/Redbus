@@ -1,5 +1,5 @@
 "use client"
-import { UploadDropzone } from "@/app/components/Uploadthing";
+import { UploadDropzone } from "../../app/components/Uploadthing";
 import { FileIcon, X } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";

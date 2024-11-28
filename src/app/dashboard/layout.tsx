@@ -9,9 +9,9 @@ import { History, Gem, CreditCard, Crown } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { Progress } from "@/components/ui/progress";
+import { Progress } from "../../components/ui/progress";
 import axios from "axios";
-import { useModal } from "@/hooks/use-modal-store";
+import { useModal } from "../../hooks/use-modal-store";
 import qs from "query-string";
 
 const links = [

@@ -1,6 +1,6 @@
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+import { Button } from "../../components/ui/button";
+import { Card } from "../../components/ui/card";
+import { Input } from "../../components/ui/input";
 import { ImageDown, Link2 } from "lucide-react";
 import Link from "next/link";
 import pfp from "../../../public/pfp.png"

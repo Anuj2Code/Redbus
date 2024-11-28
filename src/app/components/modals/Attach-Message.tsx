@@ -1,5 +1,5 @@
 "use client"
-import { Button } from "@/components/ui/button"
+import { Button } from "../../../components/ui/button"
 import {
     Drawer,
     DrawerContent,
@@ -8,7 +8,7 @@ import {
     DrawerHeader,
     DrawerTitle,
     DrawerTrigger,
-} from "@/components/ui/drawer"
+} from "../../../components/ui/drawer"
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { Plus } from "lucide-react";
@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/form"
 import { FileUpload } from "../File-upload";
 import qs from "query-string"
-import { useModal } from "@/hooks/use-modal-store";
+import { useModal } from "../../../hooks/use-modal-store";
 
 
 const formSchema = z.object({

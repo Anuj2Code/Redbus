@@ -1,8 +1,8 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
+import { Button } from "../../components/ui/button";
+import { Card } from "../../components/ui/card";
+import { Separator } from "../../components/ui/separator";
 import Link from "next/link";
 import Image from "next/image";
 import { CreatePost } from "../components/CreatePostCard";
@@ -13,7 +13,7 @@ import { ProgressSpinner } from "primereact/progressspinner";
 import { Loadmore } from "../components/Loadmore";
 import Banner from "../../../public/banner.png";
 import HelloImage from "../../../public/hero-image.png";
-import { useModal } from "@/hooks/use-modal-store";
+import { useModal } from "../../hooks/use-modal-store";
 
 export interface iAppProps {
   Vote: any;

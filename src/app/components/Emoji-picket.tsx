@@ -4,7 +4,7 @@ import {
     Popover,
     PopoverContent,
     PopoverTrigger,
-} from "@/components/ui/popover"
+} from "../../components/ui/popover"
 import { Smile } from "lucide-react";
 import EmojiPicker from "@emoji-mart/react";
 import data from "@emoji-mart/data"

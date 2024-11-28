@@ -9,7 +9,7 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/command";
+} from "../../components/ui/command";
 import Image from "next/image";
 
 type arrayPart = {

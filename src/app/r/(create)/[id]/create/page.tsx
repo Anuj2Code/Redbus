@@ -2,14 +2,14 @@
 import React, { useState } from "react";
 import { ShootingStars } from "../../../../components/ui/shooting-stars";
 import { StarsBackground } from "../../../../components/ui/stars-background";
-import { Card, CardHeader } from "@/components/ui/card";
+import { Card, CardHeader } from "../../../../../components/ui/card";
 import Image from "next/image";
-import { Separator } from "@/components/ui/separator";
+import { Separator } from "../../../../../components/ui/separator";
 import ph from "../../../../../../public/a89add_3d73f7e43cff4f37bdf0af4772ef6595~mv2.gif";
 import Link from "next/link";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../../../../components/ui/tabs";
 import { Text, Video } from "lucide-react";
-import { UploadDropzone } from "@/app/components/Uploadthing";
+import { UploadDropzone } from "../../../../../app/components/Uploadthing";
 import Editor from "../../../../components/Editor";
 
 const rules = [

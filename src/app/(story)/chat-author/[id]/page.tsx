@@ -1,8 +1,8 @@
 import AuthorTop from "../../../components/(chatAuthorComponent)/AuthorTop";
 import ChatAuthorMessage from "../../../components/ChatAuthor";
 import ChatSender from "../../../components/ChatSender";
-import { getOrCreateAuthorConverstaion } from "@/app/lib/conversationAuthor";
-import prisma from "@/app/lib/db";
+import { getOrCreateAuthorConverstaion } from "../../../lib/conversationAuthor";
+import prisma from "../../../lib/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 import AllPerson from "../../All-person/page";

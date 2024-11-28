@@ -2,7 +2,6 @@
 
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { Hash } from "lucide-react";
 
 gsap.registerPlugin(useGSAP);
 

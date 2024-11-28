@@ -9,8 +9,8 @@ import {
     FormControl,
     FormField,
     FormItem,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input";
+} from "../../components/ui/form"
+import { Input } from "../../components/ui/input";
 import EmojoPicker from "./Emoji-picket";
 import axios from "axios";
 import { useRouter } from "next/navigation";

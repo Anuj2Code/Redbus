@@ -1,12 +1,12 @@
 'use client'
 
 import { useState } from 'react'
-import { createPost } from "@/app/server";
+import { createPost } from "../../app/server";
 
 import Editor from '../components/editor/editor'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label';
+import { Button } from '../../components/ui/button'
+import { Input } from '../../components/ui/input'
+import { Label } from '../../components/ui/label';
 
 export const defaultValue = {
   type: 'doc',

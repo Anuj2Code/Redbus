@@ -1,15 +1,15 @@
 "use client"
 import { template } from "../page"
-import { Button } from "@/components/ui/button"
+import { Button } from "../../../components/ui/button"
 import {
     Card,
     CardContent,
     CardDescription,
     CardHeader,
     CardTitle,
-} from "@/components/ui/card"
+} from "../../../components/ui/card"
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
-import { Input } from "@/components/ui/input"
+import { Input } from "../../../components/ui/input"
 import { useEffect, useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -21,10 +21,10 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
-} from "@/components/ui/form"
+} from "../../../components/ui/form"
 import { Loader2 } from "lucide-react"
 import axios from "axios";
-import { useModal } from "@/hooks/use-modal-store";
+import { useModal } from "../../../hooks/use-modal-store";
 import qs from "query-string";
 
 

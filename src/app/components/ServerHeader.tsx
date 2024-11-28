@@ -2,9 +2,9 @@
 
 import { MemberRole } from "@prisma/client"
 import { serverWithMemberChannelWithProfile } from "../../../types"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "../../components/ui/dropdown-menu"
 import { ChevronDown, LogOut, PlusCircle, Settings, Trash, UserPlus, Users } from "lucide-react"
-import { useModal } from "@/hooks/use-modal-store"
+import { useModal } from "../../hooks/use-modal-store"
 import Link from "next/link"
 
 interface headerProps {

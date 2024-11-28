@@ -1,6 +1,6 @@
 "use client";
 import { Share } from "lucide-react";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "../../components/ui/use-toast";
 
 export function CopyLink({ id }: { id: string }) {
     const { toast } = useToast();

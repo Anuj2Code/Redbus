@@ -1,17 +1,16 @@
 "use client"
 
-import { Separator } from "@/components/ui/separator"
-import { Label } from "@/components/ui/label"
-import { Input } from "@/components/ui/input"
+import { Separator } from "../../components/ui/separator"
+import { Label } from "../../components/ui/label"
+import { Input } from "../../components/ui/input"
 import { Settings } from 'lucide-react';
-import { Button } from "@/components/ui/button";
+import { Button } from "../../components/ui/button";
 import Link from "next/link";
 import { UpdateUsername, UpdateEmail } from "../server";
 import { SubmitButton } from "./SubmitButton";
 import { useFormState } from "react-dom";
 import { useEffect } from "react";
-import { useToast } from "@/components/ui/use-toast";
-
+import { useToast } from "../../components/ui/use-toast";
 
 const initialState = {
   message: "",

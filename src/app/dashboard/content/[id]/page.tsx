@@ -1,10 +1,10 @@
 "use client"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { chatSession } from "../../../../../utils/AiModel"
 import FormSection from "../../_components/FormSection"
 // import Outputsection from "../../_components/OutputSection"
 import { template } from "../../page"
-import { useModal } from "@/hooks/use-modal-store"
+import { useModal } from "../../../../hooks/use-modal-store"
 
 interface props {
     params: {

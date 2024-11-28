@@ -10,7 +10,7 @@ import {
     CommandInput,
     CommandItem,
     CommandList,
-} from "@/components/ui/command"
+} from "../../components/ui/command"
 import { useParams, useRouter } from "next/navigation";
 
 interface dataTypes {

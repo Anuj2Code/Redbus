@@ -1,13 +1,13 @@
 "use client";
 
-import { CreateCommunity } from "@/app/server";
+import { CreateCommunity } from "../../../../app/server";
 import { Pencil } from "lucide-react";
-import { SubmitButton } from "@/app/components/SubmitButton";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Separator } from "@/components/ui/separator";
-import { useToast } from "@/components/ui/use-toast";
+import { SubmitButton } from "../../../../app/components/SubmitButton";
+import { Button } from "../../../../components/ui/button";
+import { Input } from "../../../../components/ui/input";
+import { Label } from "../../../../components/ui/label";
+import { Separator } from "../../../../components/ui/separator";
+import { useToast } from "../../../../components/ui/use-toast";
 import Link from "next/link";
 import { useEffect } from "react";
 import { useFormState } from "react-dom";

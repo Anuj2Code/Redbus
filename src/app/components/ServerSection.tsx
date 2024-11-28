@@ -5,7 +5,7 @@ import { serverWithMemberChannelWithProfile } from "../../../types";
 import { Actiontooltip } from "./ui/tooltip-action";
 import { Plus, Settings } from "lucide-react";
 import Link from "next/link";
-import { useModal } from "@/hooks/use-modal-store";
+import { useModal } from "../../hooks/use-modal-store";
 
 interface serverSectionProps {
     label: string;

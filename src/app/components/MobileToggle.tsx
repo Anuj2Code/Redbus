@@ -3,7 +3,7 @@ import {
     Sheet,
     SheetContent,
     SheetTrigger,
-} from "@/components/ui/sheet"
+} from "../../components/ui/sheet"
 import { Menu } from "lucide-react"
 import NavigationSide from "./Navigational-sidebar"
 import ServerSidebar from "./server-sidebar"

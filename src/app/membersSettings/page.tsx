@@ -13,15 +13,15 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
     AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
+} from "../../components/ui/alert-dialog"
 import { ProgressSpinner } from "primereact/progressspinner"
 import axios from "axios"
 import { useRouter } from "next/navigation"
 import { serverWithMemberChannelWithProfile } from "../../../types"
 import { BackgroundBeamsWithCollision } from "../components/ui/background-beams-with-collision"
 import { UserAvatar } from "../components/UserAvatar"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { useModal } from "@/hooks/use-modal-store"
+import { Popover, PopoverContent, PopoverTrigger } from "../../components/ui/popover"
+import { useModal } from "../../hooks/use-modal-store"
 
 
 export default function ManageMembers() {

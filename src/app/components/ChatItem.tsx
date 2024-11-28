@@ -3,7 +3,7 @@
 import * as z from "zod"
 import axios from "axios";
 import qs from "query-string"
-import { Input } from "@/components/ui/input";
+import { Input } from "../../components/ui/input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Member, MemberRole, User } from "@prisma/client";
@@ -20,8 +20,8 @@ import {
   FormControl,
   FormField,
   FormItem,
-} from "@/components/ui/form";
-import { Button } from "@/components/ui/button";
+} from "../../components/ui/form";
+import { Button } from "../../components/ui/button";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -32,7 +32,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
+} from "../../components/ui/alert-dialog"
 
 interface chatItemProps {
   id: string;

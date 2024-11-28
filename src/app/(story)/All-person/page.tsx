@@ -1,8 +1,6 @@
-import { UserAvatar } from "@/app/components/UserAvatar";
-import prisma from "@/app/lib/db"
+import { UserAvatar } from "../../components/UserAvatar";
+import prisma from "../../lib/db"
 import Link from "next/link";
-
-
 
 export default async function AllPerson({id}:{id:string}) {
 

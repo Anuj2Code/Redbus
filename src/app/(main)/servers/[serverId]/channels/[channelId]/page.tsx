@@ -1,8 +1,8 @@
-import ChatHeader from "@/app/components/ChatHeader";
-import ChatInput from "@/app/components/ChatInput";
-import ChatMessage from "@/app/components/ChatMessages";
-import { MediaRoom } from "@/app/components/media-room";
-import prisma from "@/app/lib/db";
+import ChatHeader from "../../../../../components/ChatHeader";
+import ChatInput from "../../../../../components/ChatInput";
+import ChatMessage from "../../../../../components/ChatMessages";
+import { MediaRoom } from "../../../../../components/media-room";
+import prisma from "../../../../../lib/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { channelType } from "@prisma/client";
 import { redirect } from "next/navigation";

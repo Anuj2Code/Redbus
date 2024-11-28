@@ -1,11 +1,11 @@
 "use client"
-import { Button } from "@/components/ui/button"
+import { Button } from "../../components/ui/button"
 import {
     Collapsible,
     CollapsibleContent,
     CollapsibleTrigger,
-} from "@/components/ui/collapsible"
-import { Card } from "@/components/ui/card";
+} from "../../components/ui/collapsible"
+import { Card } from "../../components/ui/card";
 import { Bookmark, MessageCircle } from "lucide-react";
 import Link from "next/link";
 import { CopyLink } from "./CopyLink";
@@ -15,7 +15,7 @@ import React, { useEffect } from "react";
 import PostComment from "./PostComment";
 import { save } from "../server";
 import { useFormState } from "react-dom";
-import { useToast } from '@/components/ui/use-toast';
+import { useToast } from '../../components/ui/use-toast';
 
 interface iAppProps {
     title: string;

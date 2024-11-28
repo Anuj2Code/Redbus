@@ -1,12 +1,12 @@
 "use client"
 
-import { Label } from "@/components/ui/label"
+import { Label } from "../../components/ui/label"
 import { LampContainer } from "../components/ui/lamp"
-import { Input } from "@/components/ui/input"
+import { Input } from "../../components/ui/input"
 import { Check, Copy, RefreshCcw } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { useOrigin } from "@/hooks/invite-modal"
-import { useModal } from "@/hooks/use-modal-store"
+import { useOrigin } from "../../hooks/invite-modal"
+import { useModal } from "../../hooks/use-modal-store"
 import { useState } from "react"
 import axios from "axios"
 

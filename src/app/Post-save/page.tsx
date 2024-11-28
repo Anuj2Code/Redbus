@@ -1,16 +1,16 @@
 
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import prisma from "../lib/db";
-import { Card } from "@/components/ui/card";
+import { Card } from "../../components/ui/card";
 import Link from "next/link";
 import { Heart, MessageCircle, Star, Trash } from "lucide-react";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
+import { Button } from "../../components/ui/button";
 import { CopyLink } from "../components/CopyLink";
 import PostComment from "../components/PostComment";
 import { saveDelete } from "../server";
 import { TextGenerateEffectDemo } from "../components/TextGenerateEffect";
-import { Label } from "@/components/ui/label";
+import { Label } from "../../components/ui/label";
 
 async function findData(userId: string) {
     try {

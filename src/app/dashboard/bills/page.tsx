@@ -1,7 +1,7 @@
 "use client"
-import { CardSpotlightDemo } from "@/app/components/cardGlow";
+import { CardSpotlightDemo } from "../../../app/components/cardGlow";
 import { paymentTemplate } from "../page";
-import { CardGlowprops } from "@/app/components/cardGlow";
+import { CardGlowprops } from "../../../app/components/cardGlow";
 
 export default function Bills() {
     return (

@@ -7,7 +7,7 @@ import {
     DialogFooter,
     DialogHeader,
     DialogTitle,
-} from "@/components/ui/dialog"
+} from "../../../components/ui/dialog"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -17,9 +17,9 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+} from "../../../components/ui/form"
+import { Input } from "../../../components/ui/input";
+import { Button } from "../../../components/ui/button";
 import { useEffect, useState } from "react";
 import { FileUpload } from "../File-upload";
 import axios from "axios";

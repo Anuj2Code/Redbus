@@ -1,12 +1,11 @@
 "use client"
 
-import { Dispatch, SetStateAction, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { useInView } from "react-intersection-observer"
 import { iAppProps } from "../Post-Home/page"
 import { ProgressSpinner } from "primereact/progressspinner";
 import axios from "axios";
 import { PostCard } from "./PostCard";
-import { useRouter } from "next/navigation";
 
 export function Loadmore() {
   const [post, setPost] = useState<iAppProps[]>([]);

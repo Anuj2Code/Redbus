@@ -6,13 +6,13 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "../../components/ui/dropdown-menu";
 import { MenuIcon } from "lucide-react";
 import Link from "next/link";
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "../../components/ui/avatar";
 import { cn } from "@/lib/utils";
-import { useModal } from "@/hooks/use-modal-store";
+import { useModal } from "../../hooks/use-modal-store";
 
 interface props {
   userImage: string | null

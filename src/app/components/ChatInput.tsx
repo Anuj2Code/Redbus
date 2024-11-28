@@ -8,12 +8,12 @@ import {
     FormControl,
     FormField,
     FormItem,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input";
+} from "../../components/ui/form"
+import { Input } from "../../components/ui/input";
 import axios from "axios";
 import qs from "query-string"
 import AttachMessage from "./modals/Attach-Message";
-import { useModal } from "@/hooks/use-modal-store";
+import { useModal } from "../../hooks/use-modal-store";
 import EmojoPicker from "./Emoji-picket";
 import { useRouter } from "next/navigation";
 

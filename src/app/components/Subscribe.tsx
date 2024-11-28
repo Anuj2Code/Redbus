@@ -1,7 +1,7 @@
 "use client"
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import { useToast } from '@/components/ui/use-toast';
+import { useToast } from '../../components/ui/use-toast';
 import { useState } from 'react';
 import { SubscriptionButton, SubscriptionButton1 } from './SubmitButton';
 
@@ -10,6 +10,7 @@ interface ch {
     userId: string,
     isSubscribed: boolean
 }
+
 export function Subscribe({ id, userId, isSubscribed }: ch) {
     const router = useRouter()
     const { toast } = useToast();
