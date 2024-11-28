@@ -1,7 +1,7 @@
 import { NextApiRequest } from "next";
 import { NextResponseServerIo } from "../../../../../types";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import prisma from "@/app/lib/db";
+import prisma from "../../../../app/lib/db";
 import { MemberRole } from "@prisma/client";
 
 export default async function handler(req: NextApiRequest, res: NextResponseServerIo) {
