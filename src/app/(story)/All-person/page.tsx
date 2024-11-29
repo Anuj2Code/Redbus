@@ -2,7 +2,11 @@ import { UserAvatar } from "../../components/UserAvatar";
 import prisma from "../../lib/db"
 import Link from "next/link";
 
-export default async function AllPerson({id}:{id:string}) {
+interface props{
+    id:string
+}
+
+export default async function AllPerson({id}:props) {
 
     const check = await prisma.authorConverstaion.findMany({
         where: {
