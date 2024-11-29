@@ -5,7 +5,7 @@ import { getOrCreateAuthorConverstaion } from "../../../lib/conversationAuthor";
 import prisma from "../../../lib/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
-import AllPerson from "../../All-person/page";
+// import AllPerson from "../../All-person/page";
 
 let userInfo = ""
 
@@ -45,7 +45,7 @@ export default async function ChatAuthor({ params }: { params: { id: string } })
 
     return (
         <>
-            {userInfo === params.id ? <AllPerson id={params.id} /> : <>
+            {/* {userInfo === params.id ? <AllPerson id={params.id} /> : <>
                 <div>
                     <AuthorTop userName={otherMember.userName} imageUrl={otherMember.imageUrl} />
                     <ChatAuthorMessage
@@ -66,7 +66,27 @@ export default async function ChatAuthor({ params }: { params: { id: string } })
                         }}
                     />
                 </div>
-            </>}
+            </>} */}
+              <div>
+                    <AuthorTop userName={otherMember.userName} imageUrl={otherMember.imageUrl} />
+                    <ChatAuthorMessage
+                        apiUrl="/api/author-message"
+                        chatId={conversation.id}
+                        socketUrl="/api/socket/authorChat"
+                        paramValue={conversation.id}
+                        paramKey="conversationId"
+                        socketQuery={{
+                            conversationId: conversation.id
+                        }}
+                    />
+                    <ChatSender
+                        name={otherMember.userName!}
+                        apiUrl="/api/socket/authorChat"
+                        query={{
+                            conversationId: conversation.id
+                        }}
+                    />
+                </div>
         </>
     )
 }
