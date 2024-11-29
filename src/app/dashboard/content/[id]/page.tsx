@@ -2,7 +2,7 @@
 import { useState } from "react"
 import { chatSession } from "../../../../../utils/AiModel"
 import FormSection from "../../_components/FormSection"
-// import Outputsection from "../../_components/OutputSection"
+import Outputsection from "../../_components/OutputSection"
 import { template } from "../../page"
 import { useModal } from "../../../../hooks/use-modal-store"
 
@@ -45,7 +45,7 @@ export default function Content({ params }: props) {
                 prm={prm}
                 response={response}
             />
-            {/* <Outputsection response={response} setResponse={setResponse} /> */}
+            <Outputsection response={response} setResponse={setResponse} />
         </div>
 
     )
