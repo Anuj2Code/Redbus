@@ -20,7 +20,7 @@ const rules = [
     { id: 5, text: "Read the community guidelines" },
 ];
 
-export default function createPostRoute({ params }: { params: { id: string } }) {
+export default function CreatePostRoute({ params }: { params: { id: string } }) {
     const [imageUrl, setImageUrl] = useState<null | string>(null);
     return (
         <div className="min-h-screen flex flex-col lg:flex-row bg-black w-full px-4 sm:px-6 md:px-12 lg:px-24 gap-6 lg:gap-10 pt-6 lg:pt-12 relative">

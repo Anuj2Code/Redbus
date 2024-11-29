@@ -126,9 +126,9 @@ export function PostCard({
                                 <div className='flex flex-col gap-y-6 mt-4'>
                                     {
                                         commentAmount !== 0 ?
-                                            comments.filter((comment: any) => !comment.replyId).map((topLevelComment: any) => {
+                                            comments.filter((comment: any) => !comment.replyId).map((topLevelComment: any,idx:any) => {
                                                 return (
-                                                    <div className='mb-2'>
+                                                    <div className='mb-2' key={idx}>
                                                         <PostComment
                                                             comments={topLevelComment}
                                                         />

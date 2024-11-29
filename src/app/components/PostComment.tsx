@@ -52,9 +52,9 @@ export default function PostComment({ comments, votesAmt, currentVote, postId }:
                 </div>
             </div>
             <div>
-                {comments?.reply?.map((item: any) => {
+                {comments?.reply?.map((item: any,idx:any) => {
                     return (
-                        <div className="relative left-32 my-8">
+                        <div className="relative left-32 my-8" key={idx}>
                             <div className="flex items-center gap-x-3 ">
                                 <Image
                                     src={

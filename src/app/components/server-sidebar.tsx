@@ -167,8 +167,8 @@ export default async function ServerSidebar({ serverId }: props) {
                         <ServerSection sectionType="members" role={role} server={server} label="Members" />
                     </div>
                 )}
-                {members?.map((member) => (
-                    <ServerMembers members={member} server={server} />
+                {members?.map((member,idx:any) => (
+                    <ServerMembers members={member} server={server}  key={idx}/>
                 ))}
             </ScrollArea>
         </div>

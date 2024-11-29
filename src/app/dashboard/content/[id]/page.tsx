@@ -19,7 +19,7 @@ interface itemProps {
     FormHeader: string
 }
 
-export default function content({ params }: props) {
+export default function Content({ params }: props) {
     const { promptGenerated } = useModal()
     const [loading, setLoading] = useState(false)
     const [response, setResponse] = useState("")
