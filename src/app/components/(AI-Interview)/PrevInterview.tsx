@@ -29,8 +29,8 @@ export default function PreviousInterview() {
             {load ? <><div className="h-[250px] w-[450px] flex justify-center items-center ">
                 <ProgressSpinner />
             </div></> : <div className="flex flex-wrap gap-4">
-                {interview && interview.map((item) => {
-                    return <ThreeDCardDemo item={item} />
+                {interview && interview.map((item,idx:any) => {
+                    return <ThreeDCardDemo item={item} key={idx} />
                 })}
                 {interview.length === 0 && <div>
                     <h1 className=" text-xl font-medium h-[150px] w-[100vw]  text-center pt-[50px]">No Previous Interview Found</h1>

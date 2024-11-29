@@ -34,8 +34,8 @@ export default async function AllPerson({id}:props) {
             <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
             <h1 className="w-full text-center text-muted-foreground top-24 relative text-4xl">Connected People</h1>
             <div className="h-full w-full flex justify-center items-center flex-col">
-                {filteredUsers && filteredUsers.map((item) => {
-                    return <div className="flex-col flex p-3 cursor-pointer">
+                {filteredUsers && filteredUsers.map((item,idx:any) => {
+                    return <div className="flex-col flex p-3 cursor-pointer" key={idx}>
                       <Link href={`/chat-author/${item.id}`}>
                       <div className="flex gap-x-3 min-w-[300px] items-center justify-around rounded-xl hover:bg-orange-600 duration-200 h-[60px] transition-all">
                             <UserAvatar src={item.imageUrl && item.imageUrl || "GS"} username={item.userName!} />
