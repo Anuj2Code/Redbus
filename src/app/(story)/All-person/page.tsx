@@ -1,3 +1,5 @@
+// @ts-ignore
+
 import { UserAvatar } from "../../components/UserAvatar";
 import prisma from "../../lib/db"
 import Link from "next/link";
