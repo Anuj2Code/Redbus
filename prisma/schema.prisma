@@ -32,24 +32,6 @@ model User {
   servers            server[]
   Members            Member[]
   channels           channel[]
-  AIOutput           AIOutput[]
-  ArticleComment     ArticleComment[]
-
-  ArticelCommentVote ArticelCommentVote[]
-
-  StoryVote StoryVote[]
-
-  follow Follow[]
-
-  AuthorConverstaioninitialised AuthorConverstaion[] @relation("UserOne")
-
-  AuthorConverstaion AuthorConverstaion[] @relation("UserTwo")
-
-  AuthorMessage AuthorMessage[]
-
-  MockInterview MockInterview[]
-
-  MockFeedback MockFeedback[]
 }
 
 model Subbreddits {
@@ -255,120 +237,11 @@ model DirectMessage {
   @@index([memberId])
 }
 
-model AIOutput {
-  id             String           @id @default(uuid())
-  content        String
-  prompt         String
-  userId         String
-  User           User             @relation(fields: [userId], references: [id], onDelete: Cascade)
-  aiGenerated    Boolean
-  createdAt      DateTime         @default(now())
-  updatedAt      DateTime         @updatedAt
-  createdBy      String
-  ArticleComment ArticleComment[]
-  StoryVote      StoryVote[]
 
-  follow Follow[]
-}
 
-model UserSubcription {
-  id        String   @id @default(uuid())
-  email     String   @unique
-  active    Boolean
-  paymentId String
-  joinedAt  DateTime @default(now())
-}
 
-model ArticleComment {
-  id        String   @id @default(uuid())
-  text      String
-  createdAt DateTime @default(now())
-  userId    String
-  User      User     @relation(fields: [userId], references: [id])
-  articleId String
-  article   AIOutput @relation(fields: [articleId], references: [id])
 
-  ArticelCommentVote ArticelCommentVote[]
-}
 
-model ArticelCommentVote {
-  id               String         @id @default(uuid())
-  user             User           @relation(fields: [userId], references: [id])
-  userId           String
-  articleCommentId String
-  articleComment   ArticleComment @relation(fields: [articleCommentId], references: [id])
-  voteType         TypeOfVote
-}
 
-model StoryVote {
-  id         String   @id @default(uuid())
-  User       User?    @relation(fields: [userId], references: [id])
-  userId     String
-  articleId  String
-  article    AIOutput @relation(fields: [articleId], references: [id])
-  activeVote Boolean
-}
 
-model Follow {
-  id             String   @id @default(uuid())
-  User           User     @relation(fields: [userId], references: [id])
-  userId         String
-  articleId      String
-  article        AIOutput @relation(fields: [articleId], references: [id])
-  activeFollower Boolean
-}
 
-model AuthorConverstaion {
-  id            String          @id @default(uuid())
-  userIdOne     String
-  UserOne       User            @relation("UserOne", fields: [userIdOne], references: [id], onDelete: Cascade)
-  userIdTwo     String
-  UserTwo       User            @relation("UserTwo", fields: [userIdTwo], references: [id], onDelete: Cascade)
-  AuthorMessage AuthorMessage[]
-
-  @@unique([userIdOne, userIdTwo])
-  @@index([userIdTwo])
-  @@index([userIdOne])
-}
-
-model AuthorMessage {
-  id                   String             @id @default(uuid())
-  content              String             @db.Text
-  userId               String // like who is gone be send message
-  user                 User               @relation(fields: [userId], references: [id], onDelete: Cascade)
-  AuthorconversationId String
-  Authorconversation   AuthorConverstaion @relation(fields: [AuthorconversationId], references: [id], onDelete: Cascade)
-  deleted              Boolean            @default(false)
-  createdAt            DateTime           @default(now())
-  updatedAt            DateTime           @updatedAt
-
-  @@index([AuthorconversationId])
-  @@index([userId])
-}
-
-model MockInterview {
-  id            String   @id @default(uuid())
-  MockResp      Json
-  JobPost       String
-  JobDesc       String
-  JobExperience String
-  MockId        String   @unique
-  createdBy     String
-  userId        String
-  User          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-}
-
-model MockFeedback {
-  id            String   @id @default(uuid())
-  MockIdRef     String   @unique
-  question      String
-  correctAnswer String
-  userAnswer    String
-  feedback      String
-  rating        Int
-  userId        String
-  User          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt     DateTime @default(now())
-}

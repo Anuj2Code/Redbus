@@ -31,7 +31,7 @@ export default function Serverheader({ server, role }: headerProps) {
             <DropdownMenuContent className="w-56  font-medium text-white space-y-[2px] text-sm">
                 <DropdownMenuGroup>
                     
-                        <Link href="/invite">
+                        <Link href="/invites">
                         <DropdownMenuItem onClick={()=> onOpen("invite",{server})} className=" px-2 py-2 text-sm cursor-pointer" >
                             Invite People
                             <UserPlus className="h-4 w-4 ml-auto" />

@@ -16,7 +16,7 @@ import AttachMessage from "./modals/Attach-Message";
 import { useModal } from "../../hooks/use-modal-store";
 import EmojoPicker from "./Emoji-picket";
 import { useRouter } from "next/navigation";
-
+import {useKindeBrowserClient} from "@kinde-oss/kinde-auth-nextjs";
 
 interface ChatInputProps {
     apiUrl: string;
@@ -27,15 +27,20 @@ interface ChatInputProps {
 
 const formSchema = z.object({
     content: z.string().min(1),
+    user:z.any()
 })
 
 export default function ChatInput({ apiUrl, query, name, type }: ChatInputProps) {
+    const {user} = useKindeBrowserClient();
+    console.log(user,"35");
+    
     const { onOpen } = useModal()
     const router = useRouter()
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            content: ""
+            content: "",
+            user:user
         }
     })
     const isLoading = form.formState.isSubmitting

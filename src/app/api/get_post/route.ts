@@ -1,16 +1,19 @@
 import prisma from "../../lib/db";
 import { NextRequest, NextResponse } from "next/server";
-import { unstable_noStore as noStore } from "next/cache";
 
 export async function POST(request: NextRequest) {
-    noStore();
     try {
         const searchParams = request.nextUrl.searchParams;
         const page = searchParams.get("page");
         const perPage = 2;
+
+        console.log({ page }); // Debug page
+        const skipValue = page ? (Number(page) - 1) * perPage : 0;
+        console.log({ skipValue }); // Debug skip value
+
         const Post_data = await prisma.post.findMany({
             take: perPage,
-            skip: page ? (Number(page) - 1) * perPage : 0,
+            skip: skipValue,
             select: {
                 title: true,
                 createdAt: true,
@@ -27,21 +30,21 @@ export async function POST(request: NextRequest) {
                         votes: {
                             select: {
                                 userId: true,
-                                voteType: true
-                            }
+                                voteType: true,
+                            },
                         },
                         reply: {
                             select: {
                                 text: true,
                                 createdAt: true,
                                 userName: true,
-                                imageString: true
-                            }
-                        }
+                                imageString: true,
+                            },
+                        },
                     },
                     orderBy: {
-                        createdAt: "desc"
-                    }
+                        createdAt: "desc",
+                    },
                 },
                 User: {
                     select: {
@@ -58,19 +61,19 @@ export async function POST(request: NextRequest) {
                 },
             },
             orderBy: {
-                createdAt: "desc"
-            }
-        })
-        return NextResponse.json({
-            data: Post_data,
-            message: "Post Fetched!",
-            status: "green",
-        })
+                createdAt: "desc",
+            },
+        });
+
+        return NextResponse.json(
+            { data: Post_data, message: "Post Fetched!", status: "green" },
+            { status: 200 }
+        );
     } catch (error) {
-        console.log(error);
-        return {
-            status: "error",
-            message: "Sorry something went wrong!",
-        };
+        console.error(error);
+        return NextResponse.json(
+            { status: "error", message: "Sorry something went wrong!" },
+            { status: 500 }
+        );
     }
 }

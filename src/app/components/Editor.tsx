@@ -3,10 +3,9 @@
 import { useState } from 'react'
 import { createPost } from "../../app/server";
 
-import Editor from '../components/editor/editor'
 import { Button } from '../../components/ui/button'
 import { Input } from '../../components/ui/input'
-import { Label } from '../../components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 
 export const defaultValue = {
   type: 'doc',
@@ -43,10 +42,7 @@ export default function ContentForm({imageUrl,subName}:{imageUrl:string | null,s
           onChange={e => setTitle(e.target.value)}
         />
       </div>
-      <Label className='text-muted-foreground pl-8 font-bold'>Type / Below to start Edit</Label>
-      <div className=' ml-6'>
-      <Editor initialValue={defaultValue} onChange={setContent} />
-      </div>
+     <Textarea rows={10} className='ml-6' value={content} onChange={(e)=>setContent(e.target.value)}/>
       <Button onClick={handleSubmit} disabled={pending} className='m-6 bg-orange-500 text-white hover:bg-orange-500'>
         {pending ? 'Submitting...' : 'Create'}
       </Button>

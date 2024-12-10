@@ -81,7 +81,9 @@ export default async function handler(req: NextApiRequest, res: NextResponseServ
             res.status(404).json({
                 message: "Member not found"
             })
-        }
+        } 
+        console.log(member);
+        
 
         let message = await prisma.message.findFirst({
             where: {

@@ -1,6 +1,6 @@
 import { NextApiRequest } from "next";
 import { NextResponseServerIo } from "../../../../../types";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+// import {getKindeServerSession} from "@kinde-oss/kinde-auth-nextjs/server";
 import prisma from "../../../../app/lib/db";
 
 export default async function handler(req: NextApiRequest, res: NextResponseServerIo) {
@@ -10,12 +10,14 @@ export default async function handler(req: NextApiRequest, res: NextResponseServ
         })
     }
     try {
-        const { getUser } = getKindeServerSession(req)
-        const user = await getUser();
-
-        const { content, fileUrl } = req.body;
+        // const {getUser} = getKindeServerSession(req);
+        // const user = await getUser();
+        console.log(req.body);
+        
+        const { content, fileUrl, user } = req.body;
         const { serverId, channelId } = req.query;
-
+          console.log(user,'[user hai]');
+          
         if (!user) {
             res.status(401).json({
                 error: "Unauthourised"
@@ -55,19 +57,24 @@ export default async function handler(req: NextApiRequest, res: NextResponseServ
                 error: "Server not found"
             })
         }
-
+     console.log(server,"[server hai]");
+     
         const channel = await prisma.channel.findFirst({
             where: {
                 id: channelId as string,
                 serverId: serverId as string
             }
         })
+        console.log(channel,"[channel hai]");
+        
         if (!channel) {
             res.status(404).json({
                 message: "channel not found"
             })
         }
         const member = server?.Members.find((member) => member.userId === user?.id)
+        console.log(member,"[member hai]");
+
         if (!member) {
             res.status(404).json({
                 message: "Member not found"
@@ -77,7 +84,7 @@ export default async function handler(req: NextApiRequest, res: NextResponseServ
         const message = await prisma.message.create({
             data: {
                 content,
-                fileUrl:fileUrl || "",
+                fileUrl: fileUrl || "",
                 channelId: channelId as string,
                 memberId: member?.id!
             },

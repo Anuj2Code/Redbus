@@ -7,73 +7,90 @@ const MESSAGES_PATCH = 10;
 
 export async function GET(req: NextRequest) {
     try {
-        const { getUser } = getKindeServerSession();
+        // Retrieve the session and user
+        const session = getKindeServerSession(); 
+        const { getUser } = session;
         const user = await getUser();
-        const { searchParams } = new URL(req.url);
-        const cursor = searchParams.get("cursor");
-        const channelId = searchParams.get("channelId")
 
         if (!user) {
-            return new NextResponse("UnAuthorized", { status: 401 })
-        }
-        if(!channelId){
-            return new NextResponse("channel ID is missing", { status: 401 })
+            return NextResponse.json(
+                { error: "Unauthorized access. Please log in." },
+                { status: 401 }
+            );
         }
 
-        let messages:Message[] = []
+        // Extract query parameters
+        const { searchParams } = new URL(req.url);
+        const cursor = searchParams.get("cursor")
+        const channelId = searchParams.get("channelId");
 
-        if(cursor){
-         messages =  await prisma.message.findMany({
-             take:MESSAGES_PATCH,
-             skip:1,
-             cursor:{
-                id:cursor
-             },
-             where:{
-                channelId
-             },
-             include:{
-                member:{
-                    include:{
-                        User:true
-                    }
-                }
-             },
-             orderBy:{
-                createdAt:"desc"
-             }
-         })
+        if (!channelId) {
+            return NextResponse.json(
+                { error: "Channel ID is missing." },
+                { status: 400 }
+            );
         }
-        else{
-            messages =  await prisma.message.findMany({
-                take:MESSAGES_PATCH,
-                where:{
-                   channelId
+
+        // Initialize messages array
+        let messages: Message[] = [];
+
+        // Fetch messages based on cursor presence
+        if (cursor) {
+            messages = await prisma.message.findMany({
+                take: MESSAGES_PATCH,
+                skip: 1, // Skip the cursor itself
+                cursor: {
+                    id: cursor,
                 },
-                include:{
-                   member:{
-                       include:{
-                           User:true
-                       }
-                   }
+                where: {
+                    channelId,
                 },
-                orderBy:{
-                   createdAt:"desc"
-                }
-            })
+                include: {
+                    member: {
+                        include: {
+                            User: true, // Include user details
+                        },
+                    },
+                },
+                orderBy: {
+                    createdAt: "desc",
+                },
+            });
+        } else {
+            messages = await prisma.message.findMany({
+                take: MESSAGES_PATCH,
+                where: {
+                    channelId,
+                },
+                include: {
+                    member: {
+                        include: {
+                            User: true, // Include user details
+                        },
+                    },
+                },
+                orderBy: {
+                    createdAt: "desc",
+                },
+            });
         }
 
-        let nextCursor = null;
-        if(messages.length===MESSAGES_PATCH){
-            nextCursor = messages[MESSAGES_PATCH-1].id;
+        // Determine the next cursor
+        let nextCursor: string | null = null;
+        if (messages.length === MESSAGES_PATCH) {
+            nextCursor = messages[messages.length - 1].id; // Use the last message ID as the cursor
         }
 
+        // Return the messages and next cursor
         return NextResponse.json({
-            items:messages,
-            nextCursor
-        })
+            items: messages,
+            nextCursor,
+        });
     } catch (error) {
-        console.log("[get_Messages]", error);
-        return NextResponse.json("Internal Error", { status: 500 })
+        console.error("[get_Messages] Error fetching messages:", error);
+        return NextResponse.json(
+            { error: "Internal server error. Please try again later." },
+            { status: 500 }
+        );
     }
 }

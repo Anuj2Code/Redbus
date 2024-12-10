@@ -63,7 +63,7 @@ export async function GET(req: NextRequest) {
             })
         }
 
-        let nextCursor = null;
+        let nextCursor: string | null = null;
         if (messages.length === MESSAGES_PATCH) {
             nextCursor = messages[MESSAGES_PATCH - 1].id;
         }
