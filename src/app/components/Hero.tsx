@@ -1,9 +1,10 @@
-import Link from "next/link";
+
 import { Spotlight } from "./ui/Spotlight";
 import { ShootingStars } from "./ui/shooting-stars";
 import { StarsBackground } from "./ui/stars-background";
 import { Cover } from "./ui/cover";
 import { HoverBorderGradient } from "./ui/hover-border-gradient";
+import Link from "next/link";
 
 function Hero() {
   return (
@@ -17,9 +18,11 @@ function Hero() {
         as="button"
         className="bg-black text-white flex items-center space-x-2"
       >
+        <a  href="https://github.com/Anuj2Code/Reddit" >
         <span className="text-xs sm:text-sm tracking-wider">
           ⭐ Star me on Github
         </span>
+        </a>
       </HoverBorderGradient>
       <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl px-4 sm:px-7 font-semibold w-full md:w-[800px] lg:w-[1000px] mx-auto text-center mt-6 relative z-20 py-6 bg-clip-text text-transparent light:from-neutral-800 light:via-white light:to-white bg-gradient-to-b  from-neutral-800 via-white to-white">
         Instant{" "}
